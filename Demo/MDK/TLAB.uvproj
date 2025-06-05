@@ -390,14 +390,24 @@
           <GroupName>code</GroupName>
           <Files>
             <File>
-              <FileName>adc.c</FileName>
+              <FileName>speed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\CODE\adc.c</FilePath>
+              <FilePath>..\CODE\speed.c</FilePath>
             </File>
             <File>
-              <FileName>adc.h</FileName>
+              <FileName>speed.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\CODE\adc.h</FilePath>
+              <FilePath>..\CODE\speed.h</FilePath>
+            </File>
+            <File>
+              <FileName>dir.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\dir.c</FilePath>
+            </File>
+            <File>
+              <FileName>dir.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\dir.h</FilePath>
             </File>
             <File>
               <FileName>state.c</FileName>
@@ -408,6 +418,26 @@
               <FileName>state.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\state.h</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\adc.h</FilePath>
+            </File>
+            <File>
+              <FileName>action.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\action.c</FilePath>
+            </File>
+            <File>
+              <FileName>action.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\action.h</FilePath>
             </File>
             <File>
               <FileName>pid.c</FileName>
@@ -440,39 +470,9 @@
               <FilePath>..\CODE\imu660.h</FilePath>
             </File>
             <File>
-              <FileName>speed.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\speed.c</FilePath>
-            </File>
-            <File>
-              <FileName>speed.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\speed.h</FilePath>
-            </File>
-            <File>
-              <FileName>dir.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\dir.c</FilePath>
-            </File>
-            <File>
-              <FileName>dir.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\dir.h</FilePath>
-            </File>
-            <File>
               <FileName>sys.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\sys.h</FilePath>
-            </File>
-            <File>
-              <FileName>action.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\action.c</FilePath>
-            </File>
-            <File>
-              <FileName>action.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\action.h</FilePath>
             </File>
           </Files>
         </Group>

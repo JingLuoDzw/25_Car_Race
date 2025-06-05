@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 1   
+C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE action
@@ -10,7 +10,7 @@ COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\action.c XSMA
 stmt  level    source
 
     1          #include "headfile.h"
-    2          float speed_goal = 330;
+    2          int speed_goal = 200 ;
     3          float error = 0;
     4          float error_rate = 0;
     5          int count = 0;
@@ -40,8 +40,8 @@ stmt  level    source
    29   1      //    switch (Flag_Out)
    30   1      //    {
    31   1      //      case 1:
-   32   1              motor_L_pid.SetValue = 500;
-   33   1              motor_R_pid.SetValue = 100;
+   32   1              motor_L_pid.SetValue = Out_Speed_L;
+   33   1              motor_R_pid.SetValue = Out_Speed_R;
    34   1      //        break;
    35   1      //    }
    36   1      }
@@ -63,15 +63,15 @@ stmt  level    source
    52   2      //        break;
    53   2          case 2:
    54   2      //        beep_on();
-   55   2              motor_L_pid.SetValue = 330;
-   56   2              motor_R_pid.SetValue = 550;
+   55   2              motor_L_pid.SetValue = Circ_Left_Speed_L;
+   56   2              motor_R_pid.SetValue = Circ_Left_Speed_R;
    57   2              break;
-C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 2   
+C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 2   
 
    58   2          case 3:
    59   2      //        beep_on();
-   60   2              motor_L_pid.SetValue = 330;
-   61   2              motor_R_pid.SetValue = 330;
+   60   2              motor_L_pid.SetValue = Circ_Left_Speed_Out;
+   61   2              motor_R_pid.SetValue = Circ_Left_Speed_Out;
    62   2              break;
    63   2          }
    64   1      
@@ -115,18 +115,18 @@ stmt  level    source
   102   2              break;
   103   2          case 2:
   104   2      //        beep_on();
-  105   2              motor_L_pid.SetValue = speed_goal * 1;
-  106   2              motor_R_pid.SetValue = 0.5;
+  105   2              motor_L_pid.SetValue = Circ_Right_Speed_L;
+  106   2              motor_R_pid.SetValue = Circ_Right_Speed_R;
   107   2              break;
-  108   2          case 3:
-  109   2      //        beep_on();
-  110   2              speed_goal = speed_section(error, state[state_lead]);
-  111   2              Dir_Loop(error, speed_goal, flag_turn);
-  112   2              break;
-  113   2          case 4:
+  108   2      //    case 3:
+  109   2      ////        beep_on();
+  110   2      //        speed_goal = speed_section(error, state[state_lead]);
+  111   2      //        Dir_Loop(error, speed_goal, flag_turn);
+  112   2      //        break;
+  113   2          case 3:
   114   2      //        beep_on();
-  115   2              motor_L_pid.SetValue = speed_goal;
-  116   2              motor_R_pid.SetValue = speed_goal;
+  115   2              motor_L_pid.SetValue = Circ_Right_Speed_Out;
+  116   2              motor_R_pid.SetValue = Circ_Right_Speed_Out;
   117   2              break;
   118   2          }
   119   1      }
@@ -134,7 +134,7 @@ stmt  level    source
   121          
   122          void Obstacle_Action(void)
   123          {
-C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 3   
+C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 3   
 
   124   1      //  printf("in\r\n");
   125   1          switch (Flag_Obstacle)
@@ -202,7 +202,7 @@ stmt  level    source
   187   1          count = 0;
   188   1      }
   189          
-C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 4   
+C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 4   
 
   190          
   191          
@@ -243,14 +243,14 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       570     ------
+  code size            =       681     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        14     ------
+  edata size           =        12     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -258,7 +258,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        30     ------
+  hconst size          =        28     ------
 End of Module Information.
 
 

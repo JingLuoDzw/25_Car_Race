@@ -1,5 +1,5 @@
 #include "headfile.h"
-extern float speed_goal;
+extern int speed_goal;
 void Track_Action(int* temp);
 void Obstacle_Action(void);
 //void big_left_circ()

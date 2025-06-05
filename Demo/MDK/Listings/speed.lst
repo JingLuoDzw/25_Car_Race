@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  speed                                                              05/06/25  08:39:51  PAGE 1   
+C251 COMPILER V5.60.0,  speed                                                              05/06/25  17:43:16  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE speed
@@ -10,147 +10,144 @@ COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\speed.c XSMAL
 stmt  level    source
 
     1          #include "headfile.h"
-    2          //float speed_goal=0;
-    3            int duty_L=0,duty_R=0;
-    4            int L_SetValuetemp,R_SetValuetemp;
-    5            
-    6            
-    7          //float speed_section(float error,char i)
-    8          //{
-    9          //  return 330;
-   10          //}
-   11          
-   12          
-   13          float speed_section(float error,char i)
-   14          {
-   15   1          if((state[state_lead]==Big_Circ_Left)||(state[state_lead]==Big_Circ_Right)||
-   16   1            (state[state_lead]==Small_Circ_Left)||(state[state_lead]==Small_Circ_Right))
-   17   1          {
-   18   2            return 330;
-   19   2          }
-   20   1          else if((state[state_lead]==Ramp))
-   21   1          {
-   22   2            return 100;
-   23   2          }
-   24   1          else if((state[state_lead]==Obstacle))
-   25   1          {
-   26   2            return 100;
-   27   2          }
-   28   1          else
-   29   1            return 330;
-   30   1      }
-*** WARNING C47 IN LINE 13 OF ..\CODE\speed.c: 'error': unreferenced parameter
-*** WARNING C47 IN LINE 13 OF ..\CODE\speed.c: 'i': unreferenced parameter
-   31          
-   32          
-   33          
-   34          void Get_Actual_Speed()
-   35          {
-   36   1        motor_L_pid.ActValue=((float)encoder_L_get()*ActSpeed_Rate*200);
-   37   1        motor_R_pid.ActValue=((float)encoder_R_get()*ActSpeed_Rate*200);
-   38   1      //  motor_L_pid.ActValue=((float)encoder_L_get());
-   39   1      //  motor_R_pid.ActValue=((float)encoder_R_get());
-   40   1      }
-   41          void Speed_Loop()
-   42          {     
-   43   1        float inc_L, inc_R;
-   44   1      
-   45   1          Get_Actual_Speed();
-   46   1          // 外轮速度限制
-   47   1          if(motor_L_pid.SetValue > 2*speed_goal)
-   48   1              {motor_L_pid.SetValue =2*speed_goal;}
-   49   1          if(motor_R_pid.SetValue >2*speed_goal)
-   50   1              motor_R_pid.SetValue = 2*speed_goal;
-   51   1          if(motor_L_pid.SetValue <-1*speed_goal)
-   52   1              {motor_L_pid.SetValue =-1*speed_goal;}
-   53   1          if(motor_R_pid.SetValue <-1*speed_goal)
-   54   1              motor_R_pid.SetValue = -1*speed_goal;
-   55   1          
-C251 COMPILER V5.60.0,  speed                                                              05/06/25  08:39:51  PAGE 2   
+    2          int duty_L=0,duty_R=0;
+    3          int L_SetValuetemp,R_SetValuetemp;
+    4          
+    5          int speed_section(float error,char i)
+    6          {
+    7   1        return SPEED ;
+    8   1      }
+*** WARNING C47 IN LINE 5 OF ..\CODE\speed.c: 'error': unreferenced parameter
+*** WARNING C47 IN LINE 5 OF ..\CODE\speed.c: 'i': unreferenced parameter
+    9          
+   10          //float speed_section(float error,char i)
+   11          //{
+   12          //    if((state[state_lead]==Big_Circ_Left)||(state[state_lead]==Big_Circ_Right)||
+   13          //      (state[state_lead]==Small_Circ_Left)||(state[state_lead]==Small_Circ_Right))
+   14          //    {
+   15          //      return 330;
+   16          //    }
+   17          //    else if((state[state_lead]==Ramp))
+   18          //    {
+   19          //      return 100;
+   20          //    }
+   21          //    else if((state[state_lead]==Obstacle))
+   22          //    {
+   23          //      return 100;
+   24          //    }
+   25          //    else
+   26          //      return 330;
+   27          //}
+   28          
+   29          
+   30          
+   31          void Get_Actual_Speed()
+   32          {
+   33   1        motor_L_pid.ActValue=((float)encoder_L_get()*ActSpeed_Rate*200);
+   34   1        motor_R_pid.ActValue=((float)encoder_R_get()*ActSpeed_Rate*200);
+   35   1      //  motor_L_pid.ActValue=((float)encoder_L_get());
+   36   1      //  motor_R_pid.ActValue=((float)encoder_R_get());
+   37   1      }
+   38          void Speed_Loop()
+   39          {     
+   40   1        float inc_L, inc_R;
+   41   1      
+   42   1          Get_Actual_Speed();
+   43   1          // 外轮速度限制
+   44   1          if(motor_L_pid.SetValue > 2*speed_goal)
+   45   1              {motor_L_pid.SetValue =2*speed_goal;}
+   46   1          if(motor_R_pid.SetValue >2*speed_goal)
+   47   1              motor_R_pid.SetValue = 2*speed_goal;
+   48   1          if(motor_L_pid.SetValue <-1*speed_goal)
+   49   1              {motor_L_pid.SetValue =-1*speed_goal;}
+   50   1          if(motor_R_pid.SetValue <-1*speed_goal)
+   51   1              motor_R_pid.SetValue = -1*speed_goal;
+   52   1          
+   53   1          motor_L_pid.SetValueTmp = motor_L_pid.SetValue;
+   54   1          motor_R_pid.SetValueTmp = motor_R_pid.SetValue;
+   55   1      
+C251 COMPILER V5.60.0,  speed                                                              05/06/25  17:43:16  PAGE 2   
 
-   56   1          motor_L_pid.SetValueTmp = motor_L_pid.SetValue;
-   57   1          motor_R_pid.SetValueTmp = motor_R_pid.SetValue;
-   58   1      
-   59   1      
-   60   1          inc_L = PID_Control_Inc(&motor_L_pid,0);
-   61   1          inc_R = PID_Control_Inc(&motor_R_pid,0);
-   62   1          
-   63   1          duty_L += inc_L;      //增量式pid输出的是增量，要累加
-   64   1          duty_R += inc_R;      //增量式pid输出的是增量，要累加
-   65   1      
-   66   1          if(duty_L < duty_min) //pwm限幅
-   67   1              duty_L = duty_min;
-   68   1          if(duty_R< duty_min)
-   69   1              duty_R = duty_min;
-   70   1      
-   71   1          if(duty_L> duty_max)
-   72   1              duty_L = duty_max;
-   73   1          if(duty_R > duty_max)
-   74   1              duty_R = duty_max;
-   75   1          duty_set(duty_L,duty_R);
-   76   1      
-   77   1      }
-   78          
-   79          void duty_set(int left_duty,int right_duty)
-   80          {
-   81   1            if(left_duty< 0)
-   82   1          {
-   83   2              pwm_duty(PWM_1, 0);
-   84   2              pwm_duty(PWM_2, -left_duty);
-   85   2          }
-   86   1          else 
-   87   1          {
-   88   2              pwm_duty(PWM_1, left_duty);
-   89   2              pwm_duty(PWM_2, 0);
-   90   2          }
-   91   1          if(right_duty < 0)
-   92   1          {
-   93   2              pwm_duty(PWM_3, 0);
-   94   2              pwm_duty(PWM_4,-right_duty);
-   95   2          }
-   96   1          else 
-   97   1          {
-   98   2              pwm_duty(PWM_3, right_duty);
-   99   2              pwm_duty(PWM_4, 0);
-  100   2          }
-  101   1      }
+   56   1      
+   57   1          inc_L = PID_Control_Inc(&motor_L_pid,0);
+   58   1          inc_R = PID_Control_Inc(&motor_R_pid,0);
+   59   1          
+   60   1          duty_L += inc_L;      //增量式pid输出的是增量，要累加
+   61   1          duty_R += inc_R;      //增量式pid输出的是增量，要累加
+   62   1      
+   63   1          if(duty_L < duty_min) //pwm限幅
+   64   1              duty_L = duty_min;
+   65   1          if(duty_R< duty_min)
+   66   1              duty_R = duty_min;
+   67   1      
+   68   1          if(duty_L> duty_max)
+   69   1              duty_L = duty_max;
+   70   1          if(duty_R > duty_max)
+   71   1              duty_R = duty_max;
+   72   1          duty_set(duty_L,duty_R);
+   73   1      
+   74   1      }
+   75          
+   76          void duty_set(int left_duty,int right_duty)
+   77          {
+   78   1            if(left_duty< 0)
+   79   1          {
+   80   2              pwm_duty(PWM_1, 0);
+   81   2              pwm_duty(PWM_2, -left_duty);
+   82   2          }
+   83   1          else 
+   84   1          {
+   85   2              pwm_duty(PWM_1, left_duty);
+   86   2              pwm_duty(PWM_2, 0);
+   87   2          }
+   88   1          if(right_duty < 0)
+   89   1          {
+   90   2              pwm_duty(PWM_3, 0);
+   91   2              pwm_duty(PWM_4,-right_duty);
+   92   2          }
+   93   1          else 
+   94   1          {
+   95   2              pwm_duty(PWM_3, right_duty);
+   96   2              pwm_duty(PWM_4, 0);
+   97   2          }
+   98   1      }
+   99          
+  100          
+  101          
   102          
   103          
   104          
   105          
-  106          
-  107          
-  108          
-  109          //void duty_set(int left_duty,int right_duty)
-  110          //{
-  111          //    if(left_duty >= 0) //正转
-  112          //    {
-  113          //      DIR_L = 1;       
-  114          //      pwm_duty(PWM_L, left_duty);     
-  115          //    }
-  116          //    else         //反转
-  117          //    {
-  118          //      DIR_L = 0;           
-  119          //      pwm_duty(PWM_L, -left_duty);  
-  120          //    }
-  121          //    if(right_duty >= 0) //正转
-C251 COMPILER V5.60.0,  speed                                                              05/06/25  08:39:51  PAGE 3   
+  106          //void duty_set(int left_duty,int right_duty)
+  107          //{
+  108          //    if(left_duty >= 0) //正转
+  109          //    {
+  110          //      DIR_L = 1;       
+  111          //      pwm_duty(PWM_L, left_duty);     
+  112          //    }
+  113          //    else         //反转
+  114          //    {
+  115          //      DIR_L = 0;           
+  116          //      pwm_duty(PWM_L, -left_duty);  
+  117          //    }
+  118          //    if(right_duty >= 0) //正转
+  119          //    {
+  120          //      DIR_R = 1;       
+  121          //      pwm_duty(PWM_R, right_duty);        
+C251 COMPILER V5.60.0,  speed                                                              05/06/25  17:43:16  PAGE 3   
 
-  122          //    {
-  123          //      DIR_R = 1;       
-  124          //      pwm_duty(PWM_R, right_duty);        
-  125          //    }
-  126          //    else         //反转
-  127          //    {
-  128          //      DIR_R = 0;           
-  129          //      pwm_duty(PWM_R, -right_duty);     
-  130          //    }
-  131          //}
+  122          //    }
+  123          //    else         //反转
+  124          //    {
+  125          //      DIR_R = 0;           
+  126          //      pwm_duty(PWM_R, -right_duty);     
+  127          //    }
+  128          //}
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       495     ------
+  code size            =       454     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

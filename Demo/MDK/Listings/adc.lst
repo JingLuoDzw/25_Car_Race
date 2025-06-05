@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  adc                                                                05/06/25  08:39:49  PAGE 1   
+C251 COMPILER V5.60.0,  adc                                                                05/06/25  17:43:16  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE adc
@@ -66,7 +66,7 @@ stmt  level    source
    55   1      //    temp[7] = (adc_once(ADC_P14, ADC_12BIT));
    56   1      }
    57          //int MeanFilter(int *arr, int n)   //ÖÐÖµÂË²¨
-C251 COMPILER V5.60.0,  adc                                                                05/06/25  08:39:49  PAGE 2   
+C251 COMPILER V5.60.0,  adc                                                                05/06/25  17:43:16  PAGE 2   
 
    58          //{
    59          //    int temp;
@@ -134,7 +134,7 @@ stmt  level    source
   121          int min_count(int a, int b)
   122          {
   123   1          int temp_min;
-C251 COMPILER V5.60.0,  adc                                                                05/06/25  08:39:49  PAGE 3   
+C251 COMPILER V5.60.0,  adc                                                                05/06/25  17:43:16  PAGE 3   
 
   124   1      
   125   1      //  temp_max=a>b?a:b;

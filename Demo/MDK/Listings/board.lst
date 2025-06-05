@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  board                                                              05/06/25  08:39:58  PAGE 1   
+C251 COMPILER V5.60.0,  board                                                              05/06/25  17:43:23  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE board
@@ -66,7 +66,7 @@ stmt  level    source
    51   2          CLKDIV = 0x04;
    52   2          IRTRIM = T22M_ADDR;
    53   2          VRTRIM = VRT27M_ADDR;
-C251 COMPILER V5.60.0,  board                                                              05/06/25  08:39:58  PAGE 2   
+C251 COMPILER V5.60.0,  board                                                              05/06/25  17:43:23  PAGE 2   
 
    54   2          IRCBAND = 0x02;
    55   2          CLKDIV = 0x00;
@@ -134,7 +134,7 @@ stmt  level    source
   117          
   118          
   119          
-C251 COMPILER V5.60.0,  board                                                              05/06/25  08:39:58  PAGE 3   
+C251 COMPILER V5.60.0,  board                                                              05/06/25  17:43:23  PAGE 3   
 
   120          
   121          void board_init(void)
@@ -202,7 +202,7 @@ stmt  level    source
   182   1        
   183   1        EnableGlobalIRQ(); // 开启总中断
   184   1        
-C251 COMPILER V5.60.0,  board                                                              05/06/25  08:39:58  PAGE 4   
+C251 COMPILER V5.60.0,  board                                                              05/06/25  17:43:23  PAGE 4   
 
   185   1        ctimer_count_init(Encoder_L); //初始化定时器0作为外部计数
   186   1        ctimer_count_init(Encoder_R); //初始化定时器3作为外部计数
@@ -270,7 +270,7 @@ stmt  level    source
   248          
   249          
   250          void EnableGlobalIRQ(void)
-C251 COMPILER V5.60.0,  board                                                              05/06/25  08:39:58  PAGE 5   
+C251 COMPILER V5.60.0,  board                                                              05/06/25  17:43:23  PAGE 5   
 
   251          {
   252   1        EA = 1;

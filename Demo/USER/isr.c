@@ -154,8 +154,7 @@ void TM4_Isr() interrupt 20
 		if(start_0 == 1)
 	  Speed_Loop();
 
-	 TIM4_CLEAR_FLAG;
-
+	  TIM4_CLEAR_FLAG;
 }
 
 

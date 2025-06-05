@@ -7,9 +7,8 @@ int flag_turn = 0;				//直路元素的指针
 int Flag_Out = 0;					//出库元素的指针
 float Sum_Distance = 0, Sum_Angle = 0;
 //char state[30] = {Track, Obstacle, Track, Small_Circ_Left, Track, Ramp, Track, Track, Stop};	//2024赛道元素顺序
-
-char state[30] = {Track, Out, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//2025赛道元素顺序
 //char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//赛道元素顺序
+
 //char state[30] = {Track, Track, Track, Track, Track, Stop};	//赛道元素顺序
 void state_detect(int *temp)		//状态检测
 {
@@ -63,7 +62,7 @@ int Track_Jump(int *temp)	//只要检测到元素就返回1
 						}
 						break;
 				case Small_Circ_Left:
-						if (temp[0] > 2150 && temp[1] > 600 && temp[4] > 1300)
+						if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[4] > Circ_Jump_Left[3])
 						{
 								P67 = 1;
 								Flag_Circ = 1;
@@ -80,7 +79,7 @@ int Track_Jump(int *temp)	//只要检测到元素就返回1
 						break;
 				case Small_Circ_Right:
 		//      if((temp[0]+temp[3]>3000)&&(temp[1]+temp[2]>2000))
-						if (temp[0] > 1000 && temp[4] > 1200)
+						if (temp[0] > Circ_Jump_Right[0] && temp[3] > Circ_Jump_Right[2] && temp[4] > Circ_Jump_Right[3])
 						{
 //								P67 = 1;
 								Flag_Circ = 1;
@@ -127,7 +126,7 @@ int Out_Jump()
 //		{
 //		case 1:
 				Sum_Angle += Single_Angle_Get();
-				if(Sum_Angle < -70)
+				if(Sum_Angle < Out_Jump_Angle)
 				{
 //					P67 = 1;
 					Sum_Angle = 0;
@@ -149,7 +148,7 @@ int Small_Circ_Left_Jump(int *Flag)
     case 1:
 				
         Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-        if (Sum_Distance > 10)
+        if (Sum_Distance > Circ_Left_Dis_Start)
         {		
 						P67 = 0;
             Sum_Distance = 0;
@@ -160,7 +159,7 @@ int Small_Circ_Left_Jump(int *Flag)
     case 2:
 				
         Sum_Angle += Single_Angle_Get();
-        if (Sum_Angle > 340)
+        if (Sum_Angle > Circ_Left_Angle)
         {
 //						P67 = 0;
             Sum_Angle = 0;
@@ -171,7 +170,7 @@ int Small_Circ_Left_Jump(int *Flag)
     case 3:
 //				P67 = 1;
         Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-        if (Sum_Distance > 85)
+        if (Sum_Distance > Circ_Left_Dis_Final)
         {
 //						P67 = 1;
             Sum_Distance = 0;
@@ -245,7 +244,7 @@ int Small_Circ_Right_Jump(int *Flag)
     case 1:
 //      printf("00000000000000000000\r\n");
         Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-        if (Sum_Distance > 50)
+        if (Sum_Distance > Circ_Right_Dis_Start)
         {
             Sum_Distance = 0;
             (*Flag)++;
@@ -256,23 +255,23 @@ int Small_Circ_Right_Jump(int *Flag)
 
         Sum_Angle += Single_Angle_Get();
 //      printf("%f\r\n",Sum_Angle);
-        if (Sum_Angle < -35)
+        if (Sum_Angle < Circ_Right_Angle)
         {
             Sum_Angle = 0;
             (*Flag)++;
         }
         break;
+//    case 3:
+//        Sum_Angle += Single_Angle_Get();
+//        if (Sum_Angle < -290)
+//        {
+//            Sum_Angle = 0;
+//            (*Flag)++;
+//        }
+//        break;
     case 3:
-        Sum_Angle += Single_Angle_Get();
-        if (Sum_Angle < -290)
-        {
-            Sum_Angle = 0;
-            (*Flag)++;
-        }
-        break;
-    case 4:
         Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-        if (Sum_Distance > 60)
+        if (Sum_Distance > Circ_Right_Dis_Final)
         {
             Sum_Distance = 0;
             (*Flag) = 0;

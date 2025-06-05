@@ -1,5 +1,5 @@
 #include "headfile.h"
-float speed_goal = 330;
+int speed_goal = 200 ;
 float error = 0;
 float error_rate = 0;
 int count = 0;
@@ -29,8 +29,8 @@ void Out_Action()//
 //		switch (Flag_Out)
 //		{
 //			case 1:
-				motor_L_pid.SetValue = 500;
-        motor_R_pid.SetValue = 100;
+				motor_L_pid.SetValue = Out_Speed_L;
+        motor_R_pid.SetValue = Out_Speed_R;
 //				break;
 //		}
 }
@@ -52,13 +52,13 @@ void Circ_Left_Action(int *temp)//×ó»·
 //        break;
     case 2:
 //				beep_on();
-        motor_L_pid.SetValue = 330;
-        motor_R_pid.SetValue = 550;
+        motor_L_pid.SetValue = Circ_Left_Speed_L;
+        motor_R_pid.SetValue = Circ_Left_Speed_R;
         break;
     case 3:
 //				beep_on();
-        motor_L_pid.SetValue = 330;
-        motor_R_pid.SetValue = 330;
+        motor_L_pid.SetValue = Circ_Left_Speed_Out;
+        motor_R_pid.SetValue = Circ_Left_Speed_Out;
         break;
     }
 
@@ -102,18 +102,18 @@ void Circ_Right_Action(int *temp)//ÓÒ»·
         break;
     case 2:
 //				beep_on();
-        motor_L_pid.SetValue = speed_goal * 1;
-        motor_R_pid.SetValue = 0.5;
+        motor_L_pid.SetValue = Circ_Right_Speed_L;
+        motor_R_pid.SetValue = Circ_Right_Speed_R;
         break;
+//    case 3:
+////				beep_on();
+//        speed_goal = speed_section(error, state[state_lead]);
+//        Dir_Loop(error, speed_goal, flag_turn);
+//        break;
     case 3:
 //				beep_on();
-        speed_goal = speed_section(error, state[state_lead]);
-        Dir_Loop(error, speed_goal, flag_turn);
-        break;
-    case 4:
-//				beep_on();
-        motor_L_pid.SetValue = speed_goal;
-        motor_R_pid.SetValue = speed_goal;
+        motor_L_pid.SetValue = Circ_Right_Speed_Out;
+        motor_R_pid.SetValue = Circ_Right_Speed_Out;
         break;
     }
 }

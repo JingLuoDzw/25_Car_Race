@@ -1,17 +1,8 @@
 #include "headfile.h"
 float temp = 0;
-//int sqt = 800,nsqt = 250;
-//uint16 position = 0;		//菜单箭头位置
-//int dapos = 0;		//数据位置
-//int da[2] = {900,250};
-
-
 extern char state[30];
 int pid_lead = 0;
-int Kp1[5]={350,500,  0,  0,  0};	//280.350		350.250		350.200.0.5一米二330稳定		350.220.0.7	360还好
-int Kp2[5]={200,180,  0,  0,  0};
-int Kd1[5]={0.5,0.5,	1,	1,	1};
-int Kd2[5]={0,	0,	0,	0,	0};
+
 void Dir_Loop(float error, float speed_goal, int flag)
 {
 
@@ -85,6 +76,7 @@ void Dir_Loop(float error, float speed_goal, int flag)
 
 
 
+
 //void Dir_Loop(float error, float speed_goal, int flag)
 //{
 ////  if(flag==0)
@@ -132,8 +124,6 @@ void Dir_Loop(float error, float speed_goal, int flag)
 ////				}
 
 //}
-
-
 
 //void showmenu()
 //{
@@ -213,12 +203,6 @@ void Dir_Loop(float error, float speed_goal, int flag)
 //  motor_R_pid.SetValue=speed_goal+temp;
 //}
 
-
-
-
-
-
-
 float  Kp_Select(float error)
 {
     return fabs(error) * 50;
@@ -248,46 +232,12 @@ float  Kp_Select(float error)
 //      { return 400;}
 }
 
-
 //void angle_loop()
 //{
 //  float angle_speed=0;
 //  angle_speed=(motor_R_pid.SetValue-motor_L_pid.SetValue)/15.5;
 //
 //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //void Dir_Loop(float error,float speed_goal)
 //{

@@ -34,5 +34,5 @@
 /****************÷–∂œ ±º‰***********/
 
 #define isr_time 0.005
-#define ActSpeed_Rate 0.0176
+#define ActSpeed_Rate 0.00917
 #endif

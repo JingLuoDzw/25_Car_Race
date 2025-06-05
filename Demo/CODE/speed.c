@@ -1,33 +1,30 @@
 #include "headfile.h"
-//float speed_goal=0;
-  int duty_L=0,duty_R=0;
-	int L_SetValuetemp,R_SetValuetemp;
-	
-	
+int duty_L=0,duty_R=0;
+int L_SetValuetemp,R_SetValuetemp;
+
+int speed_section(float error,char i)
+{
+	return SPEED ;
+}
+
 //float speed_section(float error,char i)
 //{
-//	return 330;
+//		if((state[state_lead]==Big_Circ_Left)||(state[state_lead]==Big_Circ_Right)||
+//			(state[state_lead]==Small_Circ_Left)||(state[state_lead]==Small_Circ_Right))
+//		{
+//			return 330;
+//		}
+//		else if((state[state_lead]==Ramp))
+//		{
+//			return 100;
+//		}
+//		else if((state[state_lead]==Obstacle))
+//		{
+//			return 100;
+//		}
+//		else
+//			return 330;
 //}
-
-
-float speed_section(float error,char i)
-{
-		if((state[state_lead]==Big_Circ_Left)||(state[state_lead]==Big_Circ_Right)||
-			(state[state_lead]==Small_Circ_Left)||(state[state_lead]==Small_Circ_Right))
-		{
-			return 330;
-		}
-		else if((state[state_lead]==Ramp))
-		{
-			return 100;
-		}
-		else if((state[state_lead]==Obstacle))
-		{
-			return 100;
-		}
-		else
-			return 330;
-}
 
 
 
