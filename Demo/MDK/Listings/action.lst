@@ -1,0 +1,265 @@
+C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE action
+OBJECT MODULE PLACED IN .\Objects\action.obj
+COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\action.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(.
+                    -.\CODE;..\USER;..\..\lib\zf_app;..\..\lib\zf_base;..\..\lib\zf_bsp) DEBUG PRINT(.\Listings\action.lst) TABS(2) OBJECT(.\
+                    -Objects\action.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          float speed_goal = 330;
+    3          float error = 0;
+    4          float error_rate = 0;
+    5          int count = 0;
+    6          extern int Flag_Right_Angle;
+    7          void Track_Action(int *temp)//直线
+    8          {
+    9   1      //  static float angle=0;
+   10   1      //  error_rate=error_rate_count1(temp[1],temp[2]);
+   11   1      //    if (flag_turn == cross)
+   12   1      //    {
+   13   1      //        beep_on();
+   14   1      //    }
+   15   1      //    else
+   16   1      //    {
+   17   1      //        beep_off();
+   18   1      //    }
+   19   1          error = error_get(temp, flag_turn);
+   20   1          speed_goal = speed_section(error, state[state_lead]);//修改目标速度，没写完，默认返回值都是60
+   21   1          Dir_Loop(error, speed_goal, flag_turn);
+   22   1      //    printf("%d,%d,%d,%d,\r\n",temp[0],temp[1],temp[2],temp[3]);
+   23   1      //  printf("%f,%f,%f,%f,%f\r\n",    error,  motor_L_pid.SetValue,   motor_R_pid.SetValue,
+   24   1      //                                          motor_L_pid.ActValue,   motor_R_pid.ActValue);
+   25   1      }
+   26          
+   27          void Out_Action()//
+   28          {
+   29   1      //    switch (Flag_Out)
+   30   1      //    {
+   31   1      //      case 1:
+   32   1              motor_L_pid.SetValue = 500;
+   33   1              motor_R_pid.SetValue = 100;
+   34   1      //        break;
+   35   1      //    }
+   36   1      }
+   37          
+   38          void Circ_Left_Action(int *temp)//左环
+   39          {
+   40   1          error = error_get(temp, flag_turn);
+   41   1          switch (Flag_Circ)
+   42   1          {
+   43   2          case 1:
+   44   2      //        beep_on();
+   45   2              speed_goal = speed_section(error, state[state_lead]);   //修改目标速度，没写完，默认返回值都是60
+   46   2              Dir_Loop(error, speed_goal, flag_turn);
+   47   2              break;
+   48   2      //    case 2:
+   49   2      ////        beep_on();
+   50   2      //        motor_L_pid.SetValue = speed_goal * 0.5;
+   51   2      //        motor_R_pid.SetValue = speed_goal * 1.2;
+   52   2      //        break;
+   53   2          case 2:
+   54   2      //        beep_on();
+   55   2              motor_L_pid.SetValue = 330;
+   56   2              motor_R_pid.SetValue = 550;
+   57   2              break;
+C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 2   
+
+   58   2          case 3:
+   59   2      //        beep_on();
+   60   2              motor_L_pid.SetValue = 330;
+   61   2              motor_R_pid.SetValue = 330;
+   62   2              break;
+   63   2          }
+   64   1      
+   65   1        
+   66   1      //    error = error_get(temp, flag_turn);
+   67   1      //    switch (Flag_Circ)
+   68   1      //    {
+   69   1      //    case 1:
+   70   1      ////        beep_on();
+   71   1      //        speed_goal = speed_section(error, state[state_lead]);   //修改目标速度，没写完，默认返回值都是60
+   72   1      //        Dir_Loop(error, speed_goal, flag_turn);
+   73   1      //        break;
+   74   1      //    case 2:
+   75   1      ////        beep_on();
+   76   1      //        motor_L_pid.SetValue = speed_goal * 0.5;
+   77   1      //        motor_R_pid.SetValue = speed_goal * 1.2;
+   78   1      //        break;
+   79   1      //    case 3:
+   80   1      ////        beep_on();
+   81   1      //        speed_goal = speed_section(error, state[state_lead]);
+   82   1      //        Dir_Loop(error, speed_goal, flag_turn);
+   83   1      //        break;
+   84   1      //    case 4:
+   85   1      ////        beep_on();
+   86   1      //        motor_L_pid.SetValue = speed_goal;
+   87   1      //        motor_R_pid.SetValue = speed_goal;
+   88   1      //        break;
+   89   1      //    }
+   90   1      }
+   91          
+   92          
+   93          void Circ_Right_Action(int *temp)//右环
+   94          {
+   95   1          error = error_get(temp, flag_turn);
+   96   1          switch (Flag_Circ)
+   97   1          {
+   98   2          case 1:
+   99   2      //        beep_on();
+  100   2              speed_goal = speed_section(error, state[state_lead]);
+  101   2              Dir_Loop(error, speed_goal, flag_turn);
+  102   2              break;
+  103   2          case 2:
+  104   2      //        beep_on();
+  105   2              motor_L_pid.SetValue = speed_goal * 1;
+  106   2              motor_R_pid.SetValue = 0.5;
+  107   2              break;
+  108   2          case 3:
+  109   2      //        beep_on();
+  110   2              speed_goal = speed_section(error, state[state_lead]);
+  111   2              Dir_Loop(error, speed_goal, flag_turn);
+  112   2              break;
+  113   2          case 4:
+  114   2      //        beep_on();
+  115   2              motor_L_pid.SetValue = speed_goal;
+  116   2              motor_R_pid.SetValue = speed_goal;
+  117   2              break;
+  118   2          }
+  119   1      }
+  120          
+  121          
+  122          void Obstacle_Action(void)
+  123          {
+C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 3   
+
+  124   1      //  printf("in\r\n");
+  125   1          switch (Flag_Obstacle)
+  126   1          {
+  127   2          case 1:
+  128   2      //      error=0.3;
+  129   2              speed_goal = speed_section(error, state[state_lead]);
+  130   2      //      Dir_Loop(error,speed_goal,flag_turn);
+  131   2              motor_L_pid.SetValue = speed_goal * 0;
+  132   2              motor_R_pid.SetValue = speed_goal * 1.5;
+  133   2              break;
+  134   2          case 2:
+  135   2      //      error=-0.3;
+  136   2              speed_goal = speed_section(error, state[state_lead]);
+  137   2      //      Dir_Loop(error,speed_goal,flag_turn);
+  138   2              motor_L_pid.SetValue = speed_goal * 1;
+  139   2              motor_R_pid.SetValue = speed_goal * 1;
+  140   2              break;
+  141   2          case 3:
+  142   2              speed_goal = speed_section(error, state[state_lead]);
+  143   2              motor_L_pid.SetValue = speed_goal * 1.5;
+  144   2              motor_R_pid.SetValue = speed_goal * 0;
+  145   2              break;
+  146   2          case 4:
+  147   2              speed_goal = speed_section(error, state[state_lead]);
+  148   2              motor_L_pid.SetValue = speed_goal * 1;
+  149   2              motor_R_pid.SetValue = speed_goal * 1;
+  150   2              break;
+  151   2          case 5:
+  152   2              speed_goal = speed_section(error, state[state_lead]);
+  153   2              motor_L_pid.SetValue = speed_goal * 1.5;
+  154   2              motor_R_pid.SetValue = speed_goal * 0;
+  155   2              break;
+  156   2          case 6:
+  157   2              P32 = 0;
+  158   2              speed_goal = speed_section(error, state[state_lead]);
+  159   2              motor_L_pid.SetValue = speed_goal * 1;
+  160   2              motor_R_pid.SetValue = speed_goal * 1;
+  161   2              break;
+  162   2          }
+  163   1      //      printf("%d\r\n",Flag_Obstacle);
+  164   1      }
+  165          
+  166          
+  167          void Stop_Action()//停车
+  168          {
+  169   1          motor_L_pid.SetValue = 0;
+  170   1          motor_R_pid.SetValue = 0;
+  171   1      //    motor_L_pid.KP = 70;
+  172   1      //    motor_R_pid.KP = 70;
+  173   1      //    motor_L_pid.KI = 2.6;
+  174   1      //    motor_R_pid.KI = 2.6;
+  175   1      //    motor_L_pid.KD = 0;
+  176   1      //    motor_R_pid.KD = 0;
+  177   1      }
+  178          
+  179          
+  180          void beep_on()//蜂鸣器开
+  181          {
+  182   1          P67 = 1;
+  183   1      }
+  184          void beep_off()//蜂鸣器关
+  185          {
+  186   1          P67 = 0;
+  187   1          count = 0;
+  188   1      }
+  189          
+C251 COMPILER V5.60.0,  action                                                             05/06/25  08:39:51  PAGE 4   
+
+  190          
+  191          
+  192          void Left_Right_Angle_Action(int *temp)//左直角
+  193          {
+  194   1        switch(Flag_Right_Angle)
+  195   1        {
+  196   2          case 1:
+  197   2      //      P67 = 1;
+  198   2      //      Track_Action(temp);
+  199   2      //        beep_on();
+  200   2              motor_L_pid.SetValue = 0;
+  201   2              motor_R_pid.SetValue = 200; 
+  202   2            break;
+  203   2      //    case 2:
+  204   2      //      motor_L_pid.SetValue = 130; 
+  205   2      //      motor_R_pid.SetValue = 170;
+  206   2      //      break;
+  207   2        }
+  208   1      }
+*** WARNING C47 IN LINE 192 OF ..\CODE\action.c: 'temp': unreferenced parameter
+  209          
+  210          
+  211          void Right_Right_Angle_Action(int *temp)//右直角
+  212          {
+  213   1        switch(Flag_Right_Angle)
+  214   1        {
+  215   2          case 1:
+  216   2            Track_Action(temp);
+  217   2            break;
+  218   2          case 2:
+  219   2            motor_L_pid.SetValue = 170; 
+  220   2            motor_R_pid.SetValue = 130;
+  221   2            break;
+  222   2        }
+  223   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       570     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        14     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        30     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

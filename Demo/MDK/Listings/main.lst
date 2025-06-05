@@ -1,0 +1,212 @@
+C251 COMPILER V5.60.0,  main                                                               05/06/25  08:40:36  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE main
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\USER\main.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(..\
+                    -CODE;..\USER;..\..\lib\zf_app;..\..\lib\zf_base;..\..\lib\zf_bsp) DEBUG PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Obje
+                    -cts\main.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          //float cs_motor_l_pid[3]={50,10.5,15};//float cs_motor_r_pid[3]={50,10,0};
+    3          //float cs_motor_r_pid[3]={50,10.5,15};
+    4          //float cs_dir_loop_pid[3]={160,0,300};
+    5          int adc_value[8] = {0};   //八个电感值
+    6          int i = 0;    //延时循环
+    7          float sum = 0;    //目前没有发现有什么用
+    8          uint8 uart_delay = 0;   //while循环五次串口发送一次数据
+    9          //extern da[2];
+   10          extern uint16 dl1b_distance_mm;
+   11          extern float Sum_Distance;
+   12          //extern float error;
+   13          
+   14          int main()
+   15          {
+   16   1          board_init(); 
+   17   1          pit_timer_ms(TIM_1, 5);
+   18   1          printf("pit init\r\n");
+   19   1          pit_timer_ms(TIM_4, 5);
+   20   1          NVIC_SetPriority(TIMER1_IRQn, 2);
+   21   1          NVIC_SetPriority(UART4_IRQn, 3);
+   22   1          InitPID();
+   23   1      //    for (i = 0; i < 10; i++)
+   24   1      //    {
+   25   1      //        delay_ms(100);
+   26   1      //    }
+   27   1          EnableGlobalIRQ(); // 开启总中断
+   28   1          printf("all init\r\n");
+   29   1          printf("motor pid set value\r\n");
+   30   1      //    pwm_duty(PWMA_CH4P_P66, 3000);    //引脚校正
+   31   1      //    pwm_duty(PWMA_CH1P_P60, 3000);    //右负
+   32   1      //    pwm_duty(PWMA_CH3P_P64, 3000);    //左正
+   33   1      //    pwm_duty(PWMA_CH2P_P62, 3000);    
+   34   1      //    lcd_set_region(10,10,0,0);
+   35   1      //    motor_L_pid.SetValue = 0;
+   36   1      //    motor_R_pid.SetValue = 0;
+   37   1          
+   38   1          delay_ms(7000);
+   39   1          start_0 = 1;
+   40   1      //    motor_L_pid.SetValue = 330; //还需要更改speed.c中的速度
+   41   1      //    motor_R_pid.SetValue = 330;
+   42   1      
+   43   1      //    while(1)    //充电检测
+   44   1      //    {
+   45   1      //      state_detect(adc_value);    //获取电感值
+   46   1      //      lcd_showint32(0,5,adc_value[2],4);
+   47   1      //      if(adc_value[2]>850)
+   48   1      //      {
+   49   1      //        motor_L_pid.SetValue = 300; //还需要更改speed.c中的速度
+   50   1      //        motor_R_pid.SetValue = 300;
+   51   1      //        lcd_clear(WHITE);   //屏幕清屏
+   52   1      //        break;
+   53   1      //      }
+   54   1      //    }
+   55   1          
+   56   1          while (1)     //正常循迹
+   57   1          {
+C251 COMPILER V5.60.0,  main                                                               05/06/25  08:40:36  PAGE 2   
+
+   58   2      //      beep_on();
+   59   2      //      delay_ms(100);
+   60   2      //      showmenu();
+   61   2      //      lcd_showint32(0,0,da[0],4);
+   62   2      //      lcd_showint32(0,1,da[1],4);
+   63   2      
+   64   2              if (TIM1_Flag)
+   65   2              {
+   66   3      //            lcd_showint32(0,0,adc_value[0],4);
+   67   3      //            lcd_showint32(0,1,adc_value[1],4);
+   68   3      //            lcd_showint32(0,2,adc_value[3],4);
+   69   3      //            lcd_showint32(0,3,adc_value[4],4);
+   70   3      //            lcd_showint16(0,5,imu660ra_gyro_z);
+   71   3      //            lcd_showfloat(0,6,error,1,6);
+   72   3      
+   73   3                  P52 = 0;    //LED
+   74   3      //          dl1b_get_distance();
+   75   3                  imu660ra_get_gyro();    //陀螺仪
+   76   3                  dl1b_get_distance();
+   77   3      //            if (dl1b_distance_mm < 300 && Flag_Obstacle == 0)
+   78   3      //            {
+   79   3      //                state_lead = 12;
+   80   3      //                Stop_Action();
+   81   3      //            }
+   82   3      //            else
+   83   3      //            {
+   84   3                      state_detect(adc_value);    //获取电感值
+   85   3      //                if (stop_jump() == 1)
+   86   3      //                {
+   87   3      //                    state_lead = 6;
+   88   3      //                    Stop_Action();
+   89   3      //                }
+   90   3      //                else
+   91   3      //                {
+   92   3                          switch (state[state_lead])
+   93   3                          {
+   94   4                              case Track:
+   95   4                                  Track_Action(adc_value);
+   96   4                                  break;
+   97   4      //                        case Left_Right_Angle:
+   98   4      //                            Left_Right_Angle_Action(adc_value);
+   99   4      //                        case Right_Right_Angle:
+  100   4      //                            Right_Right_Angle_Action(adc_value);
+  101   4                              case Out:
+  102   4                                  Out_Action();
+  103   4                              case Big_Circ_Left:
+  104   4                              case Small_Circ_Left:
+  105   4                                  Circ_Left_Action(adc_value);
+  106   4                                  break;
+  107   4                              case Big_Circ_Right:
+  108   4                              case Small_Circ_Right:
+  109   4      //                            P67 = 0;
+  110   4                                  Circ_Right_Action(adc_value);
+  111   4                                  break;
+  112   4                              case Obstacle:
+  113   4      //                            printf(".....\r\n");
+  114   4                                  Obstacle_Action();
+  115   4                                  break;
+  116   4                              case Ramp:
+  117   4                                  Track_Action(adc_value);
+  118   4                                  break;
+  119   4                              case Stop:
+  120   4                                  Stop_Action();
+  121   4                          }
+  122   3      //                }
+  123   3                  //}
+C251 COMPILER V5.60.0,  main                                                               05/06/25  08:40:36  PAGE 3   
+
+  124   3                  //i+=1;
+  125   3                  ////if(i%400==0)
+  126   3                  ////{
+  127   3                  ////motor_R_pid.SetValue=0;
+  128   3                  ////motor_L_pid.SetValue=0;
+  129   3                  ////}
+  130   3                  ////else
+  131   3                  //  if(i%200==0)
+  132   3                  //{
+  133   3                  //  motor_L_pid.SetValue+=15;
+  134   3                  //  motor_R_pid.SetValue+=15; 
+  135   3                  //}
+  136   3                  //else if(i>1800)
+  137   3                  //{
+  138   3                  //motor_R_pid.SetValue=0;
+  139   3                  //motor_L_pid.SetValue=0;
+  140   3                  //}
+  141   3      //            lcd_showint32(0,0,motor_L_pid.ActValue,4);
+  142   3      //            lcd_showint32(0,1,motor_R_pid.ActValue,4);
+  143   3      //            lcd_showint32(0,2,motor_L_pid.SetValueTmp,4);
+  144   3      //            lcd_showint32(0,3,motor_R_pid.SetValueTmp,4);
+  145   3      
+  146   3      //            lcd_showint32(0,0,adc_value[0],4);
+  147   3      //            lcd_showint32(0,1,adc_value[1],4);
+  148   3      //            lcd_showint32(0,2,adc_value[3],4);
+  149   3      //            lcd_showint32(0,3,adc_value[4],4);
+  150   3      
+  151   3      //            lcd_showint32(0,4,adc_value[2],4);
+  152   3      //            lcd_showint32(0,5,Flag_Circ,4);
+  153   3      //            lcd_showint32(0,6,Sum_Distance,4);
+  154   3      //            lcd_showint32(0,5,(int)dl1b_distance_mm,4);
+  155   3      //            lcd_showint32(0,4,(int)state_lead,4);
+  156   3                  uart_delay++;
+  157   3                  if (uart_delay > 4)
+  158   3                  {
+  159   4                      uart_delay = 0;
+  160   4      //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
+  161   4      //                                          motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
+  162   4      //                printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
+  163   4      //                                          adc_value[3], adc_value[4]);
+  164   4                  }
+  165   3      //          printf("%d\r\n",flag_turn);
+  166   3                  TIM1_Flag = 0;
+  167   3                  P52 = 1;
+  168   3              }
+  169   2      
+  170   2          }
+  171   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       257     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        23     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+C251 COMPILER V5.60.0,  main                                                               05/06/25  08:40:36  PAGE 4   
+
+  hconst size          =        83     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

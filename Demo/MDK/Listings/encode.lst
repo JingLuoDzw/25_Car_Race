@@ -1,0 +1,71 @@
+C251 COMPILER V5.60.0,  encode                                                             05/06/25  08:39:50  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE encode
+OBJECT MODULE PLACED IN .\Objects\encode.obj
+COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\encode.c XSMALL INTR2 WARNINGLEVEL(3) BROWSE INCDIR(.
+                    -.\CODE;..\USER;..\..\lib\zf_app;..\..\lib\zf_base;..\..\lib\zf_bsp) DEBUG PRINT(.\Listings\encode.lst) TABS(2) OBJECT(.\
+                    -Objects\encode.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          int encoder_L_get(void)
+    3          {
+    4   1        int temp;
+    5   1           if(DIR_Encoder_L == 1)
+    6   1           {
+    7   2            temp = 0-ctimer_count_read(Encoder_L);
+    8   2           }     // 左右轮当前速度
+    9   1           else
+   10   1           {
+   11   2            temp = ctimer_count_read(Encoder_L);
+   12   2           }
+   13   1        ctimer_count_clean(Encoder_L); // 编码器清零
+   14   1      
+   15   1        return temp;
+   16   1      }
+   17          
+   18          
+   19          //采集右编码器值
+   20          
+   21          
+   22          int encoder_R_get(void)
+   23          {
+   24   1      int temp;
+   25   1      if(DIR_Encoder_R == 0)
+   26   1      {
+   27   2          temp = 0-ctimer_count_read(Encoder_R) ; }// 左右轮当前速度
+   28   1      else
+   29   1      {
+   30   2        temp = ctimer_count_read(Encoder_R);
+   31   2      }
+   32   1      //printf("%d\r\n",temp);
+   33   1        ctimer_count_clean(Encoder_R); // 编码器清零
+   34   1      
+   35   1        return temp;
+   36   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =        79     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
