@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 1   
+C251 COMPILER V5.60.0,  action                                                             21/06/25  21:00:00  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE action
@@ -10,7 +10,7 @@ COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\action.c XSMA
 stmt  level    source
 
     1          #include "headfile.h"
-    2          int speed_goal = 200 ;
+    2          int speed_goal = 180 ;
     3          float error = 0;
     4          float error_rate = 0;
     5          int count = 0;
@@ -66,7 +66,7 @@ stmt  level    source
    55   2              motor_L_pid.SetValue = Circ_Left_Speed_L;
    56   2              motor_R_pid.SetValue = Circ_Left_Speed_R;
    57   2              break;
-C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 2   
+C251 COMPILER V5.60.0,  action                                                             21/06/25  21:00:00  PAGE 2   
 
    58   2          case 3:
    59   2      //        beep_on();
@@ -134,7 +134,7 @@ stmt  level    source
   121          
   122          void Obstacle_Action(void)
   123          {
-C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 3   
+C251 COMPILER V5.60.0,  action                                                             21/06/25  21:00:00  PAGE 3   
 
   124   1      //  printf("in\r\n");
   125   1          switch (Flag_Obstacle)
@@ -202,7 +202,7 @@ stmt  level    source
   187   1          count = 0;
   188   1      }
   189          
-C251 COMPILER V5.60.0,  action                                                             05/06/25  17:43:16  PAGE 4   
+C251 COMPILER V5.60.0,  action                                                             21/06/25  21:00:00  PAGE 4   
 
   190          
   191          

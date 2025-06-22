@@ -29,3 +29,10 @@ extern int Circ_Right_Dis_Final;
 extern int Circ_Right_Speed_L;
 extern int Circ_Right_Speed_R;
 extern int Circ_Right_Speed_Out;
+
+extern int KP_SPEED_L;
+extern int KP_SPEED_R;
+extern int KI_SPEED_L;
+extern int KI_SPEED_R;
+extern int KD_SPEED_L;
+extern int KD_SPEED_R;

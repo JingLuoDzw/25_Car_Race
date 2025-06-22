@@ -1,5 +1,5 @@
 #include "headfile.h"
-int speed_goal = 200 ;
+int speed_goal = 180 ;
 float error = 0;
 float error_rate = 0;
 int count = 0;

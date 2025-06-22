@@ -83,8 +83,8 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32000</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
@@ -100,8 +100,8 @@
     <MDIClientArea>
       <RegID>0</RegID>
       <MDITabState>
-        <Len>296</Len>
-        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000002000000000000000100000027443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C555345525C6D61696E2E6300000000066D61696E2E6300000000C5D4F200FFFFFFFF26443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C434F44455C7069642E6300000000057069642E6300000000FFDC7800FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD500010000000000000002000000C40000006600000000060000AC020000</Data>
+        <Len>489</Len>
+        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000005000000000000000100000027443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C555345525C6D61696E2E6300000000066D61696E2E6300000000C5D4F200FFFFFFFF28443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C434F44455C73746174652E63000000000773746174652E6300000000FFDC7800FFFFFFFF26443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C434F44455C6469722E6300000000056469722E6300000000BECEA100FFFFFFFF26443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C434F44455C7379732E6800000000057379732E6800000000F0A0A100FFFFFFFF29443A5C4465736B746F705C32355F4361725F526163655C44656D6F5C434F44455C616374696F6E2E630000000008616374696F6E2E6300000000BCA8E100FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD500010000000000000002000000C40000006600000000060000AC020000</Data>
       </MDITabState>
     </MDIClientArea>
     <ViewEx>
@@ -484,7 +484,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000A8020000F4000000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -516,7 +516,7 @@
         <IsActivated>0</IsActivated>
         <MRUWidth>32767</MRUWidth>
         <PinState>0</PinState>
-        <RecentFrameAlignment>4096</RecentFrameAlignment>
+        <RecentFrameAlignment>32768</RecentFrameAlignment>
         <RecentRowIndex>0</RecentRowIndex>
         <RectRecentDocked>
           <Len>16</Len>
@@ -524,7 +524,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000A8020000F4000000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -1156,7 +1156,7 @@
         <IsActivated>0</IsActivated>
         <MRUWidth>32767</MRUWidth>
         <PinState>0</PinState>
-        <RecentFrameAlignment>4096</RecentFrameAlignment>
+        <RecentFrameAlignment>32768</RecentFrameAlignment>
         <RecentRowIndex>0</RecentRowIndex>
         <RectRecentDocked>
           <Len>16</Len>
@@ -1164,7 +1164,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000A8020000F4000000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -1176,7 +1176,7 @@
         <IsActivated>0</IsActivated>
         <MRUWidth>32767</MRUWidth>
         <PinState>0</PinState>
-        <RecentFrameAlignment>4096</RecentFrameAlignment>
+        <RecentFrameAlignment>32768</RecentFrameAlignment>
         <RecentRowIndex>0</RecentRowIndex>
         <RectRecentDocked>
           <Len>16</Len>
@@ -1184,7 +1184,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000530100003E020000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -1236,7 +1236,7 @@
         <IsActivated>0</IsActivated>
         <MRUWidth>32767</MRUWidth>
         <PinState>0</PinState>
-        <RecentFrameAlignment>4096</RecentFrameAlignment>
+        <RecentFrameAlignment>32768</RecentFrameAlignment>
         <RecentRowIndex>0</RecentRowIndex>
         <RectRecentDocked>
           <Len>16</Len>
@@ -1244,7 +1244,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000530100003E020000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -1256,7 +1256,7 @@
         <IsActivated>0</IsActivated>
         <MRUWidth>32767</MRUWidth>
         <PinState>0</PinState>
-        <RecentFrameAlignment>4096</RecentFrameAlignment>
+        <RecentFrameAlignment>32768</RecentFrameAlignment>
         <RecentRowIndex>0</RecentRowIndex>
         <RectRecentDocked>
           <Len>16</Len>
@@ -1264,7 +1264,7 @@
         </RectRecentDocked>
         <RectRecentFloat>
           <Len>16</Len>
-          <Data>7000000087000000530100003E020000</Data>
+          <Data>00000000B0020000000600001D030000</Data>
         </RectRecentFloat>
       </Window>
       <Window>
@@ -1855,7 +1855,7 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>..\USER\main.c</Name>
-        <ColumnNumber>4</ColumnNumber>
+        <ColumnNumber>25</ColumnNumber>
         <TopLine>1</TopLine>
         <CurrentLine>21</CurrentLine>
         <Folding>1</Folding>
@@ -1863,10 +1863,37 @@
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
-        <Name>..\CODE\pid.c</Name>
-        <ColumnNumber>34</ColumnNumber>
+        <Name>..\CODE\state.c</Name>
+        <ColumnNumber>110</ColumnNumber>
+        <TopLine>53</TopLine>
+        <CurrentLine>65</CurrentLine>
+        <Folding>1</Folding>
+        <ContractedFolders></ContractedFolders>
+        <PaneID>0</PaneID>
+      </Doc>
+      <Doc>
+        <Name>..\CODE\dir.c</Name>
+        <ColumnNumber>0</ColumnNumber>
+        <TopLine>19</TopLine>
+        <CurrentLine>35</CurrentLine>
+        <Folding>1</Folding>
+        <ContractedFolders></ContractedFolders>
+        <PaneID>0</PaneID>
+      </Doc>
+      <Doc>
+        <Name>..\CODE\sys.h</Name>
+        <ColumnNumber>29</ColumnNumber>
         <TopLine>1</TopLine>
-        <CurrentLine>6</CurrentLine>
+        <CurrentLine>8</CurrentLine>
+        <Folding>1</Folding>
+        <ContractedFolders></ContractedFolders>
+        <PaneID>0</PaneID>
+      </Doc>
+      <Doc>
+        <Name>..\CODE\action.c</Name>
+        <ColumnNumber>22</ColumnNumber>
+        <TopLine>1</TopLine>
+        <CurrentLine>20</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

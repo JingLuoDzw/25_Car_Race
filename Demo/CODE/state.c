@@ -62,7 +62,7 @@ int Track_Jump(int *temp)	//只要检测到元素就返回1
 						}
 						break;
 				case Small_Circ_Left:
-						if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[4] > Circ_Jump_Left[3])
+						if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[3] > Circ_Jump_Left[2] && temp[4] > Circ_Jump_Left[3])
 						{
 								P67 = 1;
 								Flag_Circ = 1;

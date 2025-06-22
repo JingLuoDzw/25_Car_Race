@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 1   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE state
@@ -66,7 +66,7 @@ stmt  level    source
    53          {
    54   1          switch (state[state_lead + 1])  //检测第二个元素
    55   1          {
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 2   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 2   
 
    56   2              case Big_Circ_Left:                           //检测到圆环就置位，然后返回
    57   2                  if (temp[0] > 1200 && temp[3] > 1000)
@@ -77,7 +77,8 @@ stmt  level    source
    62   3                  }
    63   2                  break;
    64   2              case Small_Circ_Left:
-   65   2                  if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[4] > Circ_Jump_Left[3])
+   65   2                  if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[3] > Circ_Jump_Left[2] && te
+             -mp[4] > Circ_Jump_Left[3])
    66   2                  {
    67   3                      P67 = 1;
    68   3                      Flag_Circ = 1;
@@ -133,9 +134,9 @@ stmt  level    source
   118   2          }
   119   1          
   120   1          return 0;     //没有检测到元素，返回0
-  121   1      }
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 3   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 3   
 
+  121   1      }
   122          
   123          int Out_Jump()
   124          {
@@ -201,9 +202,9 @@ stmt  level    source
   184   2          }
   185   1          return 0;
   186   1      
-  187   1        
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 4   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 4   
 
+  187   1        
   188   1      //    switch ((*Flag))
   189   1      //    {
   190   1      //    case 1:
@@ -269,9 +270,9 @@ stmt  level    source
   250   3                  (*Flag)++;
   251   3              }
   252   2      
-  253   2              break;
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 5   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 5   
 
+  253   2              break;
   254   2          case 2:
   255   2      
   256   2              Sum_Angle += Single_Angle_Get();
@@ -337,9 +338,9 @@ stmt  level    source
   316   3              }
   317   2              break;
   318   2          case 4:
-  319   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 6   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 6   
 
+  319   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
   320   2              if (Sum_Distance > 60)
   321   2              {
   322   3                  Sum_Distance = 0;
@@ -405,9 +406,9 @@ stmt  level    source
   382          {
   383   1          switch (*Flag)
   384   1          {
-  385   2          case 1:
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 7   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 7   
 
+  385   2          case 1:
   386   2              Sum_Angle += Single_Angle_Get();
   387   2              if (Sum_Angle > 30)
   388   2              {
@@ -473,9 +474,9 @@ stmt  level    source
   448   1      //  P67 = 1;
   449   1        if (Sum_Distance > 360)
   450   1        {
-  451   2      //      P67 = 0;
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 8   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 8   
 
+  451   2      //      P67 = 0;
   452   2      //      state_lead = 10;
   453   2            return 1; 
   454   2        }
@@ -541,9 +542,9 @@ stmt  level    source
   514          //    {
   515          //        flag_turn = right_angle;
   516          //    }
-  517          //    else
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 9   
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 9   
 
+  517          //    else
   518          //    {
   519          //        flag_turn = normal;
   520          //    }
@@ -609,9 +610,9 @@ stmt  level    source
   580   2      //            state_lead = 6;
   581   2      //        }
   582   2      //    case 4:
-  583   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 10  
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 10  
 
+  583   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
   584   2      //        if (Sum_Distance > 40)
   585   2      //        {
   586   2      //            Sum_Distance = 0;
@@ -674,13 +675,13 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      2080     ------
+  code size            =      2094     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
-  pdata size           =    ------     ------
-C251 COMPILER V5.60.0,  state                                                              05/06/25  17:43:16  PAGE 11  
+C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 11  
 
+  pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =        24     ------

@@ -152,7 +152,10 @@ void TM3_Isr() interrupt 19
 void TM4_Isr() interrupt 20
 {
 		if(start_0 == 1)
+		{
 	  Speed_Loop();
+		}
+//		Dir_Loop(error, speed_goal, flag_turn);
 
 	  TIM4_CLEAR_FLAG;
 }

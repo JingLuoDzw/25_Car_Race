@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  pid                                                                05/06/25  17:43:17  PAGE 1   
+C251 COMPILER V5.60.0,  pid                                                                21/06/25  19:19:01  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE pid
@@ -26,9 +26,9 @@ stmt  level    source
    15   1          motor_L_pid.SetValue        = 0.0;
    16   1          motor_L_pid.SetValueTmp     = 0.0;
    17   1          motor_L_pid.ActValue        = 0.0;
-   18   1          motor_L_pid.KP              = 90;
-   19   1          motor_L_pid.KI              = 15;
-   20   1          motor_L_pid.KD              = 0;
+   18   1          motor_L_pid.KP              = KP_SPEED_L;
+   19   1          motor_L_pid.KI              = KI_SPEED_L;
+   20   1          motor_L_pid.KD              = KD_SPEED_L;
    21   1          motor_L_pid.ek              = 0.0;
    22   1          motor_L_pid.ek_1            = 0.0;
    23   1          motor_L_pid.ek_2            = 0.0;
@@ -39,9 +39,9 @@ stmt  level    source
    28   1      
    29   1          motor_R_pid.SetValue        = 0.0;
    30   1          motor_R_pid.ActValue        = 0.0;
-   31   1          motor_R_pid.KP              = 90;
-   32   1          motor_R_pid.KI              = 15;
-   33   1          motor_R_pid.KD              = 0;
+   31   1          motor_R_pid.KP              = KP_SPEED_R;
+   32   1          motor_R_pid.KI              = KI_SPEED_R;
+   33   1          motor_R_pid.KD              = KD_SPEED_R;
    34   1          motor_R_pid.ek              = 0.0;
    35   1          motor_R_pid.ek_1            = 0.0;
    36   1          motor_R_pid.ek_2            = 0.0;
@@ -66,7 +66,7 @@ stmt  level    source
    55   1      
    56   1      //    dir_loop_pid.SetValue       = 0.00;
    57   1      //    dir_loop_pid.ActValue       = 0.00;
-C251 COMPILER V5.60.0,  pid                                                                05/06/25  17:43:17  PAGE 2   
+C251 COMPILER V5.60.0,  pid                                                                21/06/25  19:19:01  PAGE 2   
 
    58   1      //    dir_loop_pid.KP             = 240;
    59   1      //    dir_loop_pid.KI             = 0;
@@ -134,13 +134,13 @@ stmt  level    source
   120   1      
   121   1          return Pos;
   122   1      }
-C251 COMPILER V5.60.0,  pid                                                                05/06/25  17:43:17  PAGE 3   
+C251 COMPILER V5.60.0,  pid                                                                21/06/25  19:19:01  PAGE 3   
 
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       701     ------
+  code size            =       743     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

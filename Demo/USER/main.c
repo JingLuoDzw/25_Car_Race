@@ -3,37 +3,83 @@ int adc_value[8] = {0};		//八个电感值
 uint8 uart_delay = 0;		//while循环五次串口发送一次数据
 extern uint16 dl1b_distance_mm;
 extern float Sum_Distance;
-//	Track		Out		Small_Circ_Right	Small_Circ_Left
-char state[30] = {Track, Out, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//2025赛道元素顺序
+//	Track		Out		Small_Circ_Right	Small_Circ_Left		Out, Track, 
+//char state[30] = {Track, Track, Track, Track, Track, Track, Stop};	
+char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//2025赛道元素顺序
+
 //速度
-int SPEED = 150;
+int SPEED = 180 ;
 //转向环
-int Kp1[5]={ 350 , 0 , 0 , 0 , 0 };	//280.350		350.250		350.200.0.5一米二330稳定		350.220.0.7	360还好
-int Kp2[5]={ 200 , 0 , 0 , 0 , 0 };
-float Kd1[5]={ 0.5 , 0 , 0 , 0 , 0 };
+int Kp1[5]=  { 190 , 0 , 0 , 0 , 0 };		//320	290	0.3除几字弯还好
+int Kp2[5]=  { 250 , 0 , 0 , 0 , 0 };
+float Kd1[5]={ 0.25 , 0 , 0 , 0 , 0 };
 float Kd2[5]={ 0 , 0 , 0 , 0 , 0 };
 //左环电感判断条件
-int Circ_Jump_Left[4] = { 1000 , 1000 , 0 , 1000 };
+int Circ_Jump_Left[4] = { 1900 , 1000 , 500 , 1900 };
 //左环状态判断条件
-int Circ_Left_Dis_Start = 10 ;
+int Circ_Left_Dis_Start = 15 ;
 int Circ_Left_Angle = 340 ;
-int Circ_Left_Dis_Final = 80 ;
+int Circ_Left_Dis_Final = 50 ;
 //左环行为
-int Circ_Left_Speed_L = 150 ;
-int Circ_Left_Speed_R = 250 ;
-int Circ_Left_Speed_Out = 150 ;
+int Circ_Left_Speed_L = 180 ;
+int Circ_Left_Speed_R = 300 ;
+int Circ_Left_Speed_Out = 180 ;
 //出库
 float Out_Jump_Angle = - 70 ;
-int Out_Speed_L = 250 ;
-int Out_Speed_R = 50 ;
-
-int Circ_Jump_Right[4] = { 1000 , 0 , 1000 , 1000 };
+int Out_Speed_L = 280 ;
+int Out_Speed_R = 80 ;
+//右环
+int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
 int Circ_Right_Dis_Start = 10 ;
 int Circ_Right_Angle = - 340 ;
 int Circ_Right_Dis_Final = 80 ;
 int Circ_Right_Speed_L = 250 ;
 int Circ_Right_Speed_R = 150 ;
 int Circ_Right_Speed_Out = 150 ;
+//速度环PID	150
+int KP_SPEED_L = 100 ;
+int KP_SPEED_R = 100 ;
+int KI_SPEED_L = 19 ;
+int KI_SPEED_R = 19 ;
+int KD_SPEED_L = 0 ;
+int KD_SPEED_R = 0 ;
+
+////速度150
+//int SPEED = 150 ;
+////转向环
+//int Kp1[5]=  { 200 , 0 , 0 , 0 , 0 };		//
+//int Kp2[5]=  { 150 , 0 , 0 , 0 , 0 };
+//float Kd1[5]={ 0.2 , 0 , 0 , 0 , 0 };
+//float Kd2[5]={ 0 , 0 , 0 , 0 , 0 };
+////左环电感判断条件
+//int Circ_Jump_Left[4] = { 2000 , 1000 , 500 , 2000 };
+////左环状态判断条件
+//int Circ_Left_Dis_Start = 20 ;
+//int Circ_Left_Angle = 345 ;
+//int Circ_Left_Dis_Final = 50 ;
+////左环行为
+//int Circ_Left_Speed_L = 150 ;
+//int Circ_Left_Speed_R = 240 ;
+//int Circ_Left_Speed_Out = 150 ;
+////出库
+//float Out_Jump_Angle = - 70 ;
+//int Out_Speed_L = 250 ;
+//int Out_Speed_R = 50 ;
+////右环
+//int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
+//int Circ_Right_Dis_Start = 10 ;
+//int Circ_Right_Angle = - 340 ;
+//int Circ_Right_Dis_Final = 80 ;
+//int Circ_Right_Speed_L = 250 ;
+//int Circ_Right_Speed_R = 150 ;
+//int Circ_Right_Speed_Out = 150 ;
+////速度环PID	150
+//int KP_SPEED_L = 100 ;
+//int KP_SPEED_R = 100 ;
+//int KI_SPEED_L = 19 ;
+//int KI_SPEED_R = 19 ;
+//int KD_SPEED_L = 0 ;
+//int KD_SPEED_R = 0 ;
 
 int main()
 {
@@ -56,7 +102,7 @@ int main()
 //		motor_L_pid.SetValue = 0 ;
 //    motor_R_pid.SetValue = 0 ;
 		
-		delay_ms(7000);
+//		delay_ms(7000);
 		start_0 = 1;
 		
     while (1)			//正常循迹
@@ -68,8 +114,8 @@ int main()
             {
                 uart_delay = 0;
 							
-//								printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
-//																					adc_value[3], adc_value[4]);
+								printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
+																					adc_value[3], adc_value[4]);
 							
 //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
 //																					motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
