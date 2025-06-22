@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               22/06/25  17:56:47  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               22/06/25  21:30:11  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -19,192 +19,229 @@ stmt  level    source
     8          char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Ci
              -rc_Left, Track, Track, Track, Stop}; //2025赛道元素顺序
     9          
-   10          //速度
-   11          int SPEED = 180 ;
-   12          //转向环
-   13          int Kp1[5]=  { 190 , 0 , 0 , 0 , 0 };   //320 290 0.3除几字弯还好
-   14          int Kp2[5]=  { 250 , 0 , 0 , 0 , 0 };
-   15          float Kd1[5]={ 0.25 , 0 , 0 , 0 , 0 };
-   16          float Kd2[5]={ 0 , 0 , 0 , 0 , 0 };
-   17          //左环电感判断条件
-   18          int Circ_Jump_Left[4] = { 1900 , 1000 , 500 , 1900 };
-   19          //左环状态判断条件
-   20          int Circ_Left_Dis_Start = 15 ;
-   21          int Circ_Left_Angle = 340 ;
-   22          int Circ_Left_Dis_Final = 50 ;
-   23          //左环行为
-   24          int Circ_Left_Speed_L = 180 ;
-   25          int Circ_Left_Speed_R = 300 ;
-   26          int Circ_Left_Speed_Out = 180 ;
-   27          //出库
-   28          float Out_Jump_Angle = - 70 ;
-   29          int Out_Speed_L = 280 ;
-   30          int Out_Speed_R = 80 ;
-   31          //右环
-   32          int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
-   33          int Circ_Right_Dis_Start = 10 ;
-   34          int Circ_Right_Angle = - 340 ;
-   35          int Circ_Right_Dis_Final = 80 ;
-   36          int Circ_Right_Speed_L = 250 ;
-   37          int Circ_Right_Speed_R = 150 ;
-   38          int Circ_Right_Speed_Out = 150 ;
-   39          //速度环PID 150
-   40          int KP_SPEED_L = 100 ;
-   41          int KP_SPEED_R = 100 ;
-   42          int KI_SPEED_L = 19 ;
-   43          int KI_SPEED_R = 19 ;
-   44          int KD_SPEED_L = 0 ;
-   45          int KD_SPEED_R = 0 ;
+   10          ////速度200
+   11          //int SPEED = 200 ;
+   12          ////转向环
+   13          //int Kp1[5]=  { 350 , 0 , 0 , 0 , 0 };   //320 290 0.3除几字弯还好   300 320 0.4几字弯还可以，折线勉强
+   14          //int Kp2[5]=  { 370 , 0 , 0 , 0 , 0 };
+   15          //float Kd1[5]={ 0.63 , 0 , 0 , 0 , 0 };
+   16          //float Kd2[5]={ 30 , 0 , 0 , 0 , 0 };
+   17          ////左环电感判断条件
+   18          //int Circ_Jump_Left[4] = { 1900 , 1000 , 500 , 1900 };
+   19          ////左环状态判断条件
+   20          //int Circ_Left_Dis_Start = 15 ;
+   21          //int Circ_Left_Angle = 335 ;
+   22          //int Circ_Left_Dis_Final = 50 ;
+   23          ////左环行为
+   24          //int Circ_Left_Speed_L = 180 ;
+   25          //int Circ_Left_Speed_R = 300 ;
+   26          //int Circ_Left_Speed_Out = 180 ;
+   27          ////出库
+   28          //float Out_Jump_Angle = - 70 ;
+   29          //int Out_Speed_L = 280 ;
+   30          //int Out_Speed_R = 80 ;
+   31          ////右环
+   32          //int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
+   33          //int Circ_Right_Dis_Start = 10 ;
+   34          //int Circ_Right_Angle = - 340 ;
+   35          //int Circ_Right_Dis_Final = 80 ;
+   36          //int Circ_Right_Speed_L = 250 ;
+   37          //int Circ_Right_Speed_R = 150 ;
+   38          //int Circ_Right_Speed_Out = 150 ;
+   39          ////速度环PID 150
+   40          //int KP_SPEED_L = 100 ;
+   41          //int KP_SPEED_R = 100 ;
+   42          //int KI_SPEED_L = 19 ;
+   43          //int KI_SPEED_R = 19 ;
+   44          //int KD_SPEED_L = 0 ;
+   45          //int KD_SPEED_R = 0 ;
    46          
-   47          ////速度150
-   48          //int SPEED = 150 ;
-   49          ////转向环
-   50          //int Kp1[5]=  { 200 , 0 , 0 , 0 , 0 };   //
-   51          //int Kp2[5]=  { 150 , 0 , 0 , 0 , 0 };
-   52          //float Kd1[5]={ 0.2 , 0 , 0 , 0 , 0 };
-   53          //float Kd2[5]={ 0 , 0 , 0 , 0 , 0 };
-   54          ////左环电感判断条件
-   55          //int Circ_Jump_Left[4] = { 2000 , 1000 , 500 , 2000 };
-   56          ////左环状态判断条件
-C251 COMPILER V5.60.0,  main                                                               22/06/25  17:56:47  PAGE 2   
+   47          //速度180
+   48          int SPEED = 180 ;
+   49          //转向环
+   50          int Kp1[5]=  { 300 , 0 , 0 , 0 , 0 };   //320 290 0.3除几字弯还好   300 320 0.4几字弯还可以，折线勉强
+   51          int Kp2[5]=  { 320 , 0 , 0 , 0 , 0 };
+   52          float Kd1[5]={ 0.42 , 0 , 0 , 0 , 0 };
+   53          float Kd2[5]={ 15 , 0 , 0 , 0 , 0 };
+   54          //左环电感判断条件
+   55          int Circ_Jump_Left[4] = { 1900 , 1000 , 500 , 1900 };
+   56          //左环状态判断条件
+C251 COMPILER V5.60.0,  main                                                               22/06/25  21:30:11  PAGE 2   
 
-   57          //int Circ_Left_Dis_Start = 20 ;
-   58          //int Circ_Left_Angle = 345 ;
-   59          //int Circ_Left_Dis_Final = 50 ;
-   60          ////左环行为
-   61          //int Circ_Left_Speed_L = 150 ;
-   62          //int Circ_Left_Speed_R = 240 ;
-   63          //int Circ_Left_Speed_Out = 150 ;
-   64          ////出库
-   65          //float Out_Jump_Angle = - 70 ;
-   66          //int Out_Speed_L = 250 ;
-   67          //int Out_Speed_R = 50 ;
-   68          ////右环
-   69          //int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
-   70          //int Circ_Right_Dis_Start = 10 ;
-   71          //int Circ_Right_Angle = - 340 ;
-   72          //int Circ_Right_Dis_Final = 80 ;
-   73          //int Circ_Right_Speed_L = 250 ;
-   74          //int Circ_Right_Speed_R = 150 ;
-   75          //int Circ_Right_Speed_Out = 150 ;
-   76          ////速度环PID 150
-   77          //int KP_SPEED_L = 100 ;
-   78          //int KP_SPEED_R = 100 ;
-   79          //int KI_SPEED_L = 19 ;
-   80          //int KI_SPEED_R = 19 ;
-   81          //int KD_SPEED_L = 0 ;
-   82          //int KD_SPEED_R = 0 ;
+   57          int Circ_Left_Dis_Start = 15 ;
+   58          int Circ_Left_Angle = 335 ;
+   59          int Circ_Left_Dis_Final = 50 ;
+   60          //左环行为
+   61          int Circ_Left_Speed_L = 180 ;
+   62          int Circ_Left_Speed_R = 300 ;
+   63          int Circ_Left_Speed_Out = 180 ;
+   64          //出库
+   65          float Out_Jump_Angle = - 70 ;
+   66          int Out_Speed_L = 280 ;
+   67          int Out_Speed_R = 80 ;
+   68          //右环
+   69          int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
+   70          int Circ_Right_Dis_Start = 10 ;
+   71          int Circ_Right_Angle = - 340 ;
+   72          int Circ_Right_Dis_Final = 80 ;
+   73          int Circ_Right_Speed_L = 250 ;
+   74          int Circ_Right_Speed_R = 150 ;
+   75          int Circ_Right_Speed_Out = 150 ;
+   76          //速度环PID 150
+   77          int KP_SPEED_L = 100 ;
+   78          int KP_SPEED_R = 100 ;
+   79          int KI_SPEED_L = 19 ;
+   80          int KI_SPEED_R = 19 ;
+   81          int KD_SPEED_L = 0 ;
+   82          int KD_SPEED_R = 0 ;
    83          
-   84          int main()
-   85          {
-   86   1          board_init();
-   87   1          pit_timer_ms(TIM_1, 5);
-   88   1          printf("pit init\r\n");
-   89   1          pit_timer_ms(TIM_4, 5);
-   90   1          NVIC_SetPriority(TIMER1_IRQn, 2);
-   91   1          NVIC_SetPriority(UART4_IRQn, 3);
-   92   1          InitPID();
-   93   1          EnableGlobalIRQ(); // 开启总中断
-   94   1          printf("all init\r\n");
-   95   1          printf("motor pid set value\r\n");
-   96   1        
-   97   1      //    pwm_duty(PWMA_CH4P_P66, 3000 );   //      引脚校正
-   98   1      //    pwm_duty(PWMA_CH1P_P60, 3000 );   //右负
-   99   1      //    pwm_duty(PWMA_CH3P_P64, 3000 );   //左正
-  100   1      //    pwm_duty(PWMA_CH2P_P62, 3000 ); 
-  101   1        
-  102   1      //    motor_L_pid.SetValue = 0 ;
-  103   1      //    motor_R_pid.SetValue = 0 ;
-  104   1          
-  105   1      //    delay_ms(7000);
-  106   1          start_0 = 1;
-  107   1          
-  108   1          while (1)     //正常循迹
-  109   1          {
-  110   2              if (TIM1_Flag)
-  111   2              {
-  112   3                  uart_delay++;
-  113   3                  if (uart_delay > 4)
-  114   3                  {
-  115   4                      uart_delay = 0;
-  116   4                    
-  117   4                      printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
-  118   4                                                adc_value[3], adc_value[4]);
-  119   4                    
-  120   4      //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
-  121   4      //                                          motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
-  122   4                    
-C251 COMPILER V5.60.0,  main                                                               22/06/25  17:56:47  PAGE 3   
+   84          ////速度150
+   85          //int SPEED = 150 ;
+   86          ////转向环
+   87          //int Kp1[5]=  { 200 , 0 , 0 , 0 , 0 };   //
+   88          //int Kp2[5]=  { 150 , 0 , 0 , 0 , 0 };
+   89          //float Kd1[5]={ 0.2 , 0 , 0 , 0 , 0 };
+   90          //float Kd2[5]={ 0 , 0 , 0 , 0 , 0 };
+   91          ////左环电感判断条件
+   92          //int Circ_Jump_Left[4] = { 2000 , 1000 , 500 , 2000 };
+   93          ////左环状态判断条件
+   94          //int Circ_Left_Dis_Start = 20 ;
+   95          //int Circ_Left_Angle = 345 ;
+   96          //int Circ_Left_Dis_Final = 50 ;
+   97          ////左环行为
+   98          //int Circ_Left_Speed_L = 150 ;
+   99          //int Circ_Left_Speed_R = 240 ;
+  100          //int Circ_Left_Speed_Out = 150 ;
+  101          ////出库
+  102          //float Out_Jump_Angle = - 70 ;
+  103          //int Out_Speed_L = 250 ;
+  104          //int Out_Speed_R = 50 ;
+  105          ////右环
+  106          //int Circ_Jump_Right[4] = { 1200 , 0 , 200 , 1000 };
+  107          //int Circ_Right_Dis_Start = 10 ;
+  108          //int Circ_Right_Angle = - 340 ;
+  109          //int Circ_Right_Dis_Final = 80 ;
+  110          //int Circ_Right_Speed_L = 250 ;
+  111          //int Circ_Right_Speed_R = 150 ;
+  112          //int Circ_Right_Speed_Out = 150 ;
+  113          ////速度环PID 150
+  114          //int KP_SPEED_L = 100 ;
+  115          //int KP_SPEED_R = 100 ;
+  116          //int KI_SPEED_L = 19 ;
+  117          //int KI_SPEED_R = 19 ;
+  118          //int KD_SPEED_L = 0 ;
+  119          //int KD_SPEED_R = 0 ;
+  120          
+  121          int main()
+  122          {
+C251 COMPILER V5.60.0,  main                                                               22/06/25  21:30:11  PAGE 3   
 
-  123   4                  }
-  124   3                  
-  125   3                  P52 = 0;    //LED亮
-  126   3                  imu660ra_get_gyro();    //陀螺仪
-  127   3                  dl1b_get_distance();
-  128   3                
-  129   3                  state_detect(adc_value);
-  130   3                
-  131   3                  switch (state[state_lead])
-  132   3                  {
-  133   4                      case Track:
-  134   4                          Track_Action(adc_value);
-  135   4                          break;
-  136   4                      case Out:
-  137   4                          Out_Action();
-  138   4                      case Big_Circ_Left:
-  139   4                      case Small_Circ_Left:
-  140   4                          Circ_Left_Action(adc_value);
-  141   4                          break;
-  142   4                      case Big_Circ_Right:
-  143   4                      case Small_Circ_Right:
-  144   4                          Circ_Right_Action(adc_value);
-  145   4                          break;
-  146   4                      case Obstacle:
-  147   4                          Obstacle_Action();
-  148   4                          break;
-  149   4                      case Ramp:
-  150   4                          Track_Action(adc_value);
-  151   4                          break;
-  152   4                      case Stop:
-  153   4                          Stop_Action();
-  154   4      //                case Left_Right_Angle:
-  155   4      //                    Left_Right_Angle_Action(adc_value);
-  156   4      //                case Right_Right_Angle:
-  157   4      //                    Right_Right_Angle_Action(adc_value);
-  158   4                  }
-  159   3                          
-  160   3      //            lcd_showint32(0,0,adc_value[0],4);
-  161   3      //            lcd_showint32(0,1,adc_value[1],4);
-  162   3      //            lcd_showint32(0,2,adc_value[3],4);
-  163   3      //            lcd_showint32(0,3,adc_value[4],4);
-  164   3                  
-  165   3      //            lcd_showint16(0,5,imu660ra_gyro_z);
-  166   3      //            lcd_showfloat(0,6,error,1,6);
-  167   3                  
-  168   3      //            lcd_showint32(0,4,adc_value[2],4);
-  169   3      //            lcd_showint32(0,5,Flag_Circ,4);
-  170   3      //            lcd_showint32(0,6,Sum_Distance,4);
-  171   3      //            lcd_showint32(0,7,(int)state_lead,4);
-  172   3      //            lcd_showint32(0,8,(int)dl1b_distance_mm,4);
-  173   3      
-  174   3                  TIM1_Flag = 0;
-  175   3                  P52 = 1;
-  176   3              }
-  177   2          }
-  178   1      }
+  123   1          board_init();
+  124   1          pit_timer_ms(TIM_1, 5);
+  125   1          printf("pit init\r\n");
+  126   1          pit_timer_ms(TIM_4, 5);
+  127   1          NVIC_SetPriority(TIMER1_IRQn, 2);
+  128   1          NVIC_SetPriority(UART4_IRQn, 3);
+  129   1          InitPID();
+  130   1          EnableGlobalIRQ(); // 开启总中断
+  131   1          printf("all init\r\n");
+  132   1          printf("motor pid set value\r\n");
+  133   1        
+  134   1      //    pwm_duty(PWMA_CH4P_P66, 3000 );   //      引脚校正
+  135   1      //    pwm_duty(PWMA_CH1P_P60, 3000 );   //右负
+  136   1      //    pwm_duty(PWMA_CH3P_P64, 3000 );   //左正
+  137   1      //    pwm_duty(PWMA_CH2P_P62, 3000 ); 
+  138   1        
+  139   1      //    motor_L_pid.SetValue = 0 ;
+  140   1      //    motor_R_pid.SetValue = 0 ;
+  141   1          
+  142   1      //    delay_ms(7000);
+  143   1          start_0 = 1;
+  144   1          
+  145   1          while (1)     //正常循迹
+  146   1          {
+  147   2              if (TIM1_Flag)
+  148   2              {
+  149   3                  uart_delay++;
+  150   3                  if (uart_delay > 4)
+  151   3                  {
+  152   4                      uart_delay = 0;
+  153   4                    
+  154   4      //                printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
+  155   4      //                                          adc_value[3], adc_value[4]);
+  156   4                    
+  157   4      //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
+  158   4      //                                          motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
+  159   4                    
+  160   4                  }
+  161   3                  
+  162   3                  P52 = 0;    //LED亮
+  163   3                  imu660ra_get_gyro();    //陀螺仪
+  164   3                  dl1b_get_distance();
+  165   3                
+  166   3                  state_detect(adc_value);
+  167   3                
+  168   3                  switch (state[state_lead])
+  169   3                  {
+  170   4                      case Track:
+  171   4                          Track_Action(adc_value);
+  172   4                          break;
+  173   4                      case Out:
+  174   4                          Out_Action();
+  175   4                      case Big_Circ_Left:
+  176   4                      case Small_Circ_Left:
+  177   4                          Circ_Left_Action(adc_value);
+  178   4                          break;
+  179   4                      case Big_Circ_Right:
+  180   4                      case Small_Circ_Right:
+  181   4                          Circ_Right_Action(adc_value);
+  182   4                          break;
+  183   4                      case Obstacle:
+  184   4                          Obstacle_Action();
+  185   4                          break;
+  186   4                      case Ramp:
+  187   4                          Track_Action(adc_value);
+  188   4                          break;
+C251 COMPILER V5.60.0,  main                                                               22/06/25  21:30:11  PAGE 4   
+
+  189   4                      case Stop:
+  190   4                          Stop_Action();
+  191   4      //                case Left_Right_Angle:
+  192   4      //                    Left_Right_Angle_Action(adc_value);
+  193   4      //                case Right_Right_Angle:
+  194   4      //                    Right_Right_Angle_Action(adc_value);
+  195   4                  }
+  196   3                          
+  197   3      //            lcd_showint32(0,0,adc_value[0],4);
+  198   3      //            lcd_showint32(0,1,adc_value[1],4);
+  199   3      //            lcd_showint32(0,2,adc_value[3],4);
+  200   3      //            lcd_showint32(0,3,adc_value[4],4);
+  201   3                  
+  202   3      //            lcd_showint16(0,5,imu660ra_gyro_z);
+  203   3      //            lcd_showfloat(0,6,error,1,6);
+  204   3                  
+  205   3      //            lcd_showint32(0,4,adc_value[2],4);
+  206   3      //            lcd_showint32(0,5,Flag_Circ,4);
+  207   3      //            lcd_showint32(0,6,Sum_Distance,4);
+  208   3      //            lcd_showint32(0,7,(int)state_lead,4);
+  209   3      //            lcd_showint32(0,8,(int)dl1b_distance_mm,4);
+  210   3      
+  211   3                  TIM1_Flag = 0;
+  212   3                  P52 = 1;
+  213   3              }
+  214   2          }
+  215   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       293     ------
+  code size            =       250     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-C251 COMPILER V5.60.0,  main                                                               22/06/25  17:56:47  PAGE 4   
-
   edata size           =       169     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
@@ -213,7 +250,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       351     ------
+  hconst size          =       337     ------
 End of Module Information.
 
 
