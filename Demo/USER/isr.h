@@ -9,4 +9,6 @@ extern float L[5],R[5];
 extern int T1_count;
 extern int T4_count;
 extern int start_0;
+extern int sum_menu_flag;
+extern int menu_flag;
 #endif

@@ -56,6 +56,7 @@
 #include "dir.h"
 #include "action.h"
 #include "sys.h"
+#include "menu.h"
 //#include "count.h"
 //extern PID motor_L_pid={0};
 //extern PID motor_R_pid={0};

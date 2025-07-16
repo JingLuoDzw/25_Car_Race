@@ -103,7 +103,7 @@ void INT0_Isr() interrupt 0
 void INT1_Isr() interrupt 2
 {
 
-
+	
 
 }
 void INT2_Isr() interrupt 10
@@ -126,16 +126,50 @@ void TM0_Isr() interrupt 1
 
 }
 
+int sum_menu_flag = 0;
+int menu_flag = 0;
 void TM1_Isr() interrupt 3
 {
 
-			if(!TIM1_Flag)
+	if(!TIM1_Flag)
 	{
-
 	TIM1_Flag=1;
 	}
-
-
+	
+	if(menu_flag){
+	if(!P71 && P71_Last){
+//		place_index_1 += 1;
+//		if(place_index_1 >= 20){
+//			place_index_1 = 0;
+			place_index -= 1;
+//		}
+	}
+	else if(!P73 && P73_Last){
+//		place_index_2 += 1;
+//		if(place_index_2 >= 20){
+//			place_index_2 = 0;
+			place_index += 1;
+//		}
+	}
+	else if(!P70){
+//		value_index_1 += 1;
+//		if(value_index_1 >= 20){
+//			value_index_1 = 0;
+			value_index += 1;
+//		}
+	}
+	else if(!P72){
+//		value_index_2 += 1;
+//		if(value_index_2 >= 20){
+//			value_index_2 = 0;
+			value_index -= 1;
+//		}
+	}
+	P71_Last = P71;
+	P73_Last = P73;
+//	P70_Last = P70;
+//	P72_Last = P72;
+	}
 }
 
 void TM2_Isr() interrupt 12
@@ -155,6 +189,7 @@ void TM4_Isr() interrupt 20
 		{
 	  Speed_Loop();
 		}
+//    error = error_get(adc_value, flag_turn);
 //		Dir_Loop(error, speed_goal, flag_turn);
 
 	  TIM4_CLEAR_FLAG;

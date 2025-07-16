@@ -1,11 +1,12 @@
 #include "headfile.h"
-int state_lead = 0;
+int16 state_lead = 0;
 int Flag_Right_Angle = 0;	//直角不同阶段的指针
 int Flag_Circ = 0;				//圆环不同阶段的指针
 int Flag_Obstacle = 0;		//路障	
 int flag_turn = 0;				//直路元素的指针
 int Flag_Out = 0;					//出库元素的指针
-float Sum_Distance = 0, Sum_Angle = 0;
+float Sum_Distance = 0;
+int Sum_Angle = 0;
 //char state[30] = {Track, Obstacle, Track, Small_Circ_Left, Track, Ramp, Track, Track, Stop};	//2024赛道元素顺序
 //char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//赛道元素顺序
 
@@ -64,7 +65,7 @@ int Track_Jump(int *temp)	//只要检测到元素就返回1
 				case Small_Circ_Left:
 						if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[3] > Circ_Jump_Left[2] && temp[4] > Circ_Jump_Left[3])
 						{
-								P67 = 1;
+//								P67 = 1;
 								Flag_Circ = 1;
 								return 1;
 						}
@@ -79,7 +80,7 @@ int Track_Jump(int *temp)	//只要检测到元素就返回1
 						break;
 				case Small_Circ_Right:
 		//      if((temp[0]+temp[3]>3000)&&(temp[1]+temp[2]>2000))
-						if (temp[0] > Circ_Jump_Right[0] && temp[3] > Circ_Jump_Right[2] && temp[4] > Circ_Jump_Right[3])
+						if (temp[0] > Circ_Jump_Right[0] && temp[1] > Circ_Jump_Right[1] && temp[3] > Circ_Jump_Right[2] && temp[4] > Circ_Jump_Right[3])
 						{
 //								P67 = 1;
 								Flag_Circ = 1;

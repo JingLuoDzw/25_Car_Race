@@ -33,8 +33,8 @@ void Dir_Loop(float error, float speed_goal, int flag)
     motor_L_pid.SetValue = speed_goal - temp;
     motor_R_pid.SetValue = speed_goal + temp;
 		
-//	  motor_L_pid.SetValue = 180 ;
-//    motor_R_pid.SetValue = 180 ;
+//	  motor_L_pid.SetValue = 250 ;
+//    motor_R_pid.SetValue = 250 ;
 		
 //		if(error < -0.4)
 //		{

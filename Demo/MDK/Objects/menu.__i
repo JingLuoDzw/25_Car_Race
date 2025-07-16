@@ -1,0 +1,1 @@
+"..\CODE\menu.c" XSMALL INTR2 WARNINGLEVEL (3) BROWSE INCDIR(..\CODE;..\USER;..\..\lib\zf_app;..\..\lib\zf_base;..\..\lib\zf_bsp) DEBUG PRINT(.\Listings\menu.lst) TABS (2) OBJECT(.\Objects\menu.obj)

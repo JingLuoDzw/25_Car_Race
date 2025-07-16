@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 1   
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE state
@@ -10,681 +10,683 @@ COMPILER INVOKED BY: D:\APP\Rubbish\c251\C251\BIN\C251.EXE ..\CODE\state.c XSMAL
 stmt  level    source
 
     1          #include "headfile.h"
-    2          int state_lead = 0;
+    2          int16 state_lead = 0;
     3          int Flag_Right_Angle = 0; //Ö±½Ç²»Í¬½×¶ÎµÄÖ¸Õë
     4          int Flag_Circ = 0;        //Ô²»·²»Í¬½×¶ÎµÄÖ¸Õë
     5          int Flag_Obstacle = 0;    //Â·ÕÏ  
     6          int flag_turn = 0;        //Ö±Â·ÔªËØµÄÖ¸Õë
     7          int Flag_Out = 0;         //³ö¿âÔªËØµÄÖ¸Õë
-    8          float Sum_Distance = 0, Sum_Angle = 0;
-    9          //char state[30] = {Track, Obstacle, Track, Small_Circ_Left, Track, Ramp, Track, Track, Stop};  //2024ÈüµÀ
+    8          float Sum_Distance = 0;
+    9          int Sum_Angle = 0;
+   10          //char state[30] = {Track, Obstacle, Track, Small_Circ_Left, Track, Ramp, Track, Track, Stop};  //2024ÈüµÀ
              -ÔªËØË³Ðò
-   10          //char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop}; //ÈüµÀÔªË
+   11          //char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop}; //ÈüµÀÔªË
              -ØË³Ðò
-   11          
-   12          //char state[30] = {Track, Track, Track, Track, Track, Stop}; //ÈüµÀÔªËØË³Ðò
-   13          void state_detect(int *temp)    //×´Ì¬¼ì²â
-   14          {
-   15   1          adc_get(temp);
-   16   1          switch (state[state_lead])    //Ä¬ÈÏÖµÎª0 ½øtrack 
-   17   1          {
-   18   2              case Track:
-   19   2                  if (Track_Jump(temp))                 state_lead++;
-   20   2                  break;
-   21   2      //        case Left_Right_Angle:
-   22   2      //            if (Left_Right_Angle_Jump(&Flag_Right_Angle))     state_lead++;
-   23   2      //            break;
-   24   2      //        case Right_Right_Angle:
-   25   2      //            if (Right_Right_Angle_Jump(&Flag_Right_Angle))    state_lead++;
-   26   2      //            break;
-   27   2              case Big_Circ_Left:
-   28   2                  if (Big_Circ_Left_Jump(&Flag_Circ))   state_lead++;
-   29   2                  break;
-   30   2              case Big_Circ_Right:
-   31   2                  if (Big_Circ_Right_Jump(&Flag_Circ))  state_lead++;
-   32   2                  break;
-   33   2              case Small_Circ_Left:
-   34   2                  if (Small_Circ_Left_Jump(&Flag_Circ)) state_lead++;
-   35   2                  break;
-   36   2              case Small_Circ_Right:
-   37   2                  if (Small_Circ_Right_Jump(&Flag_Circ))state_lead++;
-   38   2                  break;
-   39   2              case Obstacle:
-   40   2                  if (Obstacle_Jump(&Flag_Obstacle))    state_lead++;
-   41   2                  break;
-   42   2              case Ramp:
-   43   2                  if (Ramp_Jump())                      state_lead++;
-   44   2                  break;
-   45   2              case Out:
-   46   2                  if (Out_Jump())                       state_lead++;
-   47   2                  break;
-   48   2              default:
-   49   2                  break;
-   50   2          }
-   51   1      }
-   52          int Track_Jump(int *temp) //Ö»Òª¼ì²âµ½ÔªËØ¾Í·µ»Ø1
-   53          {
-   54   1          switch (state[state_lead + 1])  //¼ì²âµÚ¶þ¸öÔªËØ
-   55   1          {
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 2   
+   12          
+   13          //char state[30] = {Track, Track, Track, Track, Track, Stop}; //ÈüµÀÔªËØË³Ðò
+   14          void state_detect(int *temp)    //×´Ì¬¼ì²â
+   15          {
+   16   1          adc_get(temp);
+   17   1          switch (state[state_lead])    //Ä¬ÈÏÖµÎª0 ½øtrack 
+   18   1          {
+   19   2              case Track:
+   20   2                  if (Track_Jump(temp))                 state_lead++;
+   21   2                  break;
+   22   2      //        case Left_Right_Angle:
+   23   2      //            if (Left_Right_Angle_Jump(&Flag_Right_Angle))     state_lead++;
+   24   2      //            break;
+   25   2      //        case Right_Right_Angle:
+   26   2      //            if (Right_Right_Angle_Jump(&Flag_Right_Angle))    state_lead++;
+   27   2      //            break;
+   28   2              case Big_Circ_Left:
+   29   2                  if (Big_Circ_Left_Jump(&Flag_Circ))   state_lead++;
+   30   2                  break;
+   31   2              case Big_Circ_Right:
+   32   2                  if (Big_Circ_Right_Jump(&Flag_Circ))  state_lead++;
+   33   2                  break;
+   34   2              case Small_Circ_Left:
+   35   2                  if (Small_Circ_Left_Jump(&Flag_Circ)) state_lead++;
+   36   2                  break;
+   37   2              case Small_Circ_Right:
+   38   2                  if (Small_Circ_Right_Jump(&Flag_Circ))state_lead++;
+   39   2                  break;
+   40   2              case Obstacle:
+   41   2                  if (Obstacle_Jump(&Flag_Obstacle))    state_lead++;
+   42   2                  break;
+   43   2              case Ramp:
+   44   2                  if (Ramp_Jump())                      state_lead++;
+   45   2                  break;
+   46   2              case Out:
+   47   2                  if (Out_Jump())                       state_lead++;
+   48   2                  break;
+   49   2              default:
+   50   2                  break;
+   51   2          }
+   52   1      }
+   53          int Track_Jump(int *temp) //Ö»Òª¼ì²âµ½ÔªËØ¾Í·µ»Ø1
+   54          {
+   55   1          switch (state[state_lead + 1])  //¼ì²âµÚ¶þ¸öÔªËØ
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 2   
 
-   56   2              case Big_Circ_Left:                           //¼ì²âµ½Ô²»·¾ÍÖÃÎ»£¬È»ºó·µ»Ø
-   57   2                  if (temp[0] > 1200 && temp[3] > 1000)
-   58   2                  {
-   59   3      //                P67 = 1;
-   60   3                      Flag_Circ = 1;
-   61   3                      return 1;
-   62   3                  }
-   63   2                  break;
-   64   2              case Small_Circ_Left:
-   65   2                  if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[3] > Circ_Jump_Left[2] && te
+   56   1          {
+   57   2              case Big_Circ_Left:                           //¼ì²âµ½Ô²»·¾ÍÖÃÎ»£¬È»ºó·µ»Ø
+   58   2                  if (temp[0] > 1200 && temp[3] > 1000)
+   59   2                  {
+   60   3      //                P67 = 1;
+   61   3                      Flag_Circ = 1;
+   62   3                      return 1;
+   63   3                  }
+   64   2                  break;
+   65   2              case Small_Circ_Left:
+   66   2                  if (temp[0] > Circ_Jump_Left[0] && temp[1] > Circ_Jump_Left[1] && temp[3] > Circ_Jump_Left[2] && te
              -mp[4] > Circ_Jump_Left[3])
-   66   2                  {
-   67   3                      P67 = 1;
-   68   3                      Flag_Circ = 1;
-   69   3                      return 1;
-   70   3                  }
-   71   2                  break;
-   72   2              case Big_Circ_Right:
-   73   2                  if (temp[0] > 1000 && temp[4] > 1200 && temp[1] < 500 && temp[3] < 500)
-   74   2                  {
-   75   3      //                P67 = 1;
-   76   3                      Flag_Circ = 1;
-   77   3                      return 1;
-   78   3                  }
-   79   2                  break;
-   80   2              case Small_Circ_Right:
-   81   2          //      if((temp[0]+temp[3]>3000)&&(temp[1]+temp[2]>2000))
-   82   2                  if (temp[0] > Circ_Jump_Right[0] && temp[3] > Circ_Jump_Right[2] && temp[4] > Circ_Jump_Right[3])
-   83   2                  {
-   84   3      //                P67 = 1;
-   85   3                      Flag_Circ = 1;
-   86   3                      return 1;
-   87   3                  }
-   88   2                  break;
-   89   2              case Obstacle:
-   90   2                  if (dl1b_distance_mm < 700)
-   91   2                  {
-   92   3      //                P67 = 1;
-   93   3                      Flag_Obstacle = 1;
-   94   3                      return 1;
-   95   3                  }
-   96   2                  break;
-   97   2              case Ramp:
-   98   2                  if (temp[0] > 1700)
-   99   2                  {
-  100   3      //                P67 = 1;
-  101   3                      return 1;
-  102   3                  }
-  103   2                  break;
-  104   2              case Stop:
-  105   2                  return 1;
-  106   2                  break;
-  107   2      //        case Garage_In:
-  108   2      //            if (P26 == 0)
-  109   2      //            {
-  110   2      //                return 1;
-  111   2      //            }
-  112   2      //            break;
-  113   2              case Out:
-  114   2                  return 1;
-  115   2                  break;
-  116   2              default:
-  117   2                  break;
-  118   2          }
-  119   1          
-  120   1          return 0;     //Ã»ÓÐ¼ì²âµ½ÔªËØ£¬·µ»Ø0
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 3   
+   67   2                  {
+   68   3      //                P67 = 1;
+   69   3                      Flag_Circ = 1;
+   70   3                      return 1;
+   71   3                  }
+   72   2                  break;
+   73   2              case Big_Circ_Right:
+   74   2                  if (temp[0] > 1000 && temp[4] > 1200 && temp[1] < 500 && temp[3] < 500)
+   75   2                  {
+   76   3      //                P67 = 1;
+   77   3                      Flag_Circ = 1;
+   78   3                      return 1;
+   79   3                  }
+   80   2                  break;
+   81   2              case Small_Circ_Right:
+   82   2          //      if((temp[0]+temp[3]>3000)&&(temp[1]+temp[2]>2000))
+   83   2                  if (temp[0] > Circ_Jump_Right[0] && temp[1] > Circ_Jump_Right[1] && temp[3] > Circ_Jump_Right[2] &&
+             - temp[4] > Circ_Jump_Right[3])
+   84   2                  {
+   85   3      //                P67 = 1;
+   86   3                      Flag_Circ = 1;
+   87   3                      return 1;
+   88   3                  }
+   89   2                  break;
+   90   2              case Obstacle:
+   91   2                  if (dl1b_distance_mm < 700)
+   92   2                  {
+   93   3      //                P67 = 1;
+   94   3                      Flag_Obstacle = 1;
+   95   3                      return 1;
+   96   3                  }
+   97   2                  break;
+   98   2              case Ramp:
+   99   2                  if (temp[0] > 1700)
+  100   2                  {
+  101   3      //                P67 = 1;
+  102   3                      return 1;
+  103   3                  }
+  104   2                  break;
+  105   2              case Stop:
+  106   2                  return 1;
+  107   2                  break;
+  108   2      //        case Garage_In:
+  109   2      //            if (P26 == 0)
+  110   2      //            {
+  111   2      //                return 1;
+  112   2      //            }
+  113   2      //            break;
+  114   2              case Out:
+  115   2                  return 1;
+  116   2                  break;
+  117   2              default:
+  118   2                  break;
+  119   2          }
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 3   
 
-  121   1      }
-  122          
-  123          int Out_Jump()
-  124          {
-  125   1      //    switch ((*Flag))
-  126   1      //    {
-  127   1      //    case 1:
-  128   1              Sum_Angle += Single_Angle_Get();
-  129   1              if(Sum_Angle < Out_Jump_Angle)
-  130   1              {
-  131   2      //          P67 = 1;
-  132   2                Sum_Angle = 0;
-  133   2      //          state_lead=10;
-  134   2      //          (*Flag) = 0;
-  135   2                return 1;
-  136   2              }
-  137   1      //        break;
-  138   1      //    default:
-  139   1      //        break;
-  140   1      //    }
-  141   1          return 0;
-  142   1      }
-  143          
-  144          int Small_Circ_Left_Jump(int *Flag)
-  145          {
-  146   1          switch ((*Flag))
-  147   1          {
-  148   2          case 1:
-  149   2              
-  150   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  151   2              if (Sum_Distance > Circ_Left_Dis_Start)
-  152   2              {   
-  153   3                  P67 = 0;
-  154   3                  Sum_Distance = 0;
-  155   3                  (*Flag)++;
-  156   3      //            state_lead=10;
-  157   3              }
-  158   2              break;
-  159   2          case 2:
-  160   2              
-  161   2              Sum_Angle += Single_Angle_Get();
-  162   2              if (Sum_Angle > Circ_Left_Angle)
-  163   2              {
-  164   3      //            P67 = 0;
-  165   3                  Sum_Angle = 0;
-  166   3                  (*Flag)++;
-  167   3      //            state_lead=8;
-  168   3              }
-  169   2              break;
-  170   2          case 3:
-  171   2      //        P67 = 1;
-  172   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  173   2              if (Sum_Distance > Circ_Left_Dis_Final)
-  174   2              {
-  175   3      //            P67 = 1;
-  176   3                  Sum_Distance = 0;
-  177   3                  (*Flag) = 0;
-  178   3      //            state_lead=8;
-  179   3                  return 1;
-  180   3              }
-  181   2              break;
-  182   2          default:
-  183   2              break;
-  184   2          }
-  185   1          return 0;
-  186   1      
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 4   
+  120   1          
+  121   1          return 0;     //Ã»ÓÐ¼ì²âµ½ÔªËØ£¬·µ»Ø0
+  122   1      }
+  123          
+  124          int Out_Jump()
+  125          {
+  126   1      //    switch ((*Flag))
+  127   1      //    {
+  128   1      //    case 1:
+  129   1              Sum_Angle += Single_Angle_Get();
+  130   1              if(Sum_Angle < Out_Jump_Angle)
+  131   1              {
+  132   2      //          P67 = 1;
+  133   2                Sum_Angle = 0;
+  134   2      //          state_lead=10;
+  135   2      //          (*Flag) = 0;
+  136   2                return 1;
+  137   2              }
+  138   1      //        break;
+  139   1      //    default:
+  140   1      //        break;
+  141   1      //    }
+  142   1          return 0;
+  143   1      }
+  144          
+  145          int Small_Circ_Left_Jump(int *Flag)
+  146          {
+  147   1          switch ((*Flag))
+  148   1          {
+  149   2          case 1:
+  150   2              
+  151   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  152   2              if (Sum_Distance > Circ_Left_Dis_Start)
+  153   2              {   
+  154   3                  P67 = 0;
+  155   3                  Sum_Distance = 0;
+  156   3                  (*Flag)++;
+  157   3      //            state_lead=10;
+  158   3              }
+  159   2              break;
+  160   2          case 2:
+  161   2              
+  162   2              Sum_Angle += Single_Angle_Get();
+  163   2              if (Sum_Angle > Circ_Left_Angle)
+  164   2              {
+  165   3      //            P67 = 0;
+  166   3                  Sum_Angle = 0;
+  167   3                  (*Flag)++;
+  168   3      //            state_lead=8;
+  169   3              }
+  170   2              break;
+  171   2          case 3:
+  172   2      //        P67 = 1;
+  173   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  174   2              if (Sum_Distance > Circ_Left_Dis_Final)
+  175   2              {
+  176   3      //            P67 = 1;
+  177   3                  Sum_Distance = 0;
+  178   3                  (*Flag) = 0;
+  179   3      //            state_lead=8;
+  180   3                  return 1;
+  181   3              }
+  182   2              break;
+  183   2          default:
+  184   2              break;
+  185   2          }
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 4   
 
-  187   1        
-  188   1      //    switch ((*Flag))
-  189   1      //    {
-  190   1      //    case 1:
-  191   1      //        
-  192   1      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  193   1      //        if (Sum_Distance > 50)
-  194   1      //        {   
-  195   1      ////            P67 = 0;
-  196   1      //            Sum_Distance = 0;
-  197   1      //            (*Flag)++;
-  198   1      ////            state_lead=8;
-  199   1      //        }
-  200   1      //        break;
-  201   1      //    case 2:
-  202   1      //        Sum_Angle += Single_Angle_Get();
-  203   1      //        if (Sum_Angle > 60)
-  204   1      //        { 
-  205   1      ////            P67 = 1;
-  206   1      //            Sum_Angle = 0;
-  207   1      //            (*Flag)++;
-  208   1      ////            state_lead=8;
-  209   1      //        }
-  210   1      //        break;
-  211   1      //    case 3:
-  212   1      //        
-  213   1      //        Sum_Angle += Single_Angle_Get();
-  214   1      //        if (Sum_Angle > 247)
-  215   1      //        {
-  216   1      //            P67 = 0;
-  217   1      //            Sum_Angle = 0;
-  218   1      //            (*Flag)++;
-  219   1      ////            state_lead=8;
-  220   1      //        }
-  221   1      //        break;
-  222   1      //    case 4:
-  223   1      ////        P67 = 1;
-  224   1      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  225   1      //        if (Sum_Distance > 80)
-  226   1      //        {
-  227   1      ////            P67 = 1;
-  228   1      //            Sum_Distance = 0;
-  229   1      //            (*Flag) = 0;
-  230   1      //            state_lead=8;
-  231   1      //            return 1;
-  232   1      //        }
-  233   1      //        break;
-  234   1      //    default:
-  235   1      //        break;
-  236   1      //    }
-  237   1      //    return 0;
-  238   1      }
-  239          
-  240          int Small_Circ_Right_Jump(int *Flag)
-  241          {
-  242   1          switch ((*Flag))
-  243   1          {
-  244   2          case 1:
-  245   2      //      printf("00000000000000000000\r\n");
-  246   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  247   2              if (Sum_Distance > Circ_Right_Dis_Start)
-  248   2              {
-  249   3                  Sum_Distance = 0;
-  250   3                  (*Flag)++;
-  251   3              }
-  252   2      
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 5   
+  186   1          return 0;
+  187   1      
+  188   1        
+  189   1      //    switch ((*Flag))
+  190   1      //    {
+  191   1      //    case 1:
+  192   1      //        
+  193   1      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  194   1      //        if (Sum_Distance > 50)
+  195   1      //        {   
+  196   1      ////            P67 = 0;
+  197   1      //            Sum_Distance = 0;
+  198   1      //            (*Flag)++;
+  199   1      ////            state_lead=8;
+  200   1      //        }
+  201   1      //        break;
+  202   1      //    case 2:
+  203   1      //        Sum_Angle += Single_Angle_Get();
+  204   1      //        if (Sum_Angle > 60)
+  205   1      //        { 
+  206   1      ////            P67 = 1;
+  207   1      //            Sum_Angle = 0;
+  208   1      //            (*Flag)++;
+  209   1      ////            state_lead=8;
+  210   1      //        }
+  211   1      //        break;
+  212   1      //    case 3:
+  213   1      //        
+  214   1      //        Sum_Angle += Single_Angle_Get();
+  215   1      //        if (Sum_Angle > 247)
+  216   1      //        {
+  217   1      //            P67 = 0;
+  218   1      //            Sum_Angle = 0;
+  219   1      //            (*Flag)++;
+  220   1      ////            state_lead=8;
+  221   1      //        }
+  222   1      //        break;
+  223   1      //    case 4:
+  224   1      ////        P67 = 1;
+  225   1      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  226   1      //        if (Sum_Distance > 80)
+  227   1      //        {
+  228   1      ////            P67 = 1;
+  229   1      //            Sum_Distance = 0;
+  230   1      //            (*Flag) = 0;
+  231   1      //            state_lead=8;
+  232   1      //            return 1;
+  233   1      //        }
+  234   1      //        break;
+  235   1      //    default:
+  236   1      //        break;
+  237   1      //    }
+  238   1      //    return 0;
+  239   1      }
+  240          
+  241          int Small_Circ_Right_Jump(int *Flag)
+  242          {
+  243   1          switch ((*Flag))
+  244   1          {
+  245   2          case 1:
+  246   2      //      printf("00000000000000000000\r\n");
+  247   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  248   2              if (Sum_Distance > Circ_Right_Dis_Start)
+  249   2              {
+  250   3                  Sum_Distance = 0;
+  251   3                  (*Flag)++;
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 5   
 
-  253   2              break;
-  254   2          case 2:
-  255   2      
-  256   2              Sum_Angle += Single_Angle_Get();
-  257   2      //      printf("%f\r\n",Sum_Angle);
-  258   2              if (Sum_Angle < Circ_Right_Angle)
-  259   2              {
-  260   3                  Sum_Angle = 0;
-  261   3                  (*Flag)++;
-  262   3              }
-  263   2              break;
-  264   2      //    case 3:
-  265   2      //        Sum_Angle += Single_Angle_Get();
-  266   2      //        if (Sum_Angle < -290)
-  267   2      //        {
-  268   2      //            Sum_Angle = 0;
-  269   2      //            (*Flag)++;
-  270   2      //        }
-  271   2      //        break;
-  272   2          case 3:
-  273   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  274   2              if (Sum_Distance > Circ_Right_Dis_Final)
-  275   2              {
-  276   3                  Sum_Distance = 0;
-  277   3                  (*Flag) = 0;
-  278   3                  return 1;
-  279   3              }
-  280   2              break;
-  281   2          default:
-  282   2              break;
-  283   2          }
-  284   1      //  printf("%d\r\n",(*Flag));
-  285   1          return 0;
-  286   1      }
-  287          
+  252   3              }
+  253   2      
+  254   2              break;
+  255   2          case 2:
+  256   2      
+  257   2              Sum_Angle += Single_Angle_Get();
+  258   2      //      printf("%f\r\n",Sum_Angle);
+  259   2              if (Sum_Angle < Circ_Right_Angle)
+  260   2              {
+  261   3                  Sum_Angle = 0;
+  262   3                  (*Flag)++;
+  263   3              }
+  264   2              break;
+  265   2      //    case 3:
+  266   2      //        Sum_Angle += Single_Angle_Get();
+  267   2      //        if (Sum_Angle < -290)
+  268   2      //        {
+  269   2      //            Sum_Angle = 0;
+  270   2      //            (*Flag)++;
+  271   2      //        }
+  272   2      //        break;
+  273   2          case 3:
+  274   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  275   2              if (Sum_Distance > Circ_Right_Dis_Final)
+  276   2              {
+  277   3                  Sum_Distance = 0;
+  278   3                  (*Flag) = 0;
+  279   3                  return 1;
+  280   3              }
+  281   2              break;
+  282   2          default:
+  283   2              break;
+  284   2          }
+  285   1      //  printf("%d\r\n",(*Flag));
+  286   1          return 0;
+  287   1      }
   288          
-  289          int Big_Circ_Left_Jump(int *Flag)   //×ßÍêËùÓÐ½×¶Î²Å»á·µ»Ø1£¬²Å»á¼ÌÐø¼ì²âÏÂÒ»¸öÔªËØ
-  290          {
-  291   1          switch (*Flag)
-  292   1          {
-  293   2          case 1:
-  294   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  295   2              if (Sum_Distance > 50)
-  296   2              {
-  297   3      
-  298   3                  Sum_Distance = 0;
-  299   3                  (*Flag)++;
-  300   3              }
-  301   2              break;
-  302   2          case 2:
-  303   2              Sum_Angle += Single_Angle_Get();
-  304   2              if (Sum_Angle > 35)
-  305   2              {
-  306   3                  Sum_Angle = 0;
-  307   3                  (*Flag)++;
-  308   3              }
-  309   2              break;
-  310   2          case 3:
-  311   2              Sum_Angle += Single_Angle_Get();
-  312   2              if (Sum_Angle > 290)
-  313   2              {
-  314   3                  Sum_Angle = 0;
-  315   3                  (*Flag)++;
-  316   3              }
-  317   2              break;
-  318   2          case 4:
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 6   
+  289          
+  290          int Big_Circ_Left_Jump(int *Flag)   //×ßÍêËùÓÐ½×¶Î²Å»á·µ»Ø1£¬²Å»á¼ÌÐø¼ì²âÏÂÒ»¸öÔªËØ
+  291          {
+  292   1          switch (*Flag)
+  293   1          {
+  294   2          case 1:
+  295   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  296   2              if (Sum_Distance > 50)
+  297   2              {
+  298   3      
+  299   3                  Sum_Distance = 0;
+  300   3                  (*Flag)++;
+  301   3              }
+  302   2              break;
+  303   2          case 2:
+  304   2              Sum_Angle += Single_Angle_Get();
+  305   2              if (Sum_Angle > 35)
+  306   2              {
+  307   3                  Sum_Angle = 0;
+  308   3                  (*Flag)++;
+  309   3              }
+  310   2              break;
+  311   2          case 3:
+  312   2              Sum_Angle += Single_Angle_Get();
+  313   2              if (Sum_Angle > 290)
+  314   2              {
+  315   3                  Sum_Angle = 0;
+  316   3                  (*Flag)++;
+  317   3              }
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 6   
 
-  319   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  320   2              if (Sum_Distance > 60)
-  321   2              {
-  322   3                  Sum_Distance = 0;
-  323   3                  (*Flag) = 0;
-  324   3                  return 1;
-  325   3              }
-  326   2              break;
-  327   2          default:
-  328   2              break;
-  329   2          }
-  330   1          return 0;
-  331   1      }
-  332          
-  333          int Big_Circ_Right_Jump(int *Flag)
-  334          {
-  335   1          switch (*Flag)
-  336   1          {
-  337   2          case 1:
-  338   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  339   2              if (Sum_Distance > 50)
-  340   2              {
-  341   3                  Sum_Distance = 0;
-  342   3                  (*Flag)++;
-  343   3              }
-  344   2      //        state_lead = 12;
-  345   2              break;
-  346   2          case 2:
-  347   2              Sum_Angle += Single_Angle_Get();
-  348   2              if (Sum_Angle < -35)
-  349   2              {
-  350   3                  Sum_Angle = 0;
-  351   3                  (*Flag)++;
-  352   3              }
-  353   2              break;
-  354   2          case 3:
-  355   2              Sum_Angle += Single_Angle_Get();
-  356   2              if (Sum_Angle < -290)//275
-  357   2              {
-  358   3                  Sum_Angle = 0;
-  359   3                  (*Flag)++;
-  360   3      //          state_lead=8;
-  361   3              }
-  362   2              break;
-  363   2          case 4:
-  364   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  365   2              if (Sum_Distance > 60)
-  366   2              {
-  367   3      //            P67 = 0;
-  368   3                  Sum_Distance = 0;
-  369   3                  (*Flag) = 0;
-  370   3                  return 1;
-  371   3              }
-  372   2              break;
-  373   2          default:
-  374   2              break;
-  375   2          }
-  376   1          return 0;
-  377   1      }
-  378          
+  318   2              break;
+  319   2          case 4:
+  320   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  321   2              if (Sum_Distance > 60)
+  322   2              {
+  323   3                  Sum_Distance = 0;
+  324   3                  (*Flag) = 0;
+  325   3                  return 1;
+  326   3              }
+  327   2              break;
+  328   2          default:
+  329   2              break;
+  330   2          }
+  331   1          return 0;
+  332   1      }
+  333          
+  334          int Big_Circ_Right_Jump(int *Flag)
+  335          {
+  336   1          switch (*Flag)
+  337   1          {
+  338   2          case 1:
+  339   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  340   2              if (Sum_Distance > 50)
+  341   2              {
+  342   3                  Sum_Distance = 0;
+  343   3                  (*Flag)++;
+  344   3              }
+  345   2      //        state_lead = 12;
+  346   2              break;
+  347   2          case 2:
+  348   2              Sum_Angle += Single_Angle_Get();
+  349   2              if (Sum_Angle < -35)
+  350   2              {
+  351   3                  Sum_Angle = 0;
+  352   3                  (*Flag)++;
+  353   3              }
+  354   2              break;
+  355   2          case 3:
+  356   2              Sum_Angle += Single_Angle_Get();
+  357   2              if (Sum_Angle < -290)//275
+  358   2              {
+  359   3                  Sum_Angle = 0;
+  360   3                  (*Flag)++;
+  361   3      //          state_lead=8;
+  362   3              }
+  363   2              break;
+  364   2          case 4:
+  365   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  366   2              if (Sum_Distance > 60)
+  367   2              {
+  368   3      //            P67 = 0;
+  369   3                  Sum_Distance = 0;
+  370   3                  (*Flag) = 0;
+  371   3                  return 1;
+  372   3              }
+  373   2              break;
+  374   2          default:
+  375   2              break;
+  376   2          }
+  377   1          return 0;
+  378   1      }
   379          
   380          
-  381          int Obstacle_Jump(int *Flag)
-  382          {
-  383   1          switch (*Flag)
-  384   1          {
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 7   
+  381          
+  382          int Obstacle_Jump(int *Flag)
+  383          {
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 7   
 
-  385   2          case 1:
-  386   2              Sum_Angle += Single_Angle_Get();
-  387   2              if (Sum_Angle > 30)
-  388   2              {
-  389   3                  Sum_Angle = 0;
-  390   3                  (*Flag)++;
-  391   3              }
-  392   2              break;
-  393   2          case 2:
-  394   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  395   2      //      printf("%f\r\n",Sum_Distance);
-  396   2              if (Sum_Distance > 30)
-  397   2              {
-  398   3                  Sum_Distance = 0;
-  399   3                  (*Flag)++;
-  400   3      
-  401   3              }
-  402   2              break;
-  403   2          case 3:
-  404   2              Sum_Angle += Single_Angle_Get();
-  405   2              if (Sum_Angle < -30)
-  406   2              {
-  407   3                  P32 = 1;
-  408   3                  Sum_Angle = 0;
-  409   3                  (*Flag)++;
-  410   3              }
-  411   2              break;
-  412   2          case 4:
-  413   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  414   2      //      printf("%f\r\n",Sum_Distance);
-  415   2              if (Sum_Distance > 30)
-  416   2              {
-  417   3                  Sum_Distance = 0;
-  418   3                  (*Flag)++;
-  419   3              }
-  420   2              break;
-  421   2          case 5:
-  422   2              Sum_Angle += Single_Angle_Get();
-  423   2              if (Sum_Angle < -20)
-  424   2              {
-  425   3                  Sum_Angle = 0;
-  426   3                  (*Flag)++;
-  427   3              }
-  428   2              break;
-  429   2          case 6:
-  430   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  431   2              if (Sum_Distance > 30)
-  432   2              {
-  433   3                  Sum_Distance = 0;
-  434   3                  (*Flag) = 0;
-  435   3                  return 1 ;
-  436   3              }
-  437   2              break;
-  438   2          default:
-  439   2              break;
-  440   2          }
-  441   1          return 0;
-  442   1      }
-  443          
+  384   1          switch (*Flag)
+  385   1          {
+  386   2          case 1:
+  387   2              Sum_Angle += Single_Angle_Get();
+  388   2              if (Sum_Angle > 30)
+  389   2              {
+  390   3                  Sum_Angle = 0;
+  391   3                  (*Flag)++;
+  392   3              }
+  393   2              break;
+  394   2          case 2:
+  395   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  396   2      //      printf("%f\r\n",Sum_Distance);
+  397   2              if (Sum_Distance > 30)
+  398   2              {
+  399   3                  Sum_Distance = 0;
+  400   3                  (*Flag)++;
+  401   3      
+  402   3              }
+  403   2              break;
+  404   2          case 3:
+  405   2              Sum_Angle += Single_Angle_Get();
+  406   2              if (Sum_Angle < -30)
+  407   2              {
+  408   3                  P32 = 1;
+  409   3                  Sum_Angle = 0;
+  410   3                  (*Flag)++;
+  411   3              }
+  412   2              break;
+  413   2          case 4:
+  414   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  415   2      //      printf("%f\r\n",Sum_Distance);
+  416   2              if (Sum_Distance > 30)
+  417   2              {
+  418   3                  Sum_Distance = 0;
+  419   3                  (*Flag)++;
+  420   3              }
+  421   2              break;
+  422   2          case 5:
+  423   2              Sum_Angle += Single_Angle_Get();
+  424   2              if (Sum_Angle < -20)
+  425   2              {
+  426   3                  Sum_Angle = 0;
+  427   3                  (*Flag)++;
+  428   3              }
+  429   2              break;
+  430   2          case 6:
+  431   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  432   2              if (Sum_Distance > 30)
+  433   2              {
+  434   3                  Sum_Distance = 0;
+  435   3                  (*Flag) = 0;
+  436   3                  return 1 ;
+  437   3              }
+  438   2              break;
+  439   2          default:
+  440   2              break;
+  441   2          }
+  442   1          return 0;
+  443   1      }
   444          
-  445          int Ramp_jump(void)
-  446          {
-  447   1        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  448   1      //  P67 = 1;
-  449   1        if (Sum_Distance > 360)
-  450   1        {
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 8   
+  445          
+  446          int Ramp_jump(void)
+  447          {
+  448   1        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  449   1      //  P67 = 1;
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 8   
 
-  451   2      //      P67 = 0;
-  452   2      //      state_lead = 10;
-  453   2            return 1; 
-  454   2        }
-  455   1        else 
-  456   1            return 0;
-  457   1      }
-  458          
+  450   1        if (Sum_Distance > 360)
+  451   1        {
+  452   2      //      P67 = 0;
+  453   2      //      state_lead = 10;
+  454   2            return 1; 
+  455   2        }
+  456   1        else 
+  457   1            return 0;
+  458   1      }
   459          
-  460          uint32 stop_flag = 0;
-  461          uint8 stop_jump(void)
-  462          {
-  463   1        if(adc_value[0]<50&&adc_value[1]<50&&adc_value[3]<50&adc_value[4]<50)
-  464   1        {
-  465   2            stop_flag++;
-  466   2            if(stop_flag>100)
-  467   2            {
-  468   3              return 1;
-  469   3            }
-  470   2            return 0;
-  471   2        }
-  472   1        else
-  473   1        {
-  474   2            stop_flag = 0;
-  475   2            return 0;
-  476   2        }
-  477   1      }
-  478          
+  460          
+  461          uint32 stop_flag = 0;
+  462          uint8 stop_jump(void)
+  463          {
+  464   1        if(adc_value[0]<50&&adc_value[1]<50&&adc_value[3]<50&adc_value[4]<50)
+  465   1        {
+  466   2            stop_flag++;
+  467   2            if(stop_flag>100)
+  468   2            {
+  469   3              return 1;
+  470   3            }
+  471   2            return 0;
+  472   2        }
+  473   1        else
+  474   1        {
+  475   2            stop_flag = 0;
+  476   2            return 0;
+  477   2        }
+  478   1      }
   479          
   480          
-  481          //int Ramp_Jump(int *Flag)
-  482          //{
-  483          //
-  484          //}
-  485          
+  481          
+  482          //int Ramp_Jump(int *Flag)
+  483          //{
+  484          //
+  485          //}
   486          
-  487          //    switch (flag_turn)        //Ã»¼ì²âµ½ÔªËØ£¬¾Í¸ù¾ÝÖ±µÀÔªËØÖ¸ÕëÖ´ÐÐ²Ù×÷              
-  488          //    {
-  489          //        case cross:           //Ê®×Ö
-  490          //            Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  491          //            if (Sum_Distance > 40)
-  492          //            {
-  493          //                Sum_Distance = 0;
-  494          //                flag_turn = 0;
-  495          //            }
-  496          //            return 0;
-  497          //            break;
-  498          //        case right_angle:
-  499          //            break;
-  500          //        case normal:
-  501          //            break;
-  502          //        default :
-  503          //            break;
-  504          //    }
-  505          
-  506          //  if(max_count(temp[5],temp[6])>600&&min_count(temp[5],temp[6])>600&&temp[4]>800&&temp[7]>800)
-  507          //  {
-  508          //      flag_turn=cross;
-  509          //      printf("%d,%d,%d,%d,%d,%d,%d,%d\r\n",adc_value[0],adc_value[1],adc_value[2],
-  510          //                  adc_value[3],adc_value[4],adc_value[5],adc_value[6],adc_value[7]);
-  511          //  }
-  512              
-  513          //    if (abs(temp[5] - temp[6]) > 400)
-  514          //    {
-  515          //        flag_turn = right_angle;
-  516          //    }
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 9   
+  487          
+  488          //    switch (flag_turn)        //Ã»¼ì²âµ½ÔªËØ£¬¾Í¸ù¾ÝÖ±µÀÔªËØÖ¸ÕëÖ´ÐÐ²Ù×÷              
+  489          //    {
+  490          //        case cross:           //Ê®×Ö
+  491          //            Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  492          //            if (Sum_Distance > 40)
+  493          //            {
+  494          //                Sum_Distance = 0;
+  495          //                flag_turn = 0;
+  496          //            }
+  497          //            return 0;
+  498          //            break;
+  499          //        case right_angle:
+  500          //            break;
+  501          //        case normal:
+  502          //            break;
+  503          //        default :
+  504          //            break;
+  505          //    }
+  506          
+  507          //  if(max_count(temp[5],temp[6])>600&&min_count(temp[5],temp[6])>600&&temp[4]>800&&temp[7]>800)
+  508          //  {
+  509          //      flag_turn=cross;
+  510          //      printf("%d,%d,%d,%d,%d,%d,%d,%d\r\n",adc_value[0],adc_value[1],adc_value[2],
+  511          //                  adc_value[3],adc_value[4],adc_value[5],adc_value[6],adc_value[7]);
+  512          //  }
+  513              
+  514          //    if (abs(temp[5] - temp[6]) > 400)
+  515          //    {
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 9   
 
-  517          //    else
-  518          //    {
-  519          //        flag_turn = normal;
-  520          //    }
-  521          
+  516          //        flag_turn = right_angle;
+  517          //    }
+  518          //    else
+  519          //    {
+  520          //        flag_turn = normal;
+  521          //    }
   522          
-  523          //        case Left_Right_Angle:                            
-  524          //            if (temp[0] < 650 && temp[4] < 650 && temp[1] >440 && temp[3] >110
-  525          //              && temp[1] - temp[3] >300 && abs(temp[0] - temp[4]) < 120)
-  526          //            {
-  527          ////                P67 = 1;
-  528          ////                delay_ms(100);
-  529          //                beep_on();
-  530          //                Flag_Right_Angle = 1;
-  531          //                return 1;
-  532          //            }
-  533          //            break;
-  534          //        case Right_Right_Angle:                           
-  535          //            if (temp[0] < 800 && temp[4] < 800 && temp[1] >190 && temp[3] >60
-  536          //              && temp[3] - temp[1] >300 && abs(temp[0] - temp[4]) < 120)
-  537          //            {
-  538          //                beep_on();
-  539          //                Flag_Right_Angle = 1;
-  540          //                return 1;
-  541          //            }
-  542          //            break;
-  543          
-  544          int Left_Right_Angle_Jump(int *Flag)
-  545          {
-  546   1        switch (*Flag)
-  547   1          {
-  548   2          case 1:
-  549   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  550   2                Sum_Angle += Single_Angle_Get();
-  551   2                if (Sum_Angle > 90)
-  552   2                {
-  553   3                  Sum_Angle = 0;
-  554   3                  (*Flag) = 0;
-  555   3                  return 1;
-  556   3                }
-  557   2      //        if (Sum_Distance > 200)
-  558   2      //        {
-  559   2      //            Sum_Distance = 0;
-  560   2      //            (*Flag)++;
-  561   2      //            state_lead = 6;
-  562   2      //        }
-  563   2              break;
-  564   2      //    case 2:
-  565   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  566   2      //    
-  567   2      //        if (Sum_Distance > 160)
-  568   2      //        {
-  569   2      //            Sum_Distance = 0;
-  570   2      //            (*Flag)++;
-  571   2      //            state_lead = 6;
-  572   2      //        }
-  573   2      //    case 3:
-  574   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  575   2      //    
-  576   2      //        if (Sum_Distance > 200)
-  577   2      //        {
-  578   2      //            Sum_Distance = 0;
-  579   2      //            (*Flag)++;
-  580   2      //            state_lead = 6;
-  581   2      //        }
-  582   2      //    case 4:
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 10  
+  523          
+  524          //        case Left_Right_Angle:                            
+  525          //            if (temp[0] < 650 && temp[4] < 650 && temp[1] >440 && temp[3] >110
+  526          //              && temp[1] - temp[3] >300 && abs(temp[0] - temp[4]) < 120)
+  527          //            {
+  528          ////                P67 = 1;
+  529          ////                delay_ms(100);
+  530          //                beep_on();
+  531          //                Flag_Right_Angle = 1;
+  532          //                return 1;
+  533          //            }
+  534          //            break;
+  535          //        case Right_Right_Angle:                           
+  536          //            if (temp[0] < 800 && temp[4] < 800 && temp[1] >190 && temp[3] >60
+  537          //              && temp[3] - temp[1] >300 && abs(temp[0] - temp[4]) < 120)
+  538          //            {
+  539          //                beep_on();
+  540          //                Flag_Right_Angle = 1;
+  541          //                return 1;
+  542          //            }
+  543          //            break;
+  544          
+  545          int Left_Right_Angle_Jump(int *Flag)
+  546          {
+  547   1        switch (*Flag)
+  548   1          {
+  549   2          case 1:
+  550   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  551   2                Sum_Angle += Single_Angle_Get();
+  552   2                if (Sum_Angle > 90)
+  553   2                {
+  554   3                  Sum_Angle = 0;
+  555   3                  (*Flag) = 0;
+  556   3                  return 1;
+  557   3                }
+  558   2      //        if (Sum_Distance > 200)
+  559   2      //        {
+  560   2      //            Sum_Distance = 0;
+  561   2      //            (*Flag)++;
+  562   2      //            state_lead = 6;
+  563   2      //        }
+  564   2              break;
+  565   2      //    case 2:
+  566   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  567   2      //    
+  568   2      //        if (Sum_Distance > 160)
+  569   2      //        {
+  570   2      //            Sum_Distance = 0;
+  571   2      //            (*Flag)++;
+  572   2      //            state_lead = 6;
+  573   2      //        }
+  574   2      //    case 3:
+  575   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  576   2      //    
+  577   2      //        if (Sum_Distance > 200)
+  578   2      //        {
+  579   2      //            Sum_Distance = 0;
+  580   2      //            (*Flag)++;
+  581   2      //            state_lead = 6;
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 10  
 
-  583   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  584   2      //        if (Sum_Distance > 40)
-  585   2      //        {
-  586   2      //            Sum_Distance = 0;
-  587   2      //            (*Flag) = 0;
-  588   2      //            return 1;
-  589   2      //        }
-  590   2          default:
-  591   2              break;
-  592   2          }
-  593   1          return 0;
-  594   1      }
-  595          
-  596          int Right_Right_Angle_Jump(int *Flag)
-  597          {
-  598   1        switch (*Flag)
-  599   1          {
-  600   2          case 1:
-  601   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  602   2          
-  603   2              if (Sum_Distance > 200)
-  604   2              {
-  605   3                  Sum_Distance = 0;
-  606   3                  (*Flag)++;
-  607   3      //            state_lead = 6;
-  608   3              }
-  609   2              break;
-  610   2          case 2:
-  611   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  612   2          
-  613   2              if (Sum_Distance > 160)
-  614   2              {
-  615   3                  Sum_Distance = 0;
-  616   3                  (*Flag)++;
-  617   3                  state_lead = 6;
-  618   3              }
-  619   2              break;
-  620   2      //    case 3:
-  621   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
-  622   2      //    
-  623   2      //        if (Sum_Distance > 200)
-  624   2      //        {
-  625   2      //            Sum_Distance = 0;
-  626   2      //            (*Flag)++;
-  627   2      //            state_lead = 6;
-  628   2      //        }
-  629   2      //    case 4:
-  630   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
-  631   2      //        if (Sum_Distance > 40)
-  632   2      //        {
-  633   2      //            Sum_Distance = 0;
-  634   2      //            (*Flag) = 0;
-  635   2      //            return 1;
-  636   2      //        }
-  637   2          default:
-  638   2              break;
-  639   2          }
-  640   1          return 0;
-  641   1      }
+  582   2      //        }
+  583   2      //    case 4:
+  584   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  585   2      //        if (Sum_Distance > 40)
+  586   2      //        {
+  587   2      //            Sum_Distance = 0;
+  588   2      //            (*Flag) = 0;
+  589   2      //            return 1;
+  590   2      //        }
+  591   2          default:
+  592   2              break;
+  593   2          }
+  594   1          return 0;
+  595   1      }
+  596          
+  597          int Right_Right_Angle_Jump(int *Flag)
+  598          {
+  599   1        switch (*Flag)
+  600   1          {
+  601   2          case 1:
+  602   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  603   2          
+  604   2              if (Sum_Distance > 200)
+  605   2              {
+  606   3                  Sum_Distance = 0;
+  607   3                  (*Flag)++;
+  608   3      //            state_lead = 6;
+  609   3              }
+  610   2              break;
+  611   2          case 2:
+  612   2              Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  613   2          
+  614   2              if (Sum_Distance > 160)
+  615   2              {
+  616   3                  Sum_Distance = 0;
+  617   3                  (*Flag)++;
+  618   3                  state_lead = 6;
+  619   3              }
+  620   2              break;
+  621   2      //    case 3:
+  622   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;//¼ÆËãÊµÀýÀï³ÌÊý
+  623   2      //    
+  624   2      //        if (Sum_Distance > 200)
+  625   2      //        {
+  626   2      //            Sum_Distance = 0;
+  627   2      //            (*Flag)++;
+  628   2      //            state_lead = 6;
+  629   2      //        }
+  630   2      //    case 4:
+  631   2      //        Sum_Distance += (motor_L_pid.ActValue + motor_R_pid.ActValue) * isr_time * 0.5;
+  632   2      //        if (Sum_Distance > 40)
+  633   2      //        {
+  634   2      //            Sum_Distance = 0;
+  635   2      //            (*Flag) = 0;
+  636   2      //            return 1;
+  637   2      //        }
+  638   2          default:
+  639   2              break;
+  640   2          }
+  641   1          return 0;
+  642   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      2094     ------
+  code size            =      2127     ------
   ecode size           =    ------     ------
+C251 COMPILER V5.60.0,  state                                                              17/07/25  00:57:19  PAGE 11  
+
   data size            =    ------     ------
   idata size           =    ------     ------
-C251 COMPILER V5.60.0,  state                                                              22/06/25  14:52:07  PAGE 11  
-
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        24     ------
+  edata size           =        22     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -692,7 +694,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        60     ------
+  hconst size          =        58     ------
 End of Module Information.
 
 

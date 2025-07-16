@@ -1,3 +1,5 @@
+extern int press_flag;
+	
 extern int adc_value[8];
 
 extern char state[30];
@@ -12,7 +14,7 @@ extern int Kp2[5];
 extern float Kd1[5];
 extern float Kd2[5];
 
-extern float Out_Jump_Angle;
+extern int Out_Jump_Angle;
 extern int Out_Speed_L;
 extern int Out_Speed_R;
 

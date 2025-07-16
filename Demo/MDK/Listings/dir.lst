@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  dir                                                                21/06/25  21:54:49  PAGE 1   
+C251 COMPILER V5.60.0,  dir                                                                17/07/25  00:57:18  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE dir
@@ -44,8 +44,8 @@ stmt  level    source
    33   1          motor_L_pid.SetValue = speed_goal - temp;
    34   1          motor_R_pid.SetValue = speed_goal + temp;
    35   1          
-   36   1      //    motor_L_pid.SetValue = 180 ;
-   37   1      //    motor_R_pid.SetValue = 180 ;
+   36   1      //    motor_L_pid.SetValue = 250 ;
+   37   1      //    motor_R_pid.SetValue = 250 ;
    38   1          
    39   1      //    if(error < -0.4)
    40   1      //    {
@@ -66,7 +66,7 @@ stmt  level    source
    55   1      //    }else
    56   1      //    {
    57   1      //      motor_L_pid.SetValue = speed_goal - temp;
-C251 COMPILER V5.60.0,  dir                                                                21/06/25  21:54:49  PAGE 2   
+C251 COMPILER V5.60.0,  dir                                                                17/07/25  00:57:18  PAGE 2   
 
    58   1      //      motor_R_pid.SetValue = speed_goal + temp;
    59   1      //    }
@@ -134,7 +134,7 @@ stmt  level    source
   120          ////        else
   121          ////        {
   122          //          motor_L_pid.SetValue = speed_goal - temp;
-C251 COMPILER V5.60.0,  dir                                                                21/06/25  21:54:49  PAGE 3   
+C251 COMPILER V5.60.0,  dir                                                                17/07/25  00:57:18  PAGE 3   
 
   123          //          motor_R_pid.SetValue = speed_goal + temp;
   124          ////        }
@@ -202,7 +202,7 @@ stmt  level    source
   186          //
   187          //  dir_loop_pid.KP=Kp_Select_1(error);
   188          //}
-C251 COMPILER V5.60.0,  dir                                                                21/06/25  21:54:49  PAGE 4   
+C251 COMPILER V5.60.0,  dir                                                                17/07/25  00:57:18  PAGE 4   
 
   189          //else
   190          //{
@@ -270,7 +270,7 @@ stmt  level    source
   252          //      temp+=inc;
   253          //  dir_loop_pid.ek_1=dir_loop_pid.ek;
   254          ////temp=temp*0.6;
-C251 COMPILER V5.60.0,  dir                                                                21/06/25  21:54:49  PAGE 5   
+C251 COMPILER V5.60.0,  dir                                                                17/07/25  00:57:18  PAGE 5   
 
   255          ////    printf("%f\r\n",temp);
   256          ////    temp=temp>speed_goal?speed_goal:temp;

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_DL1A
@@ -66,7 +66,7 @@ stmt  level    source
    53          //-------------------------------------------------------------------------------------------------------
              -------------
    54          //  @brief      模拟IIC延时
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 2   
 
    55          //  @return     void            
    56          //  @since      v1.0
@@ -134,7 +134,7 @@ stmt  level    source
   117   2              return 0;
   118   2          }
   119   1      
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 3   
 
   120   1          DL1A_SCL_LOW();
   121   1        dl1a_simiic_delay();
@@ -202,7 +202,7 @@ stmt  level    source
   182          //  @param      dev_add     设备地址(低七位地址)
   183          //  @param      reg       寄存器地址
   184          //  @param      dat       写入的数据
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 4   
 
   185          //  @return     void            
   186          //  @since      v1.0
@@ -270,7 +270,7 @@ stmt  level    source
   243   1        return dat;
   244   1      }
   245          
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 5   
 
   246          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -338,7 +338,7 @@ stmt  level    source
   305          #define dl1a_write_array(dat, len)          (dl1a_simiic_write_dats(DL1A_DEV_ADDR, (dat), (len)))
   306          #define dl1a_write_register(reg, dat)       (dl1a_simiic_write_reg(DL1A_DEV_ADDR, (reg), (dat)))
   307          #define dl1a_read_register(reg)             (dl1a_simiic_read_reg (DL1A_DEV_ADDR, (reg)))
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 6   
 
   308          #define dl1a_read_registers(reg, dat, len)  (dl1a_simiic_read_regs(DL1A_DEV_ADDR, (reg), (dat), (len)))
   309          #define dl1a_read_registers_1(reg, dat, len)  (dl1a_simiic_read_regs_1(DL1A_DEV_ADDR, (reg), (dat), (len)
@@ -406,7 +406,7 @@ stmt  level    source
   366   4                  }
   367   3              }
   368   2          
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 7   
 
   369   2              if(return_state)
   370   2              {
@@ -474,7 +474,7 @@ stmt  level    source
   425          // 参数说明     reg_val         超时时长 寄存器值
   426          // 返回参数     uint16          返回超时数值
   427          // 使用示例     dl1a_decode_timeout(reg_val);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 8   
 
   428          // 备注信息     从寄存器值解码 MCLK 中的序列步骤超时   
   429          //-------------------------------------------------------------------------------------------------------
@@ -542,7 +542,7 @@ stmt  level    source
   485          // 参数说明     type            预量程类型
   486          // 返回参数     uint8           返回的周期值
   487          // 使用示例     dl1a_get_vcsel_pulse_period(DL1A_VCSEL_PERIOD_PER_RANGE);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 9   
 
   488          // 备注信息     在 PCLKs 中获取给定周期类型的 VCSEL 脉冲周期
   489          //-------------------------------------------------------------------------------------------------------
@@ -610,7 +610,7 @@ stmt  level    source
   544   1      
   545   1          timeouts->final_range_us = dl1a_timeout_mclks_to_microseconds(timeouts->final_range_mclks, (uint8)tim
              -eouts->final_range_vcsel_period_pclks);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 10  
 
   546   1      }
   547          
@@ -678,7 +678,7 @@ stmt  level    source
   605   1        uint16 final_range_timeout_mclks;
   606   1        
   607   1          dl1a_sequence_enables_step_struct enables;
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 11  
 
   608   1          dl1a_sequence_timeout_step_struct timeouts;
   609   1      
@@ -746,7 +746,7 @@ stmt  level    source
   671   3                  dl1a_write_array(data_buffer, 3);
   672   3              }
   673   2          }while(0);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 12  
 
   674   1          return return_state;
   675   1      }
@@ -814,7 +814,7 @@ stmt  level    source
              -------------
   733          static void dl1a_set_signal_rate_limit (float limit_mcps)
   734          {
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 13  
 
   735   1        uint8 data_buffer[3];
   736   1          uint16 limit_mcps_16bit = (limit_mcps * (1 << 7));
@@ -882,7 +882,7 @@ stmt  level    source
   794   1      
   795   1      
   796   1      
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 14  
 
   797   1          do
   798   1          {
@@ -950,7 +950,7 @@ stmt  level    source
   857   4                      // 因此此位为零
   858   4                      ref_spad_map[i / 8] &= ~(1 << (i % 8));
   859   4                  }
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 15  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 15  
 
   860   3                  else if ((ref_spad_map[i / 8] >> (i % 8)) & 0x1)
   861   3                  {
@@ -1018,7 +1018,7 @@ stmt  level    source
   923   2              dl1a_write_register(0x20, 0x1A);
   924   2              dl1a_write_register(0x43, 0x40);
   925   2              dl1a_write_register(0xFF, 0x00);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 16  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 16  
 
   926   2              dl1a_write_register(0x34, 0x03);
   927   2              dl1a_write_register(0x35, 0x44);
@@ -1086,7 +1086,7 @@ stmt  level    source
   989   2              dl1a_write_register(0x91, stop_variable);
   990   2              dl1a_write_register(0x00, 0x01);
   991   2              dl1a_write_register(0xFF, 0x00);
-C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      21/06/25  19:19:06  PAGE 17  
+C251 COMPILER V5.60.0,  SEEKFREE_DL1A                                                      17/07/25  00:21:18  PAGE 17  
 
   992   2              dl1a_write_register(0x80, 0x00);
   993   2      

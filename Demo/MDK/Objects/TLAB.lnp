@@ -8,6 +8,7 @@
 ".\Objects\pid.obj",
 ".\Objects\encode.obj",
 ".\Objects\imu660.obj",
+".\Objects\menu.obj",
 ".\Objects\zf_adc.obj",
 ".\Objects\zf_delay.obj",
 ".\Objects\zf_eeprom.obj",

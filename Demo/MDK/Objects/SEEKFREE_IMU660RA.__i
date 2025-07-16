@@ -1,0 +1,1 @@
+"..\..\lib\zf_bsp\SEEKFREE_IMU660RA.c" XSMALL INTR2 WARNINGLEVEL (3) BROWSE INCDIR(..\CODE;..\USER;..\..\lib\zf_app;..\..\lib\zf_base;..\..\lib\zf_bsp) DEBUG PRINT(.\Listings\SEEKFREE_IMU660RA.lst) TABS (2) OBJECT(.\Objects\SEEKFREE_IMU660RA.obj)

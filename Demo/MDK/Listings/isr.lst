@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  isr                                                                21/06/25  19:24:53  PAGE 1   
+C251 COMPILER V5.60.0,  isr                                                                17/07/25  01:10:05  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
@@ -66,7 +66,7 @@ stmt  level    source
    55          void UART3_Isr() interrupt 17
    56          {
    57   1          if(UART3_GET_TX_FLAG)
-C251 COMPILER V5.60.0,  isr                                                                21/06/25  19:24:53  PAGE 2   
+C251 COMPILER V5.60.0,  isr                                                                17/07/25  01:10:05  PAGE 2   
 
    58   1        {
    59   2              UART3_CLEAR_TX_FLAG;
@@ -116,7 +116,7 @@ stmt  level    source
   103          void INT1_Isr() interrupt 2
   104          {
   105   1      
-  106   1      
+  106   1        
   107   1      
   108   1      }
   109          void INT2_Isr() interrupt 10
@@ -134,85 +134,120 @@ stmt  level    source
   121   1      }
   122          
   123          void TM0_Isr() interrupt 1
-C251 COMPILER V5.60.0,  isr                                                                21/06/25  19:24:53  PAGE 3   
+C251 COMPILER V5.60.0,  isr                                                                17/07/25  01:10:05  PAGE 3   
 
   124          {
   125   1      
   126   1      
   127   1      }
   128          
-  129          void TM1_Isr() interrupt 3
-  130          {
-  131   1      
-  132   1            if(!TIM1_Flag)
-  133   1        {
-  134   2      
-  135   2        TIM1_Flag=1;
-  136   2        }
-  137   1      
-  138   1      
-  139   1      }
-  140          
-  141          void TM2_Isr() interrupt 12
-  142          {
-  143   1        TIM2_CLEAR_FLAG;  //清除中断标志
-  144   1        
-  145   1      }
-  146          void TM3_Isr() interrupt 19
-  147          {
-  148   1        TIM3_CLEAR_FLAG; //清除中断标志
-  149   1        
-  150   1      }
-  151          
-  152          void TM4_Isr() interrupt 20
-  153          {
-  154   1          if(start_0 == 1)
-  155   1          {
-  156   2          Speed_Loop();
-  157   2          }
-  158   1      //    Dir_Loop(error, speed_goal, flag_turn);
-  159   1      
-  160   1          TIM4_CLEAR_FLAG;
-  161   1      }
-  162          
-  163          
-  164          //void  INT0_Isr()  interrupt 0;
-  165          //void  TM0_Isr()   interrupt 1;
-  166          //void  INT1_Isr()  interrupt 2;
-  167          //void  TM1_Isr()   interrupt 3;
-  168          //void  UART1_Isr() interrupt 4;
-  169          //void  ADC_Isr()   interrupt 5;
-  170          //void  LVD_Isr()   interrupt 6;
-  171          //void  PCA_Isr()   interrupt 7;
-  172          //void  UART2_Isr() interrupt 8;
-  173          //void  SPI_Isr()   interrupt 9;
-  174          //void  INT2_Isr()  interrupt 10;
-  175          //void  INT3_Isr()  interrupt 11;
-  176          //void  TM2_Isr()   interrupt 12;
-  177          //void  INT4_Isr()  interrupt 16;
-  178          //void  UART3_Isr() interrupt 17;
-  179          //void  UART4_Isr() interrupt 18;
-  180          //void  TM3_Isr()   interrupt 19;
-  181          //void  TM4_Isr()   interrupt 20;
-  182          //void  CMP_Isr()   interrupt 21;
-  183          //void  I2C_Isr()   interrupt 24;
-  184          //void  USB_Isr()   interrupt 25;
-  185          //void  PWM1_Isr()  interrupt 26;
-  186          //void  PWM2_Isr()  interrupt 27;
+  129          int sum_menu_flag = 0;
+  130          int menu_flag = 0;
+  131          void TM1_Isr() interrupt 3
+  132          {
+  133   1      
+  134   1        if(!TIM1_Flag)
+  135   1        {
+  136   2        TIM1_Flag=1;
+  137   2        }
+  138   1        
+  139   1        if(menu_flag){
+  140   2        if(!P71 && P71_Last){
+  141   3      //    place_index_1 += 1;
+  142   3      //    if(place_index_1 >= 20){
+  143   3      //      place_index_1 = 0;
+  144   3            place_index -= 1;
+  145   3      //    }
+  146   3        }
+  147   2        else if(!P73 && P73_Last){
+  148   3      //    place_index_2 += 1;
+  149   3      //    if(place_index_2 >= 20){
+  150   3      //      place_index_2 = 0;
+  151   3            place_index += 1;
+  152   3      //    }
+  153   3        }
+  154   2        else if(!P70){
+  155   3      //    value_index_1 += 1;
+  156   3      //    if(value_index_1 >= 20){
+  157   3      //      value_index_1 = 0;
+  158   3            value_index += 1;
+  159   3      //    }
+  160   3        }
+  161   2        else if(!P72){
+  162   3      //    value_index_2 += 1;
+  163   3      //    if(value_index_2 >= 20){
+  164   3      //      value_index_2 = 0;
+  165   3            value_index -= 1;
+  166   3      //    }
+  167   3        }
+  168   2        P71_Last = P71;
+  169   2        P73_Last = P73;
+  170   2      //  P70_Last = P70;
+  171   2      //  P72_Last = P72;
+  172   2        }
+  173   1      }
+  174          
+  175          void TM2_Isr() interrupt 12
+  176          {
+  177   1        TIM2_CLEAR_FLAG;  //清除中断标志
+  178   1        
+  179   1      }
+  180          void TM3_Isr() interrupt 19
+  181          {
+  182   1        TIM3_CLEAR_FLAG; //清除中断标志
+  183   1        
+  184   1      }
+  185          
+  186          void TM4_Isr() interrupt 20
+  187          {
+  188   1          if(start_0 == 1)
+  189   1          {
+C251 COMPILER V5.60.0,  isr                                                                17/07/25  01:10:05  PAGE 4   
+
+  190   2          Speed_Loop();
+  191   2          }
+  192   1      //    error = error_get(adc_value, flag_turn);
+  193   1      //    Dir_Loop(error, speed_goal, flag_turn);
+  194   1      
+  195   1          TIM4_CLEAR_FLAG;
+  196   1      }
+  197          
+  198          
+  199          //void  INT0_Isr()  interrupt 0;
+  200          //void  TM0_Isr()   interrupt 1;
+  201          //void  INT1_Isr()  interrupt 2;
+  202          //void  TM1_Isr()   interrupt 3;
+  203          //void  UART1_Isr() interrupt 4;
+  204          //void  ADC_Isr()   interrupt 5;
+  205          //void  LVD_Isr()   interrupt 6;
+  206          //void  PCA_Isr()   interrupt 7;
+  207          //void  UART2_Isr() interrupt 8;
+  208          //void  SPI_Isr()   interrupt 9;
+  209          //void  INT2_Isr()  interrupt 10;
+  210          //void  INT3_Isr()  interrupt 11;
+  211          //void  TM2_Isr()   interrupt 12;
+  212          //void  INT4_Isr()  interrupt 16;
+  213          //void  UART3_Isr() interrupt 17;
+  214          //void  UART4_Isr() interrupt 18;
+  215          //void  TM3_Isr()   interrupt 19;
+  216          //void  TM4_Isr()   interrupt 20;
+  217          //void  CMP_Isr()   interrupt 21;
+  218          //void  I2C_Isr()   interrupt 24;
+  219          //void  USB_Isr()   interrupt 25;
+  220          //void  PWM1_Isr()  interrupt 26;
+  221          //void  PWM2_Isr()  interrupt 27;
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-C251 COMPILER V5.60.0,  isr                                                                21/06/25  19:24:53  PAGE 4   
-
-  code size            =       399     ------
+  code size            =       497     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        49     ------
+  edata size           =        53     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -220,7 +255,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        76     ------
+  hconst size          =        88     ------
 End of Module Information.
 
 
