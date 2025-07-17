@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  speed                                                              17/07/25  00:57:18  PAGE 1   
+C251 COMPILER V5.60.0,  speed                                                              17/07/25  14:21:47  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE speed
@@ -66,7 +66,7 @@ stmt  level    source
    53   1          motor_L_pid.SetValueTmp = motor_L_pid.SetValue;
    54   1          motor_R_pid.SetValueTmp = motor_R_pid.SetValue;
    55   1      
-C251 COMPILER V5.60.0,  speed                                                              17/07/25  00:57:18  PAGE 2   
+C251 COMPILER V5.60.0,  speed                                                              17/07/25  14:21:47  PAGE 2   
 
    56   1      
    57   1          inc_L = PID_Control_Inc(&motor_L_pid,0);
@@ -134,7 +134,7 @@ stmt  level    source
   119          //    {
   120          //      DIR_R = 1;       
   121          //      pwm_duty(PWM_R, right_duty);        
-C251 COMPILER V5.60.0,  speed                                                              17/07/25  00:57:18  PAGE 3   
+C251 COMPILER V5.60.0,  speed                                                              17/07/25  14:21:47  PAGE 3   
 
   122          //    }
   123          //    else         //·´×ª

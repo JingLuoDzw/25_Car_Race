@@ -6,7 +6,7 @@ extern float Sum_Distance;
 int press_flag = 0;
 //	Track		Out		Small_Circ_Right	Small_Circ_Left		Out, Track, 
 //char state[30] = {Track, Track, Track, Track, Track, Track, Stop};	
-char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//2025赛道元素顺序
+char state[30] = {Track, Out, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Track, Track, Stop};	//2025赛道元素顺序
 
 ////速度200
 //int SPEED = 200 ;
@@ -106,6 +106,8 @@ int KI_SPEED_R = 19 ;
 int KD_SPEED_L = 0 ;
 int KD_SPEED_R = 0 ;
 
+int delay_time = 0;
+
 int main()
 {
     board_init();
@@ -134,7 +136,7 @@ int main()
 //		motor_L_pid.SetValue = 0 ;
 //    motor_R_pid.SetValue = 0 ;
 		
-//		delay_ms(7000);
+		delay_ms(delay_time);
 		start_0 = 1;
 		
     while (1)			//正常循迹
@@ -152,18 +154,18 @@ int main()
 				adjust_menu();
 				}
         if (TIM1_Flag)        {
-            uart_delay++;
-            if (uart_delay > 4)
-            {
-                uart_delay = 0;
-							
-								printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
-																					adc_value[3], adc_value[4]);
-							
+//            uart_delay++;
+//            if (uart_delay > 4)
+//            {
+//                uart_delay = 0;
+//							
+//								printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
+//																					adc_value[3], adc_value[4]);
+//							
 //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
 //																					motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
 							
-            }
+//            }
 						
             P52 = 0;		//LED亮
             imu660ra_get_gyro();		//陀螺仪

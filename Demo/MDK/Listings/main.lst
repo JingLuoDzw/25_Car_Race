@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               17/07/25  01:10:05  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               17/07/25  14:38:24  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -17,8 +17,8 @@ stmt  level    source
     6          int press_flag = 0;
     7          //  Track   Out   Small_Circ_Right  Small_Circ_Left   Out, Track, 
     8          //char state[30] = {Track, Track, Track, Track, Track, Track, Stop};  
-    9          char state[30] = {Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Ci
-             -rc_Left, Track, Track, Track, Stop}; //2025赛道元素顺序
+    9          char state[30] = {Track, Out, Track, Small_Circ_Left, Track, Small_Circ_Left, Track, Small_Circ_Left, Tra
+             -ck, Small_Circ_Left, Track, Track, Track, Stop}; //2025赛道元素顺序
    10          
    11          ////速度200
    12          //int SPEED = 200 ;
@@ -66,7 +66,7 @@ stmt  level    source
    54          ////左环行为
    55          //int Circ_Left_Speed_L = 180 ;
    56          //int Circ_Left_Speed_R = 300 ;
-C251 COMPILER V5.60.0,  main                                                               17/07/25  01:10:05  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               17/07/25  14:38:24  PAGE 2   
 
    57          //int Circ_Left_Speed_Out = 180 ;
    58          ////出库
@@ -120,136 +120,138 @@ stmt  level    source
   106          int KD_SPEED_L = 0 ;
   107          int KD_SPEED_R = 0 ;
   108          
-  109          int main()
-  110          {
-  111   1          board_init();
-  112   1          pit_timer_ms(TIM_1, 5);
-  113   1          printf("pit init\r\n");
-  114   1          pit_timer_ms(TIM_4, 5);
-  115   1          NVIC_SetPriority(TIMER1_IRQn, 2);
-  116   1          NVIC_SetPriority(UART4_IRQn, 3);
-  117   1          InitPID();
-  118   1          iap_init();
-  119   1          EnableGlobalIRQ(); // 开启总中断
-  120   1          printf("all init\r\n");
-  121   1          printf("motor pid set value\r\n");
-  122   1          Read_FLASH();
-C251 COMPILER V5.60.0,  main                                                               17/07/25  01:10:05  PAGE 3   
+  109          int delay_time = 0;
+  110          
+  111          int main()
+  112          {
+  113   1          board_init();
+  114   1          pit_timer_ms(TIM_1, 5);
+  115   1          printf("pit init\r\n");
+  116   1          pit_timer_ms(TIM_4, 5);
+  117   1          NVIC_SetPriority(TIMER1_IRQn, 2);
+  118   1          NVIC_SetPriority(UART4_IRQn, 3);
+  119   1          InitPID();
+  120   1          iap_init();
+  121   1          EnableGlobalIRQ(); // 开启总中断
+  122   1          printf("all init\r\n");
+C251 COMPILER V5.60.0,  main                                                               17/07/25  14:38:24  PAGE 3   
 
-  123   1        
-  124   1      //    pwm_duty(PWMA_CH4P_P66, 3000 );   //      引脚校正
-  125   1      //    pwm_duty(PWMA_CH1P_P60, 3000 );   //右负
-  126   1      //    pwm_duty(PWMA_CH3P_P64, 3000 );   //左正
-  127   1      //    pwm_duty(PWMA_CH2P_P62, 3000 ); 
-  128   1      //    P42   //按下
-  129   1      //    P70   //右
-  130   1      //    P72   //左
-  131   1      //    P71   //上
-  132   1      //    P73   //下
-  133   1        
-  134   1      //    motor_L_pid.SetValue = 0 ;
-  135   1      //    motor_R_pid.SetValue = 0 ;
-  136   1          
-  137   1      //    delay_ms(7000);
-  138   1          start_0 = 1;
-  139   1          
-  140   1          while (1)     //正常循迹
-  141   1          {
-  142   2              if(!P42){
-  143   3              sum_menu_flag += 1;
-  144   3                if(sum_menu_flag >= 100){
-  145   4                  menu_flag += 1;
-  146   4                  if(menu_flag >= 2){
-  147   5                    menu_flag = 0;
-  148   5                  }
-  149   4                }
-  150   3              }
-  151   2              if(menu_flag){
-  152   3              adjust_menu();
-  153   3              }
-  154   2              if (TIM1_Flag)        {
-  155   3                  uart_delay++;
-  156   3                  if (uart_delay > 4)
-  157   3                  {
-  158   4                      uart_delay = 0;
-  159   4                    
-  160   4                      printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
-  161   4                                                adc_value[3], adc_value[4]);
-  162   4                    
-  163   4      //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
-  164   4      //                                          motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
-  165   4                    
-  166   4                  }
-  167   3                  
-  168   3                  P52 = 0;    //LED亮
-  169   3                  imu660ra_get_gyro();    //陀螺仪
-  170   3                  
-  171   3      //            dl1b_get_distance();    //2024避障
-  172   3                
-  173   3                  state_detect(adc_value);
+  123   1          printf("motor pid set value\r\n");
+  124   1          Read_FLASH();
+  125   1        
+  126   1      //    pwm_duty(PWMA_CH4P_P66, 3000 );   //      引脚校正
+  127   1      //    pwm_duty(PWMA_CH1P_P60, 3000 );   //右负
+  128   1      //    pwm_duty(PWMA_CH3P_P64, 3000 );   //左正
+  129   1      //    pwm_duty(PWMA_CH2P_P62, 3000 ); 
+  130   1      //    P42   //按下
+  131   1      //    P70   //右
+  132   1      //    P72   //左
+  133   1      //    P71   //上
+  134   1      //    P73   //下
+  135   1        
+  136   1      //    motor_L_pid.SetValue = 0 ;
+  137   1      //    motor_R_pid.SetValue = 0 ;
+  138   1          
+  139   1          delay_ms(delay_time);
+  140   1          start_0 = 1;
+  141   1          
+  142   1          while (1)     //正常循迹
+  143   1          {
+  144   2              if(!P42){
+  145   3              sum_menu_flag += 1;
+  146   3                if(sum_menu_flag >= 100){
+  147   4                  menu_flag += 1;
+  148   4                  if(menu_flag >= 2){
+  149   5                    menu_flag = 0;
+  150   5                  }
+  151   4                }
+  152   3              }
+  153   2              if(menu_flag){
+  154   3              adjust_menu();
+  155   3              }
+  156   2              if (TIM1_Flag)        {
+  157   3      //            uart_delay++;
+  158   3      //            if (uart_delay > 4)
+  159   3      //            {
+  160   3      //                uart_delay = 0;
+  161   3      //              
+  162   3      //                printf("%d,%d,%d,%d\r\n", adc_value[0], adc_value[1],
+  163   3      //                                          adc_value[3], adc_value[4]);
+  164   3      //              
+  165   3      //                printf("%f,%f,%f,%f\r\n", motor_L_pid.ActValue, motor_R_pid.ActValue,
+  166   3      //                                          motor_L_pid.SetValueTmp, motor_R_pid.SetValueTmp);
+  167   3                    
+  168   3      //            }
+  169   3                  
+  170   3                  P52 = 0;    //LED亮
+  171   3                  imu660ra_get_gyro();    //陀螺仪
+  172   3                  
+  173   3      //            dl1b_get_distance();    //2024避障
   174   3                
-  175   3                  switch (state[state_lead])
-  176   3                  {
-  177   4                      case Track:
-  178   4                          Track_Action(adc_value);
-  179   4                          break;
-  180   4                      case Out:
-  181   4                          Out_Action();
-  182   4                      case Big_Circ_Left:
-  183   4                      case Small_Circ_Left:
-  184   4                          Circ_Left_Action(adc_value);
-  185   4                          break;
-  186   4                      case Big_Circ_Right:
-  187   4                      case Small_Circ_Right:
-  188   4                          Circ_Right_Action(adc_value);
-C251 COMPILER V5.60.0,  main                                                               17/07/25  01:10:05  PAGE 4   
+  175   3                  state_detect(adc_value);
+  176   3                
+  177   3                  switch (state[state_lead])
+  178   3                  {
+  179   4                      case Track:
+  180   4                          Track_Action(adc_value);
+  181   4                          break;
+  182   4                      case Out:
+  183   4                          Out_Action();
+  184   4                      case Big_Circ_Left:
+  185   4                      case Small_Circ_Left:
+  186   4                          Circ_Left_Action(adc_value);
+  187   4                          break;
+  188   4                      case Big_Circ_Right:
+C251 COMPILER V5.60.0,  main                                                               17/07/25  14:38:24  PAGE 4   
 
-  189   4                          break;
-  190   4                      case Obstacle:
-  191   4                          Obstacle_Action();
-  192   4                          break;
-  193   4                      case Ramp:
-  194   4                          Track_Action(adc_value);
-  195   4                          break;
-  196   4                      case Stop:
-  197   4                          Stop_Action();
-  198   4      //                case Left_Right_Angle:
-  199   4      //                    Left_Right_Angle_Action(adc_value);
-  200   4      //                case Right_Right_Angle:
-  201   4      //                    Right_Right_Angle_Action(adc_value);
-  202   4                  }
-  203   3                          
-  204   3      //            lcd_showint32(0,0,adc_value[0],4);
-  205   3      //            lcd_showint32(0,1,adc_value[1],4);
-  206   3      //            lcd_showint32(0,2,adc_value[3],4);
-  207   3      //            lcd_showint32(0,3,adc_value[4],4);
-  208   3                  
-  209   3      //            lcd_showint16(0,5,imu660ra_gyro_z);
-  210   3      //            lcd_showfloat(0,6,error,1,6);
-  211   3                  
-  212   3      //            lcd_showint32(0,4,adc_value[2],4);
-  213   3      //            lcd_showint32(0,5,Flag_Circ,4);
-  214   3      //            lcd_showint32(0,6,Sum_Distance,4);
-  215   3      //            lcd_showint32(0,7,(int)state_lead,4);
-  216   3      //            lcd_showint32(0,8,(int)dl1b_distance_mm,4);
-  217   3      
-  218   3                  TIM1_Flag = 0;
-  219   3                  P52 = 1;
-  220   3              }
-  221   2          }
-  222   1      }
+  189   4                      case Small_Circ_Right:
+  190   4                          Circ_Right_Action(adc_value);
+  191   4                          break;
+  192   4                      case Obstacle:
+  193   4                          Obstacle_Action();
+  194   4                          break;
+  195   4                      case Ramp:
+  196   4                          Track_Action(adc_value);
+  197   4                          break;
+  198   4                      case Stop:
+  199   4                          Stop_Action();
+  200   4      //                case Left_Right_Angle:
+  201   4      //                    Left_Right_Angle_Action(adc_value);
+  202   4      //                case Right_Right_Angle:
+  203   4      //                    Right_Right_Angle_Action(adc_value);
+  204   4                  }
+  205   3                          
+  206   3      //            lcd_showint32(0,0,adc_value[0],4);
+  207   3      //            lcd_showint32(0,1,adc_value[1],4);
+  208   3      //            lcd_showint32(0,2,adc_value[3],4);
+  209   3      //            lcd_showint32(0,3,adc_value[4],4);
+  210   3                  
+  211   3      //            lcd_showint16(0,5,imu660ra_gyro_z);
+  212   3      //            lcd_showfloat(0,6,error,1,6);
+  213   3                  
+  214   3      //            lcd_showint32(0,4,adc_value[2],4);
+  215   3      //            lcd_showint32(0,5,Flag_Circ,4);
+  216   3      //            lcd_showint32(0,6,Sum_Distance,4);
+  217   3      //            lcd_showint32(0,7,(int)state_lead,4);
+  218   3      //            lcd_showint32(0,8,(int)dl1b_distance_mm,4);
+  219   3      
+  220   3                  TIM1_Flag = 0;
+  221   3                  P52 = 1;
+  222   3              }
+  223   2          }
+  224   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       348     ------
+  code size            =       289     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =       169     ------
+  edata size           =       171     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -257,7 +259,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       355     ------
+  hconst size          =       347     ------
 End of Module Information.
 
 

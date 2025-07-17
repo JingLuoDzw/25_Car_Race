@@ -29,7 +29,7 @@ int16 inKd1 = 0;
 int16 inKd2 = 0;
 
 void Read_FLASH(void){
-	iap_read_bytes(0x000, read_buff, 100);
+	iap_read_bytes(0x0000, read_buff, 100);
 	
 	Kp1[0] = read_buff[0];
 	Kp2[0] = read_buff[1];
@@ -61,6 +61,7 @@ void Read_FLASH(void){
 	Circ_Right_Speed_L = read_buff[25];
 	Circ_Right_Speed_R = read_buff[26];
 	Circ_Right_Speed_Out = read_buff[27];
+	delay_time = read_buff[28];
 }
 
 void Write_FLASH(void){
@@ -94,8 +95,9 @@ void Write_FLASH(void){
 	write_buff[25]= Circ_Right_Speed_L;
 	write_buff[26]= Circ_Right_Speed_R;
 	write_buff[27]= Circ_Right_Speed_Out;
+	write_buff[28]= delay_time;
 	
-	iap_write_bytes(0x000, write_buff, 100);
+	iap_write_bytes(0x0000, write_buff, 100);
 }
 
 void cursor_selected(int max_index) {
@@ -354,7 +356,7 @@ void adc_value_menu(void)
 
 void Circ_Left_Jump_menu(void)
 {
-    int value_number = 7;
+    int value_number = 8;
 		lcd_clear(BLACK);
 		place_index = 0;
 
@@ -436,6 +438,17 @@ void Circ_Left_Jump_menu(void)
 				Circ_Left_Dis_Final -= 5;
         }
     }
+    else if (place_index == 7 ) {
+        if(value_index >= 20){
+        value_index = 0;
+				delay_time += 1000;
+        }
+        if(value_index <= -20)
+        {
+        value_index = 0;
+				delay_time -= 1000;
+        }
+    }
     else if (place_index == value_number ) {
         if(value_index >= 20)
         {
@@ -455,6 +468,7 @@ void Circ_Left_Jump_menu(void)
     show_string_value(5,Circ_Left_Dis_Start,4,"L_Sta");
     show_string_value(6,Circ_Left_Angle,4,"L_Ang");
     show_string_value(7,Circ_Left_Dis_Final,4,"L_Fin");
+    show_string_value(8,delay_time,5,"de_ti");
     lcd_showstr(16,value_number+1, "EXIT");
     }
 }

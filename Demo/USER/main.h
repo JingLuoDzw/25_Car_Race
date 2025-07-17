@@ -4,6 +4,8 @@ extern int adc_value[8];
 
 extern char state[30];
 
+extern int delay_time;
+
 extern int Circ_Jump_Left[4];
 extern int Circ_Jump_Right[4];
 

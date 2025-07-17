@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 1   
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE menu
@@ -40,7 +40,7 @@ stmt  level    source
    29          int16 inKd2 = 0;
    30          
    31          void Read_FLASH(void){
-   32   1        iap_read_bytes(0x000, read_buff, 100);
+   32   1        iap_read_bytes(0x0000, read_buff, 100);
 *** WARNING C98 IN LINE 32 OF ..\CODE\menu.c: parameter 2: pointer to different objects
 *** WARNING C91 IN LINE 32 OF ..\CODE\menu.c: '&': pointer to different objects
    33   1        
@@ -66,7 +66,7 @@ stmt  level    source
    53   1        Circ_Jump_Right[2] = read_buff[17];
    54   1        Circ_Jump_Right[3] = read_buff[18];
    55   1        Circ_Right_Dis_Start = read_buff[19];
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 2   
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 2   
 
    56   1        Circ_Right_Angle = read_buff[20];
    57   1        Circ_Right_Dis_Final = read_buff[21];
@@ -76,738 +76,754 @@ stmt  level    source
    61   1        Circ_Right_Speed_L = read_buff[25];
    62   1        Circ_Right_Speed_R = read_buff[26];
    63   1        Circ_Right_Speed_Out = read_buff[27];
-   64   1      }
-   65          
-   66          void Write_FLASH(void){
-   67   1        iap_erase_page(0);
-   68   1        
-   69   1        write_buff[0]= Kp1[0];
-   70   1        write_buff[1]= Kp2[0];
-   71   1        write_buff[2]= inKd1;
-   72   1        write_buff[3]= inKd2;
-   73   1        write_buff[4]= SPEED;
-   74   1        write_buff[5]= Out_Jump_Angle;
-   75   1        write_buff[6]= Out_Speed_L;
-   76   1        write_buff[7]= Out_Speed_R;
-   77   1        write_buff[8]= Circ_Jump_Left[0];
-   78   1        write_buff[9]= Circ_Jump_Left[1];
-   79   1        write_buff[10]= Circ_Jump_Left[2];
-   80   1        write_buff[11]= Circ_Jump_Left[3];
-   81   1        write_buff[12]= Circ_Left_Dis_Start;
-   82   1        write_buff[13]= Circ_Left_Angle;
-   83   1        write_buff[14]= Circ_Left_Dis_Final;
-   84   1        write_buff[15]= Circ_Jump_Right[0];
-   85   1        write_buff[16]= Circ_Jump_Right[1];
-   86   1        write_buff[17]= Circ_Jump_Right[2];
-   87   1        write_buff[18]= Circ_Jump_Right[3];
-   88   1        write_buff[19]= Circ_Right_Dis_Start;
-   89   1        write_buff[20]= Circ_Right_Angle;
-   90   1        write_buff[21]= Circ_Right_Dis_Final;
-   91   1        write_buff[22]= Circ_Left_Speed_L;
-   92   1        write_buff[23]= Circ_Left_Speed_R;
-   93   1        write_buff[24]= Circ_Left_Speed_Out;
-   94   1        write_buff[25]= Circ_Right_Speed_L;
-   95   1        write_buff[26]= Circ_Right_Speed_R;
-   96   1        write_buff[27]= Circ_Right_Speed_Out;
-   97   1        
-   98   1        iap_write_bytes(0x000, write_buff, 100);
-*** WARNING C98 IN LINE 98 OF ..\CODE\menu.c: parameter 2: pointer to different objects
-*** WARNING C91 IN LINE 98 OF ..\CODE\menu.c: '&': pointer to different objects
-   99   1      }
-  100          
-  101          void cursor_selected(int max_index) {
-  102   1          int index;
-  103   1          if (place_index >= max_index) {
-  104   2              place_index = 0;
-  105   2          } else if (place_index <= -1) {
-  106   2              place_index = max_index - 1;
-  107   2          }
-  108   1          for(index = 0 ; index < 20 ; index ++ ){
-  109   2            if (index != place_index + 1) {
-  110   3              lcd_showstr(0 , index , "  ");
-  111   3            }
-  112   2          }
-  113   1          lcd_showstr(0 , place_index + 1 , "->");
-  114   1          last_place_index = place_index;
-  115   1      }
-  116          
-  117          
+   64   1        delay_time = read_buff[28];
+   65   1      }
+   66          
+   67          void Write_FLASH(void){
+   68   1        iap_erase_page(0);
+   69   1        
+   70   1        write_buff[0]= Kp1[0];
+   71   1        write_buff[1]= Kp2[0];
+   72   1        write_buff[2]= inKd1;
+   73   1        write_buff[3]= inKd2;
+   74   1        write_buff[4]= SPEED;
+   75   1        write_buff[5]= Out_Jump_Angle;
+   76   1        write_buff[6]= Out_Speed_L;
+   77   1        write_buff[7]= Out_Speed_R;
+   78   1        write_buff[8]= Circ_Jump_Left[0];
+   79   1        write_buff[9]= Circ_Jump_Left[1];
+   80   1        write_buff[10]= Circ_Jump_Left[2];
+   81   1        write_buff[11]= Circ_Jump_Left[3];
+   82   1        write_buff[12]= Circ_Left_Dis_Start;
+   83   1        write_buff[13]= Circ_Left_Angle;
+   84   1        write_buff[14]= Circ_Left_Dis_Final;
+   85   1        write_buff[15]= Circ_Jump_Right[0];
+   86   1        write_buff[16]= Circ_Jump_Right[1];
+   87   1        write_buff[17]= Circ_Jump_Right[2];
+   88   1        write_buff[18]= Circ_Jump_Right[3];
+   89   1        write_buff[19]= Circ_Right_Dis_Start;
+   90   1        write_buff[20]= Circ_Right_Angle;
+   91   1        write_buff[21]= Circ_Right_Dis_Final;
+   92   1        write_buff[22]= Circ_Left_Speed_L;
+   93   1        write_buff[23]= Circ_Left_Speed_R;
+   94   1        write_buff[24]= Circ_Left_Speed_Out;
+   95   1        write_buff[25]= Circ_Right_Speed_L;
+   96   1        write_buff[26]= Circ_Right_Speed_R;
+   97   1        write_buff[27]= Circ_Right_Speed_Out;
+   98   1        write_buff[28]= delay_time;
+   99   1        
+  100   1        iap_write_bytes(0x0000, write_buff, 100);
+*** WARNING C98 IN LINE 100 OF ..\CODE\menu.c: parameter 2: pointer to different objects
+*** WARNING C91 IN LINE 100 OF ..\CODE\menu.c: '&': pointer to different objects
+  101   1      }
+  102          
+  103          void cursor_selected(int max_index) {
+  104   1          int index;
+  105   1          if (place_index >= max_index) {
+  106   2              place_index = 0;
+  107   2          } else if (place_index <= -1) {
+  108   2              place_index = max_index - 1;
+  109   2          }
+  110   1          for(index = 0 ; index < 20 ; index ++ ){
+  111   2            if (index != place_index + 1) {
+  112   3              lcd_showstr(0 , index , "  ");
+  113   3            }
+  114   2          }
+  115   1          lcd_showstr(0 , place_index + 1 , "->");
+  116   1          last_place_index = place_index;
+  117   1      }
   118          
-  119          void show_string_value(uint16 base_y, uint32 value, uint8 num_digits, const char* str) {
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 3   
+  119          
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 3   
 
-  120   1          lcd_showstr(16, base_y, str);
-  121   1          lcd_showint32(70,base_y, value, num_digits); // 假设x坐标为0，你可以根据需要调整
-  122   1      }
-  123          
-  124          void adjust_menu(void)
-  125          {
-  126   1      //    Read_FLASH();
-  127   1      //    pit_ms_init(CCU61_CH0, 115);
-  128   1          int value_number = 6;
-  129   1          while(1)
-  130   1          {
-  131   2          if (place_index == 0 ) {
-  132   3              if(value_index >= 20){
-  133   4              value_index = 0;
-  134   4              control_menu();
-  135   4              }
-  136   3          }
-  137   2          else if (place_index == 1 ) {
-  138   3              if(value_index >= 20){
-  139   4              value_index = 0;
-  140   4              adc_value_menu();
-  141   4              }
-  142   3          }
-  143   2          else if (place_index == 2 ) {
-  144   3              if(value_index >= 20){
-  145   4              value_index = 0;
-  146   4              Circ_Left_Jump_menu();
-  147   4              }
-  148   3          }
-  149   2          else if (place_index == 3 ) {
-  150   3              if(value_index >= 20){
-  151   4              value_index = 0;
-  152   4              Circ_Right_Jump_menu();
-  153   4              }
-  154   3          }
-  155   2          else if (place_index == 4 ) {
-  156   3              if(value_index >= 20){
-  157   4              value_index = 0;
-  158   4              Action_menu();
-  159   4              }
-  160   3          }
-  161   2          else if (place_index == 5 ) {
-  162   3              if(value_index >= 20){
-  163   4              key_pit_flag = 0;
-  164   4              lcd_clear(BLACK);
-  165   4              value_index = 0;
-  166   4              place_index = 0;
-  167   4              allow_value_show = 1;
-  168   4              allow_image_show = 1;
-  169   4              Write_FLASH();
-  170   4              break;
-  171   4              }
-  172   3          }
-  173   2          else if (place_index == value_number ) {
-  174   3              if(value_index >= 20){
-  175   4              key_pit_flag = 0;
-  176   4              lcd_clear(BLACK);
-  177   4              value_index = 0;
-  178   4              place_index = 0;
-  179   4              allow_value_show = 0;
-  180   4              allow_image_show = 0;
-  181   4              Write_FLASH();
-  182   4              menu_flag = 0;
-  183   4              break;
-  184   4              }
-  185   3          }
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 4   
+  120          
+  121          void show_string_value(uint16 base_y, uint32 value, uint8 num_digits, const char* str) {
+  122   1          lcd_showstr(16, base_y, str);
+  123   1          lcd_showint32(70,base_y, value, num_digits); // 假设x坐标为0，你可以根据需要调整
+  124   1      }
+  125          
+  126          void adjust_menu(void)
+  127          {
+  128   1      //    Read_FLASH();
+  129   1      //    pit_ms_init(CCU61_CH0, 115);
+  130   1          int value_number = 6;
+  131   1          while(1)
+  132   1          {
+  133   2          if (place_index == 0 ) {
+  134   3              if(value_index >= 20){
+  135   4              value_index = 0;
+  136   4              control_menu();
+  137   4              }
+  138   3          }
+  139   2          else if (place_index == 1 ) {
+  140   3              if(value_index >= 20){
+  141   4              value_index = 0;
+  142   4              adc_value_menu();
+  143   4              }
+  144   3          }
+  145   2          else if (place_index == 2 ) {
+  146   3              if(value_index >= 20){
+  147   4              value_index = 0;
+  148   4              Circ_Left_Jump_menu();
+  149   4              }
+  150   3          }
+  151   2          else if (place_index == 3 ) {
+  152   3              if(value_index >= 20){
+  153   4              value_index = 0;
+  154   4              Circ_Right_Jump_menu();
+  155   4              }
+  156   3          }
+  157   2          else if (place_index == 4 ) {
+  158   3              if(value_index >= 20){
+  159   4              value_index = 0;
+  160   4              Action_menu();
+  161   4              }
+  162   3          }
+  163   2          else if (place_index == 5 ) {
+  164   3              if(value_index >= 20){
+  165   4              key_pit_flag = 0;
+  166   4              lcd_clear(BLACK);
+  167   4              value_index = 0;
+  168   4              place_index = 0;
+  169   4              allow_value_show = 1;
+  170   4              allow_image_show = 1;
+  171   4              Write_FLASH();
+  172   4              break;
+  173   4              }
+  174   3          }
+  175   2          else if (place_index == value_number ) {
+  176   3              if(value_index >= 20){
+  177   4              key_pit_flag = 0;
+  178   4              lcd_clear(BLACK);
+  179   4              value_index = 0;
+  180   4              place_index = 0;
+  181   4              allow_value_show = 0;
+  182   4              allow_image_show = 0;
+  183   4              Write_FLASH();
+  184   4              menu_flag = 0;
+  185   4              break;
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 4   
 
-  186   2      
-  187   2          cursor_selected(value_number+1);
-  188   2          lcd_showstr(0, 0, "  <   Menu   >   ");
-  189   2          lcd_showstr(16, 1, "Control");
-  190   2          lcd_showstr(16, 2, "Adc_value");
-  191   2          lcd_showstr(16, 3, "Circ_Jump_L");
-  192   2          lcd_showstr(16, 4, "Circ_Jump_R");
-  193   2          lcd_showstr(16, 5, "Action");
-  194   2          lcd_showstr(16, 6, "observer");
-  195   2          lcd_showstr(16, value_number+1, "go");
-  196   2          }
-  197   1      }
-  198          
-  199          
-  200          void control_menu(void)
-  201          {
-  202   1          int value_number = 8;
-  203   1          lcd_clear(BLACK);
-  204   1      
-  205   1          while(1)
-  206   1          {
-  207   2          if (place_index == 0 ) {
-  208   3              if(value_index >= 20)
-  209   3              {
-  210   4              value_index = 0;
-  211   4              Kp1[0] += 5;
-  212   4              }
-  213   3              if(value_index <= -20)
-  214   3              {
-  215   4              value_index = 0;
-  216   4              Kp1[0] -= 5;
-  217   4              }
-  218   3          }
-  219   2          else if (place_index == 1 ) {
-  220   3              if(value_index >= 20){
-  221   4                  value_index = 0;
-  222   4              Kp2[0] += 5;
-  223   4              }
-  224   3              if(value_index <= -20){
-  225   4                  value_index = 0;
-  226   4              Kp2[0] -= 5;
-  227   4              }
-  228   3          }
-  229   2          else if (place_index == 2 ) {
-  230   3              if(value_index >= 20){
-  231   4                  value_index = 0;
-  232   4              inKd1 += 1;
-  233   4              Kd1[0] = (float)inKd1/10;
-  234   4              }
-  235   3              if(value_index <= -20){
-  236   4                  value_index = 0;
-  237   4              inKd1 -= 1;
-  238   4              Kd1[0] = (float)inKd1/10;
-  239   4              }
-  240   3          }
-  241   2          else if (place_index == 3 ) {
-  242   3              if(value_index >= 20){
-  243   4              value_index = 0;
-  244   4              inKd2 += 1;
-  245   4              Kd2[0] = (float)inKd2/10;
-  246   4              }
-  247   3              if(value_index <= -20)
-  248   3              {
-  249   4              value_index = 0;
-  250   4              inKd2 -= 1;
-  251   4              Kd2[0] = (float)inKd2/10;
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 5   
+  186   4              }
+  187   3          }
+  188   2      
+  189   2          cursor_selected(value_number+1);
+  190   2          lcd_showstr(0, 0, "  <   Menu   >   ");
+  191   2          lcd_showstr(16, 1, "Control");
+  192   2          lcd_showstr(16, 2, "Adc_value");
+  193   2          lcd_showstr(16, 3, "Circ_Jump_L");
+  194   2          lcd_showstr(16, 4, "Circ_Jump_R");
+  195   2          lcd_showstr(16, 5, "Action");
+  196   2          lcd_showstr(16, 6, "observer");
+  197   2          lcd_showstr(16, value_number+1, "go");
+  198   2          }
+  199   1      }
+  200          
+  201          
+  202          void control_menu(void)
+  203          {
+  204   1          int value_number = 8;
+  205   1          lcd_clear(BLACK);
+  206   1      
+  207   1          while(1)
+  208   1          {
+  209   2          if (place_index == 0 ) {
+  210   3              if(value_index >= 20)
+  211   3              {
+  212   4              value_index = 0;
+  213   4              Kp1[0] += 5;
+  214   4              }
+  215   3              if(value_index <= -20)
+  216   3              {
+  217   4              value_index = 0;
+  218   4              Kp1[0] -= 5;
+  219   4              }
+  220   3          }
+  221   2          else if (place_index == 1 ) {
+  222   3              if(value_index >= 20){
+  223   4                  value_index = 0;
+  224   4              Kp2[0] += 5;
+  225   4              }
+  226   3              if(value_index <= -20){
+  227   4                  value_index = 0;
+  228   4              Kp2[0] -= 5;
+  229   4              }
+  230   3          }
+  231   2          else if (place_index == 2 ) {
+  232   3              if(value_index >= 20){
+  233   4                  value_index = 0;
+  234   4              inKd1 += 1;
+  235   4              Kd1[0] = (float)inKd1/10;
+  236   4              }
+  237   3              if(value_index <= -20){
+  238   4                  value_index = 0;
+  239   4              inKd1 -= 1;
+  240   4              Kd1[0] = (float)inKd1/10;
+  241   4              }
+  242   3          }
+  243   2          else if (place_index == 3 ) {
+  244   3              if(value_index >= 20){
+  245   4              value_index = 0;
+  246   4              inKd2 += 1;
+  247   4              Kd2[0] = (float)inKd2/10;
+  248   4              }
+  249   3              if(value_index <= -20)
+  250   3              {
+  251   4              value_index = 0;
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 5   
 
-  252   4              }
-  253   3          }
-  254   2          else if (place_index == 4 ) {
-  255   3              if(value_index >= 20){
-  256   4              value_index = 0;
-  257   4              SPEED += 5;
-  258   4              }
-  259   3              if(value_index <= -20)
-  260   3              {
-  261   4              value_index = 0;
-  262   4              SPEED -= 5;
-  263   4              }
-  264   3          }
-  265   2          else if (place_index == 5 ) {
-  266   3              if(value_index >= 20){
-  267   4              value_index = 0;
-  268   4              Out_Jump_Angle += 5;
-  269   4              }
-  270   3              if(value_index <= -20)
-  271   3              {
-  272   4              value_index = 0;
-  273   4              Out_Jump_Angle -= 5;
-  274   4              }
-  275   3          }
-  276   2          else if (place_index == 6 ) {
-  277   3              if(value_index >= 20){
-  278   4              value_index = 0;
-  279   4              Out_Speed_L += 5;
-  280   4              }
-  281   3              if(value_index <= -20)
-  282   3              {
-  283   4              value_index = 0;
-  284   4              Out_Speed_L -= 5;
-  285   4              }
-  286   3          }
-  287   2          else if (place_index == 7 ) {
-  288   3              if(value_index >= 20){
-  289   4              value_index = 0;
-  290   4              Out_Speed_R += 5;
-  291   4              }
-  292   3              if(value_index <= -20)
-  293   3              {
-  294   4              value_index = 0;
-  295   4              Out_Speed_R -= 5;
-  296   4              }
-  297   3          }
-  298   2          else if (place_index == value_number ) {
-  299   3              if(value_index >= 20)
-  300   3              {
-  301   4                  lcd_clear(BLACK);
-  302   4                  value_index = 0;
-  303   4                  place_index = 0;
-  304   4                  Write_FLASH();
-  305   4                  break;
-  306   4              }
-  307   3          }
-  308   2          cursor_selected(value_number+1);
-  309   2          lcd_showstr(0, 0, "  <  Control  >  ");
-  310   2          show_string_value(1,Kp1[0],4,"Kp1");
-  311   2          show_string_value(2,Kp2[0],4,"Kp2");
-  312   2      //    lcd_showstr(16,3,"Kd1");
-  313   2      //    lcd_showfloat(70,3,Kd1[0],1,2);
-  314   2      //    lcd_showstr(16,4,"Kd2");
-  315   2      //    lcd_showfloat(70,4,Kd2[0],1,2);
-  316   2          show_string_value(3,inKd1,4,"inKd1");
-  317   2          show_string_value(4,inKd2,4,"inKd2");
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 6   
+  252   4              inKd2 -= 1;
+  253   4              Kd2[0] = (float)inKd2/10;
+  254   4              }
+  255   3          }
+  256   2          else if (place_index == 4 ) {
+  257   3              if(value_index >= 20){
+  258   4              value_index = 0;
+  259   4              SPEED += 5;
+  260   4              }
+  261   3              if(value_index <= -20)
+  262   3              {
+  263   4              value_index = 0;
+  264   4              SPEED -= 5;
+  265   4              }
+  266   3          }
+  267   2          else if (place_index == 5 ) {
+  268   3              if(value_index >= 20){
+  269   4              value_index = 0;
+  270   4              Out_Jump_Angle += 5;
+  271   4              }
+  272   3              if(value_index <= -20)
+  273   3              {
+  274   4              value_index = 0;
+  275   4              Out_Jump_Angle -= 5;
+  276   4              }
+  277   3          }
+  278   2          else if (place_index == 6 ) {
+  279   3              if(value_index >= 20){
+  280   4              value_index = 0;
+  281   4              Out_Speed_L += 5;
+  282   4              }
+  283   3              if(value_index <= -20)
+  284   3              {
+  285   4              value_index = 0;
+  286   4              Out_Speed_L -= 5;
+  287   4              }
+  288   3          }
+  289   2          else if (place_index == 7 ) {
+  290   3              if(value_index >= 20){
+  291   4              value_index = 0;
+  292   4              Out_Speed_R += 5;
+  293   4              }
+  294   3              if(value_index <= -20)
+  295   3              {
+  296   4              value_index = 0;
+  297   4              Out_Speed_R -= 5;
+  298   4              }
+  299   3          }
+  300   2          else if (place_index == value_number ) {
+  301   3              if(value_index >= 20)
+  302   3              {
+  303   4                  lcd_clear(BLACK);
+  304   4                  value_index = 0;
+  305   4                  place_index = 0;
+  306   4                  Write_FLASH();
+  307   4                  break;
+  308   4              }
+  309   3          }
+  310   2          cursor_selected(value_number+1);
+  311   2          lcd_showstr(0, 0, "  <  Control  >  ");
+  312   2          show_string_value(1,Kp1[0],4,"Kp1");
+  313   2          show_string_value(2,Kp2[0],4,"Kp2");
+  314   2      //    lcd_showstr(16,3,"Kd1");
+  315   2      //    lcd_showfloat(70,3,Kd1[0],1,2);
+  316   2      //    lcd_showstr(16,4,"Kd2");
+  317   2      //    lcd_showfloat(70,4,Kd2[0],1,2);
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 6   
 
-  318   2          show_string_value(5,SPEED,4,"SPEED");
-  319   2          show_string_value(6,Out_Jump_Angle,4,"Out_A");
-  320   2          show_string_value(7,Out_Speed_L,4,"Out_L");
-  321   2          show_string_value(8,Out_Speed_R,4,"Out_R");
-  322   2          lcd_showstr(16,value_number+1, "EXIT");
-  323   2          }
-  324   1      }
-  325          
-  326          void adc_value_menu(void)
-  327          {
-  328   1          int value_number = 4;
-  329   1          lcd_clear(BLACK);
-  330   1          place_index = 0;
-  331   1      
-  332   1          while(1)
-  333   1          {
-  334   2          state_detect(adc_value);
-  335   2          if (place_index == value_number ) {
-  336   3              if(value_index >= 20)
-  337   3              {
-  338   4                  lcd_clear(BLACK);
-  339   4                  value_index = 0;
-  340   4                  place_index = 0;
-  341   4                  Write_FLASH();
-  342   4                  break;
-  343   4              }
-  344   3          }
-  345   2          cursor_selected(value_number+1);
-  346   2          lcd_showstr(0, 0, "  <    Adc    >  ");
-  347   2          show_string_value(1,adc_value[0],4,"adc_1");
-  348   2          show_string_value(2,adc_value[1],4,"adc_2");
-  349   2          show_string_value(3,adc_value[3],4,"adc_3");
-  350   2          show_string_value(4,adc_value[4],4,"adc_4");
-  351   2          lcd_showstr(16,value_number+1, "EXIT");
-  352   2          }
-  353   1      }
-  354          
-  355          void Circ_Left_Jump_menu(void)
-  356          {
-  357   1          int value_number = 7;
-  358   1          lcd_clear(BLACK);
-  359   1          place_index = 0;
-  360   1      
-  361   1          while(1)
-  362   1          {
-  363   2          if (place_index == 0 ) {
-  364   3              if(value_index >= 20)
-  365   3              {
-  366   4              value_index = 0;
-  367   4              Circ_Jump_Left[0] += 50;
-  368   4              }
-  369   3              if(value_index <= -20)
-  370   3              {
-  371   4              value_index = 0;
-  372   4              Circ_Jump_Left[0] -= 50;
-  373   4              }
-  374   3          }
-  375   2          else if (place_index == 1 ) {
-  376   3              if(value_index >= 20){
-  377   4              value_index = 0;
-  378   4              Circ_Jump_Left[1] += 50;
-  379   4              }
-  380   3              if(value_index <= -20){
-  381   4              value_index = 0;
-  382   4              Circ_Jump_Left[1] -= 50;
-  383   4              }
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 7   
+  318   2          show_string_value(3,inKd1,4,"inKd1");
+  319   2          show_string_value(4,inKd2,4,"inKd2");
+  320   2          show_string_value(5,SPEED,4,"SPEED");
+  321   2          show_string_value(6,Out_Jump_Angle,4,"Out_A");
+  322   2          show_string_value(7,Out_Speed_L,4,"Out_L");
+  323   2          show_string_value(8,Out_Speed_R,4,"Out_R");
+  324   2          lcd_showstr(16,value_number+1, "EXIT");
+  325   2          }
+  326   1      }
+  327          
+  328          void adc_value_menu(void)
+  329          {
+  330   1          int value_number = 4;
+  331   1          lcd_clear(BLACK);
+  332   1          place_index = 0;
+  333   1      
+  334   1          while(1)
+  335   1          {
+  336   2          state_detect(adc_value);
+  337   2          if (place_index == value_number ) {
+  338   3              if(value_index >= 20)
+  339   3              {
+  340   4                  lcd_clear(BLACK);
+  341   4                  value_index = 0;
+  342   4                  place_index = 0;
+  343   4                  Write_FLASH();
+  344   4                  break;
+  345   4              }
+  346   3          }
+  347   2          cursor_selected(value_number+1);
+  348   2          lcd_showstr(0, 0, "  <    Adc    >  ");
+  349   2          show_string_value(1,adc_value[0],4,"adc_1");
+  350   2          show_string_value(2,adc_value[1],4,"adc_2");
+  351   2          show_string_value(3,adc_value[3],4,"adc_3");
+  352   2          show_string_value(4,adc_value[4],4,"adc_4");
+  353   2          lcd_showstr(16,value_number+1, "EXIT");
+  354   2          }
+  355   1      }
+  356          
+  357          void Circ_Left_Jump_menu(void)
+  358          {
+  359   1          int value_number = 8;
+  360   1          lcd_clear(BLACK);
+  361   1          place_index = 0;
+  362   1      
+  363   1          while(1)
+  364   1          {
+  365   2          if (place_index == 0 ) {
+  366   3              if(value_index >= 20)
+  367   3              {
+  368   4              value_index = 0;
+  369   4              Circ_Jump_Left[0] += 50;
+  370   4              }
+  371   3              if(value_index <= -20)
+  372   3              {
+  373   4              value_index = 0;
+  374   4              Circ_Jump_Left[0] -= 50;
+  375   4              }
+  376   3          }
+  377   2          else if (place_index == 1 ) {
+  378   3              if(value_index >= 20){
+  379   4              value_index = 0;
+  380   4              Circ_Jump_Left[1] += 50;
+  381   4              }
+  382   3              if(value_index <= -20){
+  383   4              value_index = 0;
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 7   
 
-  384   3          }
-  385   2          else if (place_index == 2 ) {
-  386   3              if(value_index >= 20){
-  387   4              value_index = 0;
-  388   4              Circ_Jump_Left[2] += 50;
-  389   4              }
-  390   3              if(value_index <= -20){
-  391   4              value_index = 0;
-  392   4              Circ_Jump_Left[2] -= 50;
-  393   4              }
-  394   3          }
-  395   2          else if (place_index == 3 ) {
-  396   3              if(value_index >= 20){
-  397   4              value_index = 0;
-  398   4              Circ_Jump_Left[3] += 50;
-  399   4              }
-  400   3              if(value_index <= -20)
-  401   3              {
-  402   4              value_index = 0;
-  403   4              Circ_Jump_Left[3] -= 50;
-  404   4              }
-  405   3          }
-  406   2          else if (place_index == 4 ) {
-  407   3              if(value_index >= 20){
-  408   4              value_index = 0;
-  409   4              Circ_Left_Dis_Start += 5;
-  410   4              }
-  411   3              if(value_index <= -20)
-  412   3              {
-  413   4              value_index = 0;
-  414   4              Circ_Left_Dis_Start -= 5;
-  415   4              }
-  416   3          }
-  417   2          else if (place_index == 5 ) {
-  418   3              if(value_index >= 20){
-  419   4              value_index = 0;
-  420   4              Circ_Left_Angle += 5;
-  421   4              }
-  422   3              if(value_index <= -20)
-  423   3              {
-  424   4              value_index = 0;
-  425   4              Circ_Left_Angle -= 5;
-  426   4              }
-  427   3          }
-  428   2          else if (place_index == 6 ) {
-  429   3              if(value_index >= 20){
-  430   4              value_index = 0;
-  431   4              Circ_Left_Dis_Final += 5;
-  432   4              }
-  433   3              if(value_index <= -20)
-  434   3              {
-  435   4              value_index = 0;
-  436   4              Circ_Left_Dis_Final -= 5;
-  437   4              }
-  438   3          }
-  439   2          else if (place_index == value_number ) {
-  440   3              if(value_index >= 20)
-  441   3              {
-  442   4                  lcd_clear(BLACK);
-  443   4                  value_index = 0;
-  444   4                  place_index = 0;
-  445   4                  Write_FLASH();
-  446   4                  break;
-  447   4              }
-  448   3          }
-  449   2          cursor_selected(value_number+1);
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 8   
+  384   4              Circ_Jump_Left[1] -= 50;
+  385   4              }
+  386   3          }
+  387   2          else if (place_index == 2 ) {
+  388   3              if(value_index >= 20){
+  389   4              value_index = 0;
+  390   4              Circ_Jump_Left[2] += 50;
+  391   4              }
+  392   3              if(value_index <= -20){
+  393   4              value_index = 0;
+  394   4              Circ_Jump_Left[2] -= 50;
+  395   4              }
+  396   3          }
+  397   2          else if (place_index == 3 ) {
+  398   3              if(value_index >= 20){
+  399   4              value_index = 0;
+  400   4              Circ_Jump_Left[3] += 50;
+  401   4              }
+  402   3              if(value_index <= -20)
+  403   3              {
+  404   4              value_index = 0;
+  405   4              Circ_Jump_Left[3] -= 50;
+  406   4              }
+  407   3          }
+  408   2          else if (place_index == 4 ) {
+  409   3              if(value_index >= 20){
+  410   4              value_index = 0;
+  411   4              Circ_Left_Dis_Start += 5;
+  412   4              }
+  413   3              if(value_index <= -20)
+  414   3              {
+  415   4              value_index = 0;
+  416   4              Circ_Left_Dis_Start -= 5;
+  417   4              }
+  418   3          }
+  419   2          else if (place_index == 5 ) {
+  420   3              if(value_index >= 20){
+  421   4              value_index = 0;
+  422   4              Circ_Left_Angle += 5;
+  423   4              }
+  424   3              if(value_index <= -20)
+  425   3              {
+  426   4              value_index = 0;
+  427   4              Circ_Left_Angle -= 5;
+  428   4              }
+  429   3          }
+  430   2          else if (place_index == 6 ) {
+  431   3              if(value_index >= 20){
+  432   4              value_index = 0;
+  433   4              Circ_Left_Dis_Final += 5;
+  434   4              }
+  435   3              if(value_index <= -20)
+  436   3              {
+  437   4              value_index = 0;
+  438   4              Circ_Left_Dis_Final -= 5;
+  439   4              }
+  440   3          }
+  441   2          else if (place_index == 7 ) {
+  442   3              if(value_index >= 20){
+  443   4              value_index = 0;
+  444   4              delay_time += 1000;
+  445   4              }
+  446   3              if(value_index <= -20)
+  447   3              {
+  448   4              value_index = 0;
+  449   4              delay_time -= 1000;
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 8   
 
-  450   2          lcd_showstr(0, 0, "  <Circ_Jump_L>  ");
-  451   2          show_string_value(1,Circ_Jump_Left[0],4,"L_J_1");
-  452   2          show_string_value(2,Circ_Jump_Left[1],4,"L_J_2");
-  453   2          show_string_value(3,Circ_Jump_Left[2],4,"L_J_3");
-  454   2          show_string_value(4,Circ_Jump_Left[3],4,"L_J_4");
-  455   2          show_string_value(5,Circ_Left_Dis_Start,4,"L_Sta");
-  456   2          show_string_value(6,Circ_Left_Angle,4,"L_Ang");
-  457   2          show_string_value(7,Circ_Left_Dis_Final,4,"L_Fin");
-  458   2          lcd_showstr(16,value_number+1, "EXIT");
-  459   2          }
-  460   1      }
-  461          
-  462          void Circ_Right_Jump_menu(void)
-  463          {
-  464   1          int value_number = 7;
-  465   1          lcd_clear(BLACK);
-  466   1          place_index = 0;
-  467   1      
-  468   1          while(1)
-  469   1          {
-  470   2          if (place_index == 0 ) {
-  471   3              if(value_index >= 20)
-  472   3              {
-  473   4              value_index = 0;
-  474   4              Circ_Jump_Right[0] += 50;
-  475   4              }
-  476   3              if(value_index <= -20)
-  477   3              {
-  478   4              value_index = 0;
-  479   4              Circ_Jump_Right[0] -= 50;
-  480   4              }
-  481   3          }
-  482   2          else if (place_index == 1 ) {
-  483   3              if(value_index >= 20){
-  484   4              value_index = 0;
-  485   4              Circ_Jump_Right[1] += 50;
-  486   4              }
-  487   3              if(value_index <= -20){
-  488   4              value_index = 0;
-  489   4              Circ_Jump_Right[1] -= 50;
-  490   4              }
-  491   3          }
-  492   2          else if (place_index == 2 ) {
-  493   3              if(value_index >= 20){
-  494   4              value_index = 0;
-  495   4              Circ_Jump_Right[2] += 50;
-  496   4              }
-  497   3              if(value_index <= -20){
+  450   4              }
+  451   3          }
+  452   2          else if (place_index == value_number ) {
+  453   3              if(value_index >= 20)
+  454   3              {
+  455   4                  lcd_clear(BLACK);
+  456   4                  value_index = 0;
+  457   4                  place_index = 0;
+  458   4                  Write_FLASH();
+  459   4                  break;
+  460   4              }
+  461   3          }
+  462   2          cursor_selected(value_number+1);
+  463   2          lcd_showstr(0, 0, "  <Circ_Jump_L>  ");
+  464   2          show_string_value(1,Circ_Jump_Left[0],4,"L_J_1");
+  465   2          show_string_value(2,Circ_Jump_Left[1],4,"L_J_2");
+  466   2          show_string_value(3,Circ_Jump_Left[2],4,"L_J_3");
+  467   2          show_string_value(4,Circ_Jump_Left[3],4,"L_J_4");
+  468   2          show_string_value(5,Circ_Left_Dis_Start,4,"L_Sta");
+  469   2          show_string_value(6,Circ_Left_Angle,4,"L_Ang");
+  470   2          show_string_value(7,Circ_Left_Dis_Final,4,"L_Fin");
+  471   2          show_string_value(8,delay_time,5,"de_ti");
+  472   2          lcd_showstr(16,value_number+1, "EXIT");
+  473   2          }
+  474   1      }
+  475          
+  476          void Circ_Right_Jump_menu(void)
+  477          {
+  478   1          int value_number = 7;
+  479   1          lcd_clear(BLACK);
+  480   1          place_index = 0;
+  481   1      
+  482   1          while(1)
+  483   1          {
+  484   2          if (place_index == 0 ) {
+  485   3              if(value_index >= 20)
+  486   3              {
+  487   4              value_index = 0;
+  488   4              Circ_Jump_Right[0] += 50;
+  489   4              }
+  490   3              if(value_index <= -20)
+  491   3              {
+  492   4              value_index = 0;
+  493   4              Circ_Jump_Right[0] -= 50;
+  494   4              }
+  495   3          }
+  496   2          else if (place_index == 1 ) {
+  497   3              if(value_index >= 20){
   498   4              value_index = 0;
-  499   4              Circ_Jump_Right[2] -= 50;
+  499   4              Circ_Jump_Right[1] += 50;
   500   4              }
-  501   3          }
-  502   2          else if (place_index == 3 ) {
-  503   3              if(value_index >= 20){
-  504   4              value_index = 0;
-  505   4              Circ_Jump_Right[3] += 50;
-  506   4              }
-  507   3              if(value_index <= -20)
-  508   3              {
-  509   4              value_index = 0;
-  510   4              Circ_Jump_Right[3] -= 50;
-  511   4              }
-  512   3          }
-  513   2          else if (place_index == 4 ) {
-  514   3              if(value_index >= 20){
-  515   4              value_index = 0;
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 9   
+  501   3              if(value_index <= -20){
+  502   4              value_index = 0;
+  503   4              Circ_Jump_Right[1] -= 50;
+  504   4              }
+  505   3          }
+  506   2          else if (place_index == 2 ) {
+  507   3              if(value_index >= 20){
+  508   4              value_index = 0;
+  509   4              Circ_Jump_Right[2] += 50;
+  510   4              }
+  511   3              if(value_index <= -20){
+  512   4              value_index = 0;
+  513   4              Circ_Jump_Right[2] -= 50;
+  514   4              }
+  515   3          }
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 9   
 
-  516   4              Circ_Right_Dis_Start += 5;
-  517   4              }
-  518   3              if(value_index <= -20)
-  519   3              {
-  520   4              value_index = 0;
-  521   4              Circ_Right_Dis_Start -= 5;
-  522   4              }
-  523   3          }
-  524   2          else if (place_index == 5 ) {
-  525   3              if(value_index >= 20){
-  526   4              value_index = 0;
-  527   4              Circ_Right_Angle += 5;
-  528   4              }
-  529   3              if(value_index <= -20)
-  530   3              {
-  531   4              value_index = 0;
-  532   4              Circ_Right_Angle -= 5;
-  533   4              }
-  534   3          }
-  535   2          else if (place_index == 6 ) {
-  536   3              if(value_index >= 20){
-  537   4              value_index = 0;
-  538   4              Circ_Right_Dis_Final += 5;
-  539   4              }
-  540   3              if(value_index <= -20)
-  541   3              {
-  542   4              value_index = 0;
-  543   4              Circ_Right_Dis_Final -= 5;
-  544   4              }
-  545   3          }
-  546   2          else if (place_index == value_number ) {
-  547   3              if(value_index >= 20)
-  548   3              {
-  549   4                  lcd_clear(BLACK);
-  550   4                  value_index = 0;
-  551   4                  place_index = 0;
-  552   4                  Write_FLASH();
-  553   4                  break;
-  554   4              }
-  555   3          }
-  556   2          cursor_selected(value_number+1);
-  557   2          lcd_showstr(0, 0, "  <Circ_Jump_R>  ");
-  558   2          show_string_value(1,Circ_Jump_Right[0],4,"R_J_1");
-  559   2          show_string_value(2,Circ_Jump_Right[1],4,"R_J_2");
-  560   2          show_string_value(3,Circ_Jump_Right[2],4,"R_J_3");
-  561   2          show_string_value(4,Circ_Jump_Right[3],4,"R_J_4");
-  562   2          show_string_value(5,Circ_Right_Dis_Start,4,"R_Sta");
-  563   2          show_string_value(6,Circ_Right_Angle,4,"R_Ang");
-  564   2          show_string_value(7,Circ_Right_Dis_Final,4,"R_Fin");
-  565   2          lcd_showstr(16,value_number+1, "EXIT");
-  566   2          }
-  567   1      }
-  568          
-  569          void Action_menu(void)
-  570          {
-  571   1          int value_number = 6;
-  572   1          lcd_clear(BLACK);
-  573   1          place_index = 0;
-  574   1      
-  575   1          while(1)
-  576   1          {
-  577   2          if (place_index == 0 ) {
-  578   3              if(value_index >= 20)
-  579   3              {
-  580   4              value_index = 0;
-  581   4              Circ_Left_Speed_L += 5;
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 10  
+  516   2          else if (place_index == 3 ) {
+  517   3              if(value_index >= 20){
+  518   4              value_index = 0;
+  519   4              Circ_Jump_Right[3] += 50;
+  520   4              }
+  521   3              if(value_index <= -20)
+  522   3              {
+  523   4              value_index = 0;
+  524   4              Circ_Jump_Right[3] -= 50;
+  525   4              }
+  526   3          }
+  527   2          else if (place_index == 4 ) {
+  528   3              if(value_index >= 20){
+  529   4              value_index = 0;
+  530   4              Circ_Right_Dis_Start += 5;
+  531   4              }
+  532   3              if(value_index <= -20)
+  533   3              {
+  534   4              value_index = 0;
+  535   4              Circ_Right_Dis_Start -= 5;
+  536   4              }
+  537   3          }
+  538   2          else if (place_index == 5 ) {
+  539   3              if(value_index >= 20){
+  540   4              value_index = 0;
+  541   4              Circ_Right_Angle += 5;
+  542   4              }
+  543   3              if(value_index <= -20)
+  544   3              {
+  545   4              value_index = 0;
+  546   4              Circ_Right_Angle -= 5;
+  547   4              }
+  548   3          }
+  549   2          else if (place_index == 6 ) {
+  550   3              if(value_index >= 20){
+  551   4              value_index = 0;
+  552   4              Circ_Right_Dis_Final += 5;
+  553   4              }
+  554   3              if(value_index <= -20)
+  555   3              {
+  556   4              value_index = 0;
+  557   4              Circ_Right_Dis_Final -= 5;
+  558   4              }
+  559   3          }
+  560   2          else if (place_index == value_number ) {
+  561   3              if(value_index >= 20)
+  562   3              {
+  563   4                  lcd_clear(BLACK);
+  564   4                  value_index = 0;
+  565   4                  place_index = 0;
+  566   4                  Write_FLASH();
+  567   4                  break;
+  568   4              }
+  569   3          }
+  570   2          cursor_selected(value_number+1);
+  571   2          lcd_showstr(0, 0, "  <Circ_Jump_R>  ");
+  572   2          show_string_value(1,Circ_Jump_Right[0],4,"R_J_1");
+  573   2          show_string_value(2,Circ_Jump_Right[1],4,"R_J_2");
+  574   2          show_string_value(3,Circ_Jump_Right[2],4,"R_J_3");
+  575   2          show_string_value(4,Circ_Jump_Right[3],4,"R_J_4");
+  576   2          show_string_value(5,Circ_Right_Dis_Start,4,"R_Sta");
+  577   2          show_string_value(6,Circ_Right_Angle,4,"R_Ang");
+  578   2          show_string_value(7,Circ_Right_Dis_Final,4,"R_Fin");
+  579   2          lcd_showstr(16,value_number+1, "EXIT");
+  580   2          }
+  581   1      }
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 10  
 
-  582   4              }
-  583   3              if(value_index <= -20)
-  584   3              {
-  585   4              value_index = 0;
-  586   4              Circ_Left_Speed_L -= 5;
-  587   4              }
-  588   3          }
-  589   2          else if (place_index == 1 ) {
-  590   3              if(value_index >= 20){
-  591   4                  value_index = 0;
-  592   4              Circ_Left_Speed_R += 5;
-  593   4              }
-  594   3              if(value_index <= -20){
-  595   4                  value_index = 0;
-  596   4              Circ_Left_Speed_R -= 5;
-  597   4              }
-  598   3          }
-  599   2          else if (place_index == 2 ) {
-  600   3              if(value_index >= 20){
-  601   4                  value_index = 0;
-  602   4              Circ_Left_Speed_Out += 5;
-  603   4              }
-  604   3              if(value_index <= -20){
+  582          
+  583          void Action_menu(void)
+  584          {
+  585   1          int value_number = 6;
+  586   1          lcd_clear(BLACK);
+  587   1          place_index = 0;
+  588   1      
+  589   1          while(1)
+  590   1          {
+  591   2          if (place_index == 0 ) {
+  592   3              if(value_index >= 20)
+  593   3              {
+  594   4              value_index = 0;
+  595   4              Circ_Left_Speed_L += 5;
+  596   4              }
+  597   3              if(value_index <= -20)
+  598   3              {
+  599   4              value_index = 0;
+  600   4              Circ_Left_Speed_L -= 5;
+  601   4              }
+  602   3          }
+  603   2          else if (place_index == 1 ) {
+  604   3              if(value_index >= 20){
   605   4                  value_index = 0;
-  606   4              Circ_Left_Speed_Out -= 5;
+  606   4              Circ_Left_Speed_R += 5;
   607   4              }
-  608   3          }
-  609   2          else if (place_index == 3 ) {
-  610   3              if(value_index >= 20){
-  611   4              value_index = 0;
-  612   4              Circ_Right_Speed_L += 5;
-  613   4              }
-  614   3              if(value_index <= -20)
-  615   3              {
-  616   4              value_index = 0;
-  617   4              Circ_Right_Speed_L += 5;
-  618   4              }
-  619   3          }
-  620   2          else if (place_index == 4 ) {
-  621   3              if(value_index >= 20){
-  622   4              value_index = 0;
-  623   4              Circ_Right_Speed_R += 5;
-  624   4              }
-  625   3              if(value_index <= -20)
-  626   3              {
-  627   4              value_index = 0;
-  628   4              Circ_Right_Speed_R -= 5;
-  629   4              }
-  630   3          }
-  631   2          else if (place_index == 5 ) {
-  632   3              if(value_index >= 20){
-  633   4              value_index = 0;
-  634   4              Circ_Right_Speed_Out += 5;
-  635   4              }
-  636   3              if(value_index <= -20)
-  637   3              {
-  638   4              value_index = 0;
-  639   4              Circ_Right_Speed_Out -= 5;
-  640   4              }
-  641   3          }
-  642   2          
-  643   2          else if (place_index == value_number ) {
-  644   3              if(value_index >= 20)
-  645   3              {
-  646   4                  lcd_clear(BLACK);
-  647   4                  value_index = 0;
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 11  
+  608   3              if(value_index <= -20){
+  609   4                  value_index = 0;
+  610   4              Circ_Left_Speed_R -= 5;
+  611   4              }
+  612   3          }
+  613   2          else if (place_index == 2 ) {
+  614   3              if(value_index >= 20){
+  615   4                  value_index = 0;
+  616   4              Circ_Left_Speed_Out += 5;
+  617   4              }
+  618   3              if(value_index <= -20){
+  619   4                  value_index = 0;
+  620   4              Circ_Left_Speed_Out -= 5;
+  621   4              }
+  622   3          }
+  623   2          else if (place_index == 3 ) {
+  624   3              if(value_index >= 20){
+  625   4              value_index = 0;
+  626   4              Circ_Right_Speed_L += 5;
+  627   4              }
+  628   3              if(value_index <= -20)
+  629   3              {
+  630   4              value_index = 0;
+  631   4              Circ_Right_Speed_L += 5;
+  632   4              }
+  633   3          }
+  634   2          else if (place_index == 4 ) {
+  635   3              if(value_index >= 20){
+  636   4              value_index = 0;
+  637   4              Circ_Right_Speed_R += 5;
+  638   4              }
+  639   3              if(value_index <= -20)
+  640   3              {
+  641   4              value_index = 0;
+  642   4              Circ_Right_Speed_R -= 5;
+  643   4              }
+  644   3          }
+  645   2          else if (place_index == 5 ) {
+  646   3              if(value_index >= 20){
+  647   4              value_index = 0;
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 11  
 
-  648   4                  place_index = 0;
-  649   4                  Write_FLASH();
-  650   4                  break;
-  651   4              }
-  652   3          }
-  653   2          cursor_selected(value_number+1);
-  654   2          lcd_showstr(0, 0, "  <  Action  >  ");
-  655   2          show_string_value(1,Circ_Left_Speed_L,4,"L_Sp_L");
-  656   2          show_string_value(2,Circ_Left_Speed_R,4,"L_Sp_R");
-  657   2          show_string_value(3,Circ_Left_Speed_Out,4,"L_Out");
-  658   2          show_string_value(4,Circ_Right_Speed_L,4,"R_Sp_L");
-  659   2          show_string_value(5,Circ_Right_Speed_R,4,"R_Sp_R");
-  660   2          show_string_value(6,Circ_Right_Speed_Out,4,"R_Out");
-  661   2          lcd_showstr(16,value_number+1, "EXIT");
-  662   2          }
-  663   1      }
-  664          
-  665          void image_menu(void)
-  666          {
-  667   1          int value_number = 2;
-  668   1      //    ips200_clear();
-  669   1          while(1)
-  670   1          {
-  671   2          if (place_index == 0 ) {
-  672   3              if(value_index >= 1)
-  673   3              {
-  674   4              value_index = 0;
-  675   4              }
-  676   3              if(value_index <= -1)
-  677   3              {
-  678   4              value_index = 0;
-  679   4              }
-  680   3          }
-  681   2          else if (place_index == 1 ) {
-  682   3              if(value_index >= 1)
-  683   3              {
-  684   4              value_index = 0;
-  685   4              }
-  686   3              if(value_index <= -1)
+  648   4              Circ_Right_Speed_Out += 5;
+  649   4              }
+  650   3              if(value_index <= -20)
+  651   3              {
+  652   4              value_index = 0;
+  653   4              Circ_Right_Speed_Out -= 5;
+  654   4              }
+  655   3          }
+  656   2          
+  657   2          else if (place_index == value_number ) {
+  658   3              if(value_index >= 20)
+  659   3              {
+  660   4                  lcd_clear(BLACK);
+  661   4                  value_index = 0;
+  662   4                  place_index = 0;
+  663   4                  Write_FLASH();
+  664   4                  break;
+  665   4              }
+  666   3          }
+  667   2          cursor_selected(value_number+1);
+  668   2          lcd_showstr(0, 0, "  <  Action  >  ");
+  669   2          show_string_value(1,Circ_Left_Speed_L,4,"L_Sp_L");
+  670   2          show_string_value(2,Circ_Left_Speed_R,4,"L_Sp_R");
+  671   2          show_string_value(3,Circ_Left_Speed_Out,4,"L_Out");
+  672   2          show_string_value(4,Circ_Right_Speed_L,4,"R_Sp_L");
+  673   2          show_string_value(5,Circ_Right_Speed_R,4,"R_Sp_R");
+  674   2          show_string_value(6,Circ_Right_Speed_Out,4,"R_Out");
+  675   2          lcd_showstr(16,value_number+1, "EXIT");
+  676   2          }
+  677   1      }
+  678          
+  679          void image_menu(void)
+  680          {
+  681   1          int value_number = 2;
+  682   1      //    ips200_clear();
+  683   1          while(1)
+  684   1          {
+  685   2          if (place_index == 0 ) {
+  686   3              if(value_index >= 1)
   687   3              {
   688   4              value_index = 0;
   689   4              }
-  690   3          }
-  691   2          else if (place_index == value_number ) {
-  692   3              if(value_index >= 3)
-  693   3              {
-  694   4      //            ips200_clear();
-  695   4                  value_index = 0;
-  696   4                  place_index = 0;
-  697   4                  break;
-  698   4              }
-  699   3          }
-  700   2      
-  701   2          cursor_selected(value_number+1);
-  702   2      //    ips200_show_string(0, 0*Font_size_H, " -=  Image  =- ");
-  703   2      //    show_string_value(1,0,3,"XXXXXXXX");
-  704   2      //    show_string_value(2,0,3,"XXXXXXXX");
-  705   2      //    ips200_show_string(20,(value_number+1)*Font_size_H, "EXIT");
-  706   2      
-  707   2          }
-  708   1      
-  709   1      
-  710   1      }
-  711          
-  712          
-  713          
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 12  
+  690   3              if(value_index <= -1)
+  691   3              {
+  692   4              value_index = 0;
+  693   4              }
+  694   3          }
+  695   2          else if (place_index == 1 ) {
+  696   3              if(value_index >= 1)
+  697   3              {
+  698   4              value_index = 0;
+  699   4              }
+  700   3              if(value_index <= -1)
+  701   3              {
+  702   4              value_index = 0;
+  703   4              }
+  704   3          }
+  705   2          else if (place_index == value_number ) {
+  706   3              if(value_index >= 3)
+  707   3              {
+  708   4      //            ips200_clear();
+  709   4                  value_index = 0;
+  710   4                  place_index = 0;
+  711   4                  break;
+  712   4              }
+  713   3          }
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 12  
 
-  714          void function_menu(void)
-  715          {
-  716   1          int value_number = 2;
-  717   1      //    ips200_clear();
-  718   1          while(1)
-  719   1          {
-  720   2          if (place_index == 0 ) {
-  721   3              if(value_index >= 1)
-  722   3              {
-  723   4              value_index = 0;
-  724   4      //        delay_time+=1;
-  725   4              }
-  726   3              if(value_index <= -1)
-  727   3              {
-  728   4              value_index = 0;
-  729   4      //        delay_time-=1;
-  730   4              }
-  731   3          }
-  732   2          else if (place_index == 1 ) {
-  733   3              if(value_index >= 1)
-  734   3              {
-  735   4              value_index = 0;
-  736   4      //        run_time+=1;
-  737   4              }
-  738   3              if(value_index <= -1)
-  739   3              {
-  740   4              value_index = 0;
-  741   4      //        run_time-=1;
-  742   4              }
-  743   3          }
-  744   2          else if (place_index == value_number ) {
-  745   3              if(value_index >= 3)
-  746   3              {
-  747   4      //            ips200_clear();
-  748   4                  value_index = 0;
-  749   4                  place_index = 0;
-  750   4                  break;
+  714   2      
+  715   2          cursor_selected(value_number+1);
+  716   2      //    ips200_show_string(0, 0*Font_size_H, " -=  Image  =- ");
+  717   2      //    show_string_value(1,0,3,"XXXXXXXX");
+  718   2      //    show_string_value(2,0,3,"XXXXXXXX");
+  719   2      //    ips200_show_string(20,(value_number+1)*Font_size_H, "EXIT");
+  720   2      
+  721   2          }
+  722   1      
+  723   1      
+  724   1      }
+  725          
+  726          
+  727          
+  728          void function_menu(void)
+  729          {
+  730   1          int value_number = 2;
+  731   1      //    ips200_clear();
+  732   1          while(1)
+  733   1          {
+  734   2          if (place_index == 0 ) {
+  735   3              if(value_index >= 1)
+  736   3              {
+  737   4              value_index = 0;
+  738   4      //        delay_time+=1;
+  739   4              }
+  740   3              if(value_index <= -1)
+  741   3              {
+  742   4              value_index = 0;
+  743   4      //        delay_time-=1;
+  744   4              }
+  745   3          }
+  746   2          else if (place_index == 1 ) {
+  747   3              if(value_index >= 1)
+  748   3              {
+  749   4              value_index = 0;
+  750   4      //        run_time+=1;
   751   4              }
-  752   3          }
-  753   2      
-  754   2          cursor_selected(value_number+1);
-  755   2      //    ips200_show_string(0, 0*Font_size_H, " -=  Function  =- ");
-  756   2      //    show_string_value(1,delay_time,3,"delay_time");
-  757   2      //    show_string_value(2,run_time,3,"run_time");
-  758   2      //    ips200_show_string(20,(value_number+1)*Font_size_H, "EXIT");
-  759   2      
-  760   2          }
-  761   1      
-  762   1      
-  763   1      }
-  764          
-*** WARNING C183 IN LINE 128 OF ..\CODE\menu.c: dead assignment eliminated
-*** WARNING C183 IN LINE 328 OF ..\CODE\menu.c: dead assignment eliminated
-*** WARNING C183 IN LINE 667 OF ..\CODE\menu.c: dead assignment eliminated
-*** WARNING C183 IN LINE 716 OF ..\CODE\menu.c: dead assignment eliminated
+  752   3              if(value_index <= -1)
+  753   3              {
+  754   4              value_index = 0;
+  755   4      //        run_time-=1;
+  756   4              }
+  757   3          }
+  758   2          else if (place_index == value_number ) {
+  759   3              if(value_index >= 3)
+  760   3              {
+  761   4      //            ips200_clear();
+  762   4                  value_index = 0;
+  763   4                  place_index = 0;
+  764   4                  break;
+  765   4              }
+  766   3          }
+  767   2      
+  768   2          cursor_selected(value_number+1);
+  769   2      //    ips200_show_string(0, 0*Font_size_H, " -=  Function  =- ");
+  770   2      //    show_string_value(1,delay_time,3,"delay_time");
+  771   2      //    show_string_value(2,run_time,3,"run_time");
+  772   2      //    ips200_show_string(20,(value_number+1)*Font_size_H, "EXIT");
+  773   2      
+  774   2          }
+  775   1      
+  776   1      
+  777   1      }
+  778          
+*** WARNING C183 IN LINE 130 OF ..\CODE\menu.c: dead assignment eliminated
+C251 COMPILER V5.60.0,  menu                                                               17/07/25  14:40:22  PAGE 13  
+
+*** WARNING C183 IN LINE 330 OF ..\CODE\menu.c: dead assignment eliminated
+*** WARNING C183 IN LINE 681 OF ..\CODE\menu.c: dead assignment eliminated
+*** WARNING C183 IN LINE 730 OF ..\CODE\menu.c: dead assignment eliminated
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      4649     ------
+  code size            =      4762     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -815,8 +831,6 @@ Module Information          Static   Overlayable
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =       232          8
-C251 COMPILER V5.60.0,  menu                                                               17/07/25  01:03:44  PAGE 13  
-
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -824,7 +838,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       443     ------
+  hconst size          =       449     ------
 End of Module Information.
 
 

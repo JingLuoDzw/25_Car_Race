@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  pid                                                                17/07/25  00:57:20  PAGE 1   
+C251 COMPILER V5.60.0,  pid                                                                17/07/25  14:21:49  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE pid
@@ -66,7 +66,7 @@ stmt  level    source
    55   1      
    56   1      //    dir_loop_pid.SetValue       = 0.00;
    57   1      //    dir_loop_pid.ActValue       = 0.00;
-C251 COMPILER V5.60.0,  pid                                                                17/07/25  00:57:20  PAGE 2   
+C251 COMPILER V5.60.0,  pid                                                                17/07/25  14:21:49  PAGE 2   
 
    58   1      //    dir_loop_pid.KP             = 240;
    59   1      //    dir_loop_pid.KI             = 0;
@@ -134,7 +134,7 @@ stmt  level    source
   120   1      
   121   1          return Pos;
   122   1      }
-C251 COMPILER V5.60.0,  pid                                                                17/07/25  00:57:20  PAGE 3   
+C251 COMPILER V5.60.0,  pid                                                                17/07/25  14:21:49  PAGE 3   
 
 
 
